@@ -160,7 +160,7 @@
             <!-- baris "Already have an account? Login" -->
             <div class="account-row">
                 <span class="account-text">Already have an account?</span>
-                <a style="color: white;" href="#" class="account-link">Login</a>
+                <a style="color: white;" href="{{ route('login')}}" class="account-link">Login</a>
             </div>
 
             <!-- tombol Register -->
