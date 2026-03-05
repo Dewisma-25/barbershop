@@ -18,10 +18,11 @@
         .register-card {
             max-width: 560px;
             width: 100%;
-            background-color: #ffffff;
+            background-color:#2b2b2b;
             border-radius: 32px;
             box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1), 0 8px 24px -8px rgba(0, 0, 0, 0.05);
             padding: 40px 40px 48px 40px;
+            color: white;
         }
         .register-card h1 {
             font-size: 32px;
@@ -31,6 +32,7 @@
             margin-bottom: 32px;
             line-height: 1.2;
             text-align: left;
+            color: white;
         }
         .input-group {
             margin-bottom: 24px;
@@ -43,6 +45,7 @@
             color: #1e293b;
             margin-bottom: 8px;
             letter-spacing: -0.1px;
+            color: white;
         }
         .input-field {
             width: 100%;
@@ -73,7 +76,7 @@
         }
         .account-text {
             font-weight: 400;
-            color: #1e293b;
+            color: white;
         }
         .account-link {
             font-weight: 600;
@@ -157,7 +160,7 @@
             <!-- baris "Already have an account? Login" -->
             <div class="account-row">
                 <span class="account-text">Already have an account?</span>
-                <a href="#" class="account-link">Login</a>
+                <a style="color: white;" href="#" class="account-link">Login</a>
             </div>
 
             <!-- tombol Register -->
