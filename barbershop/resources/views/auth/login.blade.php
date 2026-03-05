@@ -1,65 +1,109 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+@vite(['resources/css/app.css','resources/js/app.js'])
 
-<div class="min-h-screen flex items-center justify-center bg-gray-200">
+<style>
 
-    <div class="bg-zinc-900 text-white w-[420px] p-10 rounded-3xl shadow-xl">
+body{
+    background:#e5e5e5;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:sans-serif;
+}
 
-        <h2 class="text-3xl font-bold text-center mb-8">
-            Login Account
-        </h2>
+.login-box{
+    background:#2b2b2b;
+    width:420px;
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
 
-        <form method="POST" action="{{ route('login') }}" class="space-y-6">
-            @csrf
+.login-title{
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:30px;
+}
 
-            <!-- Email / Username -->
-            <div>
-                <input
-                    id="email"
-                    type="text"
-                    name="email"
-                    value="{{ old('email') }}"
-                    placeholder="username / @gmail.com"
-                    required
-                    autofocus
-                    class="w-full px-5 py-3 rounded-xl bg-gray-200 text-black focus:outline-none"
-                >
-                <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-400" />
-            </div>
+.input-box{
+    width:100%;
+    padding:14px;
+    border-radius:20px;
+    border:none;
+    margin-bottom:18px;
+    background:#e5e5e5;
+}
 
-            <!-- Password -->
-            <div>
-                <input
-                    id="password"
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    required
-                    class="w-full px-5 py-3 rounded-xl bg-gray-200 text-black focus:outline-none"
-                >
-                <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-400" />
-            </div>
+.register-text{
+    color:#d1d1d1;
+    font-size:14px;
+}
 
-            <!-- Register Link -->
-            <div class="text-center text-sm text-gray-300">
-                Don't have an account yet?
-                <a href="{{ route('register') }}" class="underline">
-                    Register
-                </a>
-            </div>
+.register-text a{
+    color:white;
+    text-decoration:underline;
+}
 
-            <!-- Login Button -->
-            <div class="flex justify-center">
-                <button
-                    type="submit"
-                    class="bg-white text-black px-8 py-2 rounded-full font-semibold hover:bg-gray-200 transition">
-                    Login
-                </button>
-            </div>
+.login-btn{
+    margin-top:20px;
+    background:white;
+    padding:10px 35px;
+    border-radius:20px;
+    border:none;
+    font-weight:bold;
+    cursor:pointer;
+}
 
-        </form>
+</style>
 
+</head>
+<body>
+
+<div class="login-box">
+
+    <div class="login-title">
+        Login Account
     </div>
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <input 
+        type="text"
+        name="email"
+        placeholder="username / @gmail.com"
+        class="input-box"
+        required
+        >
+
+        <input 
+        type="password"
+        name="password"
+        placeholder="password"
+        class="input-box"
+        required
+        >
+
+        <div class="register-text">
+            Don't have an account yet?
+            <a href="{{ route('register') }}">Register</a>
+        </div>
+
+        <button class="login-btn">
+            Login
+        </button>
+
+    </form>
 
 </div>
 
-</x-guest-layout>
+</body>
+</html>
