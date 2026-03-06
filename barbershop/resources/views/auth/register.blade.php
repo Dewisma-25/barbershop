@@ -117,44 +117,49 @@
         <h1>Register Account</h1>
 
         <!-- form dengan method POST, action="#", dan input csrf tiruan (hidden) agar mirip laravel namun tak merusak visual -->
-        <form method="POST" action="#">
-            <!-- CSRF dummy (hanya untuk hiasan, karena tidak ada backend) -->
-            <input type="hidden" name="_token" value="dummycsrf" autocomplete="off">
+        <form method="POST" action="{{ route ('register') }}">
+            @csrf
 
             <!-- email -->
             <div class="input-group">
                 <label class="input-label" for="email">email</label>
-                <input class="input-field" id="email" type="email" name="email" required placeholder=" ">
+                <input class="input-field" id="email" type="email" name="email" required placeholder="email">
             </div>
 
             <!-- password -->
             <div class="input-group">
                 <label class="input-label" for="password">password</label>
-                <input class="input-field" id="password" type="password" name="password" required placeholder=" ">
+                <input class="input-field" id="password" type="password" name="password" required placeholder="password">
+            </div>
+
+            <!-- confirm password -->
+             <div class="input-group">
+                <label class="input-label" for="password_confirmation">confirm password</label>
+                <input class="input-field" id="password_confirmation" type="password" name="password_confirmation" required placeholder="confirm password">
             </div>
 
             <!-- full name -->
             <div class="input-group">
-                <label class="input-label" for="fullname">full name</label>
-                <input class="input-field" id="fullname" type="text" name="fullname" required placeholder=" ">
+                <label class="input-label" for="nama">full name</label>
+                <input class="input-field" id="nama" type="text" name="nama" required placeholder="nama">
             </div>
 
             <!-- create username -->
             <div class="input-group">
-                <label class="input-label" for="create_username">create username</label>
-                <input class="input-field" id="create_username" type="text" name="create_username" required placeholder=" ">
+                <label class="input-label" for="username">create username</label>
+                <input class="input-field" id="username" type="text" name="username" required placeholder="username">
             </div>
 
             <!-- no telp -->
             <div class="input-group">
-                <label class="input-label" for="phone">no telp</label>
-                <input class="input-field" id="phone" type="tel" name="phone" required placeholder=" ">
+                <label class="input-label" for="no_hp">no telp</label>
+                <input class="input-field" id="no_hp" type="tel" name="no_hp" required placeholder="no hp">
             </div>
 
             <!-- address -->
             <div class="input-group">
-                <label class="input-label" for="address">address</label>
-                <input class="input-field" id="address" type="text" name="address" required placeholder=" ">
+                <label class="input-label" for="alamat">alamat</label>
+                <input class="input-field" id="alamat" type="text" name="alamat" required placeholder="alamat">
             </div>
 
             <!-- baris "Already have an account? Login" -->

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,21 +31,39 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+    'nama' => ['required', 'string', 'max:255'],
+    'username' => ['required', 'string', 'max:255'],
+    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    'no_hp' => ['required'],
+    'alamat' => ['required']
+]);
 
         $user = User::create([
-            'name' => $request->name,
+            'nama' => $request->nama,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'customer'
         ]);
+
+        Customer::create([
+        'id_user' => $user->id,
+        'no_hp' => $request->no_hp,
+        'alamat' => $request->alamat
+    ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        $role = Auth::user()?->role;
+
+        return match($role)
+        {
+            'admin' => redirect()->intended('/admin/dashboard'),
+            'kasir' => redirect()->intended('/admin/dashboard'),
+            'customer' => redirect()->intended('/user/dashboard'),
+        };
     }
 }
