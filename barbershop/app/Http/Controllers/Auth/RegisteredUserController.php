@@ -64,6 +64,7 @@ class RegisteredUserController extends Controller
             'admin' => redirect()->intended('/admin/dashboard'),
             'kasir' => redirect()->intended('/admin/dashboard'),
             'customer' => redirect()->intended('/user/dashboard'),
+            default => redirect()->intended('/user/dashboard')
         };
     }
 }
