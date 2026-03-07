@@ -23,8 +23,8 @@
 
         .dashboard-container {
             min-height: 100vh;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
-                              url('https://img.freepik.com/premium-photo/black-barber-tools-barber-shop-professional-barber-hair-cutting-scissors-thinning-shears-hairdresser-concept-black-background_275559-24282.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+                              url('{{ asset("images/Latar_Barber.png") }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
