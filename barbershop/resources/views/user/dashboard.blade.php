@@ -8,7 +8,7 @@
     #home {
         min-height: 100vh;
         background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
-                    url('{{ asset('images/Latar_Barber.png') }}') center/cover;
+                    url('{{ asset("images/Latar_Barber.png") }}') center/cover;
         display: flex;
         flex-direction: column;
         justify-content: center;
