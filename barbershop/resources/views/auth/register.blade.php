@@ -1,176 +1,265 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Account · persis gambar</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background-color: #f3f5f9;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
- align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+@extends('layouts.navbaruser')
+
+@section('content')
+<style>
+    .register-page {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f5f0;
+        padding: 1rem;
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .register-card {
+        display: flex;
+        max-width: 1100px;
+        width: 100%;
+        background: #ffffff;
+        border-radius: 2rem;
+        overflow: hidden;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.05);
+        border: 1px solid #ece3d9;
+    }
+
+    /* Kolom kiri - info barbershop */
+    .info-panel {
+        background: #1e1e1e;
+        color: #fff;
+        flex: 1;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .info-panel h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.5px;
+    }
+
+    .info-panel h2 span {
+        color: #b68b5c;
+    }
+
+    .info-panel .tagline {
+        font-size: 0.95rem;
+        color: #ccc;
+        margin-bottom: 1.5rem;
+        border-left: 3px solid #b68b5c;
+        padding-left: 1rem;
+    }
+
+    .info-detail {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .info-detail i {
+        font-style: normal;
+        color: #b68b5c;
+        background: rgba(255,255,255,0.08);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+    }
+
+    /* Kolom kanan - form register */
+    .form-panel {
+        flex: 1.2;
+        padding: 1.8rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .form-panel h3 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #1e1e1e;
+        margin-bottom: 0.2rem;
+    }
+
+    .form-panel .sub {
+        color: #6b6b6b;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Grid 2 kolom */
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .form-group {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 0;
+        margin-bottom: 0.8rem;
+    }
+
+    .form-group.full-width {
+        flex: 1 1 100%;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #2e2e2e;
+        margin-bottom: 0.2rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.7rem 1rem;
+        border: 1.5px solid #e3dbd1;
+        border-radius: 40px;
+        font-size: 0.9rem;
+        outline: none;
+        transition: all 0.2s;
+        background: #fff;
+    }
+
+    .form-group input:focus {
+        border-color: #b68b5c;
+        box-shadow: 0 0 0 3px rgba(182, 139, 92, 0.1);
+    }
+
+    .register-btn {
+        background: #1e1e1e;
+        color: #fff;
+        border: none;
+        padding: 0.8rem;
+        border-radius: 40px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 0.5rem;
+        transition: background 0.2s;
+    }
+
+    .register-btn:hover {
+        background: #b68b5c;
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 1rem;
+        color: #4a4a4a;
+        font-size: 0.9rem;
+    }
+
+    .login-link a {
+        color: #b68b5c;
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: 1px dotted;
+    }
+
+    .login-link a:hover {
+        color: #7a4f2a;
+    }
+
+    /* Responsif */
+    @media (max-width: 700px) {
+        .register-card {
+            flex-direction: column;
+        }
+        .form-group {
+            flex: 1 1 100%;
+        }
+        .info-panel, .form-panel {
             padding: 1.5rem;
         }
-        .register-card {
-            max-width: 560px;
-            width: 100%;
-            background-color:#2b2b2b;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1), 0 8px 24px -8px rgba(0, 0, 0, 0.05);
-            padding: 40px 40px 48px 40px;
-            color: white;
+        .register-page {
+            padding: 0.5rem;
         }
-        .register-card h1 {
-            font-size: 32px;
-            font-weight: 600;
-            color: #1e293b;
-            letter-spacing: -0.3px;
-            margin-bottom: 32px;
-            line-height: 1.2;
-            text-align: left;
-            color: white;
-        }
-        .input-group {
-            margin-bottom: 24px;
-            width: 100%;
-        }
-        .input-label {
-            display: block;
-            font-size: 15px;
-            font-weight: 550;
-            color: #1e293b;
-            margin-bottom: 8px;
-            letter-spacing: -0.1px;
-            color: white;
-        }
-        .input-field {
-            width: 100%;
-            padding: 16px 20px;
-            background-color: #ffffff;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 18px;
-            font-size: 16px;
-            color: #0f172a;
-            outline: none;
-            transition: border 0.15s, box-shadow 0.15s;
-            font-family: inherit;
-        }
-        .input-field:focus {
-            border-color: #3b7cff;
-            box-shadow: 0 0 0 3px rgba(59, 124, 255, 0.08);
-        }
-        .account-row {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-top: 16px;
-            margin-bottom: 28px;
-            font-size: 16px;
-            color: #1e293b;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-        .account-text {
-            font-weight: 400;
-            color: white;
-        }
-        .account-link {
-            font-weight: 600;
-            color: #1e293b;
-            text-decoration: none;
-            border-bottom: 1.5px solid transparent;
-            transition: border-color 0.1s;
-        }
-        .account-link:hover {
-            border-bottom: 1.5px solid #1e293b;
-        }
-        .register-button {
-            width: 100%;
-            background-color: #1e293b;
-            border: none;
-            border-radius: 18px;
-            padding: 18px 20px;
-            font-size: 18px;
-            font-weight: 560;
-            color: white;
-            cursor: pointer;
-            font-family: inherit;
-            transition: background-color 0.15s;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
-            letter-spacing: 0.2px;
-        }
-        .register-button:hover {
-            background-color: #0f172a;
-        }
-        /* placeholder dikosongkan, hanya label yang muncul */
-        .input-field::placeholder {
-            color: transparent; /* benar-benar tidak terlihat */
-        }
-    </style>
-</head>
-<body>
+    }
+</style>
+
+<div class="register-page">
     <div class="register-card">
-        <h1>Register Account</h1>
+        <!-- Kolom Kiri: Info Barbershop -->
+        <div class="info-panel">
+            <h2>Barbershop <span>●</span></h2>
+            <div class="tagline">Professional & Affordable</div>
+            <div class="info-detail"><i>📞</i> <span>+62 857-3854-0804</span></div>
+            <div class="info-detail"><i>📍</i> <span>Jl. Teuku Umar Barat</span></div>
+            <div class="info-detail"><i>✂️</i> <span>Haircut & Hairstyle</span></div>
+        </div>
 
-        <!-- form dengan method POST, action="#", dan input csrf tiruan (hidden) agar mirip laravel namun tak merusak visual -->
-        <form method="POST" action="{{ route ('register') }}">
-            @csrf
+        <!-- Kolom Kanan: Form Register Compact -->
+        <div class="form-panel">
+            <h3>Register Account</h3>
+            <div class="sub">Buat akun baru untuk memesan</div>
 
-            <!-- email -->
-            <div class="input-group">
-                <label class="input-label" for="email">email</label>
-                <input class="input-field" id="email" type="email" name="email" required placeholder="email">
-            </div>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
 
-            <!-- password -->
-            <div class="input-group">
-                <label class="input-label" for="password">password</label>
-                <input class="input-field" id="password" type="password" name="password" required placeholder="password">
-            </div>
+                <div class="form-row">
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
+                    </div>
 
-            <!-- confirm password -->
-             <div class="input-group">
-                <label class="input-label" for="password_confirmation">confirm password</label>
-                <input class="input-field" id="password_confirmation" type="password" name="password_confirmation" required placeholder="confirm password">
-            </div>
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Min. 8 karakter" required>
+                    </div>
 
-            <!-- full name -->
-            <div class="input-group">
-                <label class="input-label" for="nama">full name</label>
-                <input class="input-field" id="nama" type="text" name="nama" required placeholder="nama">
-            </div>
+                    <!-- Konfirmasi Password -->
+                    <div class="form-group">
+                        <label for="password_confirmation">Konfirmasi Password</label>
+                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi password" required>
+                    </div>
 
-            <!-- create username -->
-            <div class="input-group">
-                <label class="input-label" for="username">create username</label>
-                <input class="input-field" id="username" type="text" name="username" required placeholder="username">
-            </div>
+                    <!-- Nama Lengkap -->
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" name="nama" placeholder="John Doe" required>
+                    </div>
 
-            <!-- no telp -->
-            <div class="input-group">
-                <label class="input-label" for="no_hp">no telp</label>
-                <input class="input-field" id="no_hp" type="tel" name="no_hp" required placeholder="no hp">
-            </div>
+                    <!-- Username -->
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="johndoe123" required>
+                    </div>
 
-            <!-- address -->
-            <div class="input-group">
-                <label class="input-label" for="alamat">alamat</label>
-                <input class="input-field" id="alamat" type="text" name="alamat" required placeholder="alamat">
-            </div>
+                    <!-- No. Telepon -->
+                    <div class="form-group">
+                        <label for="no_hp">No. Telepon</label>
+                        <input type="tel" id="no_hp" name="no_hp" placeholder="081234567890" required>
+                    </div>
 
-            <!-- baris "Already have an account? Login" -->
-            <div class="account-row">
-                <span class="account-text">Already have an account?</span>
-                <a style="color: white;" href="{{ route('login')}}" class="account-link">Login</a>
-            </div>
+                    <!-- Alamat (full width) -->
+                    <div class="form-group full-width">
+                        <label for="alamat">Alamat</label>
+                        <input type="text" id="alamat" name="alamat" placeholder="Jl. Teuku Umar Barat, Denpasar" required>
+                    </div>
+                </div>
 
-            <!-- tombol Register -->
-            <button type="submit" class="register-button">Register</button>
-        </form>
+                <button type="submit" class="register-btn">Register</button>
+
+                <div class="login-link">
+                    Already have an account? <a href="{{ route('login') }}">Login</a>
+                </div>
+            </form>
+        </div>
     </div>
-</body>
-</html>
+</div>
+@endsection
