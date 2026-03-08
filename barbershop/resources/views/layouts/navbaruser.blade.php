@@ -118,9 +118,9 @@
 
             <div class="collapse navbar-collapse" id="navbarMenu">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/user/dashboard">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/user/dashboard#service">Service</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/user/dashboard#contact">Contact</a></li>
                 </ul>
                 
                 <ul class="navbar-nav align-items-center">
