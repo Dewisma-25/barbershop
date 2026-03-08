@@ -56,25 +56,32 @@ class UserController extends Controller
 
 
 
-    //edit dan update data users
-public function update(Request $request, $id)
-{
-    $user = User::findOrFail($id);
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
 
-    $data = [
-        'username' => $request->username,
-        'email' => $request->email,
-        'role' => $request->role,
-    ];
-
-    if ($request->filled('password')) {
-        $data['password'] = Hash::make($request->password);
+        return view('admin.users.edit', compact('user'));
     }
 
-    $user->update($data);
+    //edit dan update data users
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
 
-    return redirect()->back();
-}
+        $data = [
+            'username' => $request->username,
+            'email' => $request->email,
+            'role' => $request->role,
+        ];
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('users.index');
+    }
 
 
     //menghapus data users dan data customers

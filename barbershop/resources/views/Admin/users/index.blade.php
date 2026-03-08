@@ -32,11 +32,7 @@
             <td>
 
                 <!-- tombol edit -->
-                <form action="{{ route('users.update',$user->id) }}" method="POST">
-                    @csrf
-                    @method('UPDATE')
-                    <button type="submit">Edit</button>
-                </form>
+                <a href="{{ route('users.edit', $user->id) }}">Edit</a>
 
                 <!-- tombol delete -->
                 <form action="{{ route('users.destroy',$user->id) }}" method="POST">
