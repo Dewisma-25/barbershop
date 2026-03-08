@@ -126,7 +126,7 @@
                 <ul class="navbar-nav align-items-center">
                     @auth
                         <li class="nav-user d-none d-md-block">
-                            Halo, <strong>{{ Auth::user()->name }}</strong>
+                            Halo, <strong>{{ Auth::user()->username }}</strong>
                         </li>
                         <li>
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
