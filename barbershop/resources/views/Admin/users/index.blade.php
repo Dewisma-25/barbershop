@@ -11,7 +11,6 @@
             <th>Username</th>
             <th>Email</th>
             <th>Role</th>
-            <th>No HP</th>
             <th>History</th>
             <th>Action</th>
         </tr>
@@ -26,7 +25,10 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->role }}</td>
 
-            <td>{{ optional($user->customer)->no_hp }}</td>
+            <td>
+                Di Buat Pada: {{$user->created_at->format('d/m/Y')}} <br>
+                Di Update pada: {{$user->updated_at->format('d/m/Y')}}
+            </td>
 
 
             <td>
