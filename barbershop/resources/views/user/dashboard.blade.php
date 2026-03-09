@@ -1,4 +1,4 @@
-@extends('layouts.navbaruser')
+@extends('layouts.app')
 
 @section('title', 'Barbershop - Premium Haircut')
 
@@ -479,61 +479,5 @@
         </div>
     </div>
 </section>
-
-<!-- ===== CONTACT ===== -->
-<section id="contact">
-    <div class="section-title">
-        <h2>Contact Us</h2>
-        <p>Get in Touch</p>
-    </div>
-
-    <div class="contact-wrapper">
-        <div class="contact-info">
-            <h3>Hubungi Kami</h3>
-            
-            <div class="contact-item">
-                <i class="bi bi-telephone"></i>
-                <span>+62 857-3854-0804</span>
-            </div>
-            <div class="contact-item">
-                <i class="bi bi-envelope"></i>
-                <span>barbershop@gmail.com</span>
-            </div>
-            <div class="contact-item">
-                <i class="bi bi-instagram"></i>
-                <span>@barbershop.id</span>
-            </div>
-            <div class="contact-item">
-                <i class="bi bi-tiktok"></i>
-                <span>@barbershop.id</span>
-            </div>
-            <div class="contact-item">
-                <i class="bi bi-geo-alt"></i>
-                <span>Jl. Teuku Umar Barat, Gn Lumut</span>
-            </div>
-
-            <h3 class="mt-4">Jam Operasional</h3>
-            <div class="contact-item">
-                <i class="bi bi-clock"></i>
-                <span>Senin - Minggu: 10.00 - 21.00</span>
-            </div>
-        </div>
-
-        <div class="contact-form">
-            <h3>Kirim Pesan</h3>
-            <form>
-                <input type="text" placeholder="Nama Anda" required>
-                <input type="email" placeholder="Email Anda" required>
-                <input type="text" placeholder="Subjek">
-                <textarea placeholder="Pesan Anda..." required></textarea>
-                <button type="submit" class="btn-send">Kirim Pesan</button>
-            </form>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <p>&copy; 2024 Barbershop. All rights reserved.</p>
-</footer>
 
 @endsection
