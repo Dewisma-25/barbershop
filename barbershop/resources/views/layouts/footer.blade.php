@@ -21,75 +21,9 @@
             flex-direction: column;
         }
 
-        main { flex: 1; padding-top: 60px; }
+        main { flex: 1; }
 
-        /* ===== NAVBAR ===== */
-        .navbar {
-            background: rgba(15, 15, 15, 0.15);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .navbar-brand {
-            color: #fff !important;
-            font-size: 1.2rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-link {
-            color: rgba(255, 255, 255, 0.7) !important;
-            font-size: 0.9rem;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: #fff !important;
-        }
-
-        .btn-nav {
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .btn-outline-light {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            margin-right: 8px;
-        }
-
-        .btn-outline-light:hover { background: rgba(255, 255, 255, 0.1); }
-
-        .btn-light {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-        }
-
-        .btn-light:hover { background: rgba(255, 255, 255, 0.2); }
-
-        .btn-danger {
-            background: rgba(220, 53, 69, 0.2);
-            border: 1px solid rgba(220, 53, 69, 0.4);
-            color: #ff6b6b;
-        }
-
-        .btn-danger:hover { background: rgba(220, 53, 69, 0.3); }
-
-        /* ===== FOOTER ===== */
+        /*FOOTER*/
         .footer {
             background: #0a0a0a;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -103,20 +37,20 @@
             margin-bottom: 20px;
         }
 
-        .footer-brand i { font-size: 1.8rem; }
-        .footer-brand span { font-size: 1.2rem; font-weight: 600; }
+        .footer-brand i {
+            font-size: 1.8rem;
+        }
 
-        .footer-service h4, .footer-contact h4 {
+        .footer-brand span {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .footer-service h4 {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 15px;
-        }
-
-        .footer-contact small {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.75rem;
-            display: block;
-            margin-bottom: 15px;
+            color: #fff;
         }
 
         .footer-service ul {
@@ -125,7 +59,9 @@
             margin: 0;
         }
 
-        .footer-service li { margin-bottom: 8px; }
+        .footer-service li {
+            margin-bottom: 8px;
+        }
 
         .footer-service a {
             color: rgba(255, 255, 255, 0.6);
@@ -134,7 +70,23 @@
             transition: color 0.3s;
         }
 
-        .footer-service a:hover { color: #fff; }
+        .footer-service a:hover {
+            color: #fff;
+        }
+
+        .footer-contact h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .footer-contact small {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            display: block;
+            margin-bottom: 15px;
+        }
 
         .contact-item {
             display: flex;
@@ -160,9 +112,12 @@
         .contact-item a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .contact-item a:hover { color: #fff; }
+        .contact-item a:hover {
+            color: #fff;
+        }
 
         .footer-bottom {
             text-align: center;
@@ -174,6 +129,7 @@
         }
 
         @media (max-width: 768px) {
+            .footer { padding: 40px 20px 20px; }
             .footer-service, .footer-contact { margin-bottom: 30px; }
         }
     </style>
@@ -181,49 +137,6 @@
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#home">
-                <img src="{{asset('images/Babershop (4).png')}}" alt="Logo" width="130">
-            </a>
-            
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="/user/dashboard">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/user/dashboard#service">Service</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/user/dashboard#contact">Contact</a></li>
-                </ul>
-                
-                <ul class="navbar-nav align-items-center">
-                    @auth
-                        <li class="nav-user d-none d-md-block me-3">
-                            Halo, <strong>{{ Auth::user()->username }}</strong>
-                        </li>
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn-nav btn-danger">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    @else
-                        <li>
-                            <a href="{{ route('login') }}" class="btn-nav btn-outline-light">Login</a>
-                            <a href="{{ route('register') }}" class="btn-nav btn-light">Register</a>
-                        </li>
-                    @endauth
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
     <main>@yield('content')</main>
 
     <!-- Footer -->
@@ -234,9 +147,8 @@
                 <!-- Brand & Service -->
                 <div class="col-md-4 col-6">
                     <div class="footer-brand">
-                        <a class="navbar-brand" href="#home">
-                            <img src="{{asset('images/Babershop (4).png')}}" alt="Logo" width="130">
-                        </a>
+                        <i class="bi bi-scissors"></i>
+                        <span>Barbershop</span>
                     </div>
                     
                     <div class="footer-service">
@@ -267,7 +179,7 @@
                         </div>
                         
                         <div class="contact-item">
-                            <i class="bi bi-twitter"></i>
+                            <i class="bi bi-twitter-x"></i>
                             <a href="https://twitter.com/barbershop.id" target="_blank">barbershop.id</a>
                         </div>
                         
