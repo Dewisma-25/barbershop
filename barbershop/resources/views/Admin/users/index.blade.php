@@ -182,12 +182,12 @@
 
         /* baris abu-abu selang-seling seperti gambar */
         .table-user-data tbody tr:nth-child(even) {
-            background-color: #f8fafd;
+            background-color: #958281;
             /* abu sangat terang */
         }
 
         .table-user-data tbody tr:nth-child(odd) {
-            background-color: white;
+            background-color: #B3927D;
         }
 
         /* untuk grouping data nomor, username, email, history dan action */
@@ -301,6 +301,8 @@
             </div>
             <div class="page-title">Data User</div>
 
+            <a class="btn btn-outline-secondary" href="{{route('users.create')}}"><- - - Tambah Akun</a>
+
             <!-- CARD UTAMA -->
             <div class="panel-card mt-4">
                 <!-- tabel pertama (Data User) -->
@@ -310,6 +312,7 @@
                             <th><i class="bi bi-hash"></i> No</th>
                             <th><i class="bi bi-person-circle"></i> Username</th>
                             <th><i class="bi bi-envelope"></i> Email</th>
+                            <th><i class="bi bi-arrow-bar-up"></i> Role</th>
                             <th><i class="bi bi-clock-history"></i> History</th>
                             <th><i class="bi bi-lightning"></i> Action</th>
                         </tr>
@@ -320,6 +323,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$user->username}}</td>
                             <td>{{$user->email}}</td>
+                            <td>{{$user->role}}</td>
                             <td>
                                 <b>Dibuat Pada:</b> {{$user->created_at->format('d/m/Y')}} <br>
                                 <b>Diupdate Pada:</b> {{$user->updated_at->format('d/m/Y')}}
