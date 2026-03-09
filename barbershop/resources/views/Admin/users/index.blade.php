@@ -357,6 +357,13 @@
                 <div class="nav-item">
                     <i class="bi bi-scissors"></i> <span>Data Barber</span>
                 </div>
+
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class=" ms-4 btn btn-danger">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                </form>
             </div>
         </div>
 
