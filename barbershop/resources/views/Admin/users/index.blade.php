@@ -166,8 +166,6 @@
             text-align: left;
             padding: 15px 10px 8px 10px;
             font-weight: 600;
-            color: #3e4e64;
-            border-bottom: 2px solid #cfddee;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 0.3px;
@@ -176,18 +174,6 @@
         .table-user-data td {
             padding: 14px 10px;
             vertical-align: middle;
-            border-bottom: 1px solid #e6edf5;
-            color: #1f2b3a;
-        }
-
-        /* baris abu-abu selang-seling seperti gambar */
-        .table-user-data tbody tr:nth-child(even) {
-            background-color: #958281;
-            /* abu sangat terang */
-        }
-
-        .table-user-data tbody tr:nth-child(odd) {
-            background-color: #B3927D;
         }
 
         /* untuk grouping data nomor, username, email, history dan action */
@@ -258,6 +244,87 @@
             margin-right: 6px;
             opacity: 0.6;
         }
+
+
+
+
+
+        /* khusus table */
+        .user-card {
+            background: #8f7a73;
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .user-table thead th {
+            background: #b79a87 !important;
+            color: white !important;
+        }
+
+        .user-table tbody tr:nth-child(odd) td {
+            background: #8f7a73;
+            color: white;
+        }
+
+        .user-table tbody tr:nth-child(even) td {
+            background: #b79a87;
+            color: white;
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 15px;
+            color: white;
+        }
+
+        .btn-add {
+            background: #bca49a;
+            padding: 5px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+        }
+
+        .user-table thead {
+            background: #b79a87;
+            color: white;
+        }
+
+        .user-table td {
+            color: white;
+            vertical-align: middle;
+        }
+
+        .history {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .btn-edit {
+            background: #d1b2a1;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #c9b3a7;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .user-table td,
+        .user-table th {
+            border: none !important;
+        }
     </style>
 </head>
 
@@ -301,48 +368,56 @@
             </div>
             <div class="page-title">Data User</div>
 
-            <a class="btn btn-outline-secondary" href="{{route('users.create')}}"><- - - Tambah Akun</a>
-
             <!-- CARD UTAMA -->
-            <div class="panel-card mt-4">
-                <!-- tabel pertama (Data User) -->
-                <table class="table-user-data">
-                    <thead>
-                        <tr>
-                            <th><i class="bi bi-hash"></i> No</th>
-                            <th><i class="bi bi-person-circle"></i> Username</th>
-                            <th><i class="bi bi-envelope"></i> Email</th>
-                            <th><i class="bi bi-arrow-bar-up"></i> Role</th>
-                            <th><i class="bi bi-clock-history"></i> History</th>
-                            <th><i class="bi bi-lightning"></i> Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($users as $user)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$user->username}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>{{$user->role}}</td>
-                            <td>
-                                <b>Dibuat Pada:</b> {{$user->created_at->format('d/m/Y')}} <br>
-                                <b>Diupdate Pada:</b> {{$user->updated_at->format('d/m/Y')}}
-                            </td>
+            <div class="container mt-4">
 
-                            <td class="gap-3 d-flex">
-                                <a class="btn btn-outline-secondary" href="{{ route('users.edit', $user->id) }}">Edit</a>
+                <div class="user-card">
 
-                                <form action="{{ route('users.destroy',$user->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-outline-danger" type="submit">Delete</button>
-                                </form>
+                    <div class="user-header">
+                        <h5>👤 Data User</h5>
+                        <a href="{{route('users.create')}}" class="btn-add">add account +</a>
+                    </div>
 
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                    <table class="table table-borderless user-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>History</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($users as $user)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$user->username}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{$user->role}}</td>
+                                <td class="history">
+                                    update : {{$user->updated_at->format('d/m/Y')}} <br>
+                                    dibuat : {{$user->created_at->format('d/m/Y')}}
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a class="btn-edit text-decoration-none" href="{{route('users.edit', $user->id)}}">Edit</a>
+
+                                        <form action="{{ route('users.destroy',$user->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn-delete" type="submit">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
 
             </div>
         </div>
