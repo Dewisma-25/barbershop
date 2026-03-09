@@ -344,7 +344,7 @@
     <h1 class="hero-title">Barbershop</h1>
     <p class="hero-subtitle">Professional and Affordable</p>
     
-    <a href="#service" class="btn btn-booking">Booking Now</a>
+    <a href="/user/booking" class="btn btn-booking">Booking Now</a>
 
     <div class="hero-info">
         <div class="hero-info-item">
