@@ -404,21 +404,6 @@
             <p>Styling rambut dengan berbagai teknik pomade</p>
         </div>
 
-        <div class="service-card">
-            <div class="service-icon"><i class="bi bi-brush"></i></div>
-            <h4>Beard Trim</h4>
-            <div class="price">Rp 40.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 20 Menit</div>
-            <p>Perawatan jenggot dan kumis dengan detail sempurna</p>
-        </div>
-
-        <div class="service-card">
-            <div class="service-icon"><i class="bi bi-stars"></i></div>
-            <h4>Full Package</h4>
-            <div class="price">Rp 150.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 90 Menit</div>
-            <p>Paket lengkap: haircut, beard trim & hair wash</p>
-        </div>
     </div>
 </section>
 
