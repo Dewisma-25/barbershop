@@ -48,9 +48,10 @@
     }
 
     .hero-info {
-        background: rgba(30,30,30,0.9);
+        background: rgba(30,30,30,0.2);
         backdrop-filter: blur(15px);
         border-radius: 15px;
+        border: 3px solid rgba(255, 255, 255, 0.3 );
         padding: 25px;
         margin-top: 50px;
         display: flex;

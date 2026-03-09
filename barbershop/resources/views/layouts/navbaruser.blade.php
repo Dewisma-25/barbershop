@@ -20,7 +20,7 @@
 
         /* Navbar */
         .navbar {
-            background: rgba(15, 15, 15, 0.95);
+            background: rgba(15, 15, 15, 0.15);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px 0;
