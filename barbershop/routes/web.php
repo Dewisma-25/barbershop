@@ -26,6 +26,9 @@ Route::get('/admin/admindashboard', function () {
     return view('admin.admindashboard');
 })->middleware(['auth']);
 
+Route::get('/user/booking', function () {
+    return view('user.booking');
+})->middleware('auth')->name('user.booking');
 
 
 // - - - - CRUD untuk data di table users pada dashboard admin - - - -
