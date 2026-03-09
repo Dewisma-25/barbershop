@@ -264,29 +264,26 @@
             </div>
             <div class="sidebar-nav">
                 <div class="nav-item">
-                    <i class="bi bi-speedometer2"></i> <span>Panel / User data</span>
+                    <i class="bi bi-file-earmark-bar-graph"></i></i> <span>Report</span>
                 </div>
                 <div class="nav-item">
-                    <i class="bi bi-people"></i> <span>Data User</span>
+                    <i class="bi bi-person"></i> <span>User data</span>
                 </div>
                 <div class="nav-item">
-                    <i class="bi bi-scissors"></i> <span>Data barber</span>
+                    <i class="bi bi-receipt"></i> <span>Cashier Data</span>
                 </div>
                 <div class="nav-item">
-                    <i class="bi bi-calendar-check"></i> <span>Data service</span>
+                    <i class="bi bi-calendar-check"></i> <span>Booking Data</span>
                 </div>
                 <div class="nav-item">
-                    <i class="bi bi-person-badge"></i> <span>Data customer</span>
+                    <i class="bi bi-shop"></i> <span>Service Data</span>
                 </div>
                 <div class="nav-item">
-                    <i class="bi bi-file-text"></i> <span>History</span>
+                    <i class="bi bi-person-fill-lock"></i></i> <span>Data Customer</span>
                 </div>
                 <div class="nav-item">
-                    <i class="bi bi-gear"></i> <span>Pengaturan</span>
+                    <i class="bi bi-scissors"></i> <span>Data Barber</span>
                 </div>
-            </div>
-            <div class="sidebar-footer">
-                <i class="bi bi-dot"></i> online · v.2.31
             </div>
         </div>
 
