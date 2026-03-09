@@ -416,19 +416,19 @@
 
     <div class="gallery-grid">
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400" alt="Haircut 1">
+            <img src="{{ asset('images/gallery 1.png') }}" alt="Haircut 1">
         </div>
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400" alt="Barbershop">
+            <img src="{{ asset('images/gallery 2.png') }}" alt="Barbershop">
         </div>
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400" alt="Haircut 2">
+            <img src="{{ asset('images/gallery 3.png') }}" alt="Haircut 2">
         </div>
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400" alt="Beard">
+            <img src="{{ asset('images/gallery 4.png') }}" alt="Beard">
         </div>
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400" alt="Interior">
+            <img src="{{ asset('images/gallery 5.png') }}" alt="Interior">
         </div>
         <div class="gallery-item">
             <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=400" alt="Styling">
