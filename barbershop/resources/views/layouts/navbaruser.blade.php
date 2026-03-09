@@ -109,7 +109,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#home">
-                <i class="bi bi-scissors"></i> Barbershop
+                <img src="{{asset('images/Babershop (4).png')}}" alt="Logo" width="130">
             </a>
             
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
