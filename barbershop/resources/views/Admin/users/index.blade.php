@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +14,11 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
-            background-color: #f4f6f9; /* warna latar netral seperti banyak admin panel */
+            background-color: #f4f6f9;
+            /* warna latar netral seperti banyak admin panel */
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
         }
 
@@ -29,11 +32,11 @@
         /* SIDEBAR KIRI — warna gelap seperti contoh (biru dongker/kehitaman) */
         .sidebar {
             width: 260px;
-            background: #000000D9; 
+            background: #000000D9;
             color: #e0e7ff;
             display: flex;
             flex-direction: column;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar-header {
@@ -132,7 +135,7 @@
         /* card panel putih */
         .panel-card {
             border-radius: 20px;
-            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.06);
             padding: 1.5rem 1.8rem;
             border: 1px solid #eef2f6;
         }
@@ -179,8 +182,10 @@
 
         /* baris abu-abu selang-seling seperti gambar */
         .table-user-data tbody tr:nth-child(even) {
-            background-color: #f8fafd;   /* abu sangat terang */
+            background-color: #f8fafd;
+            /* abu sangat terang */
         }
+
         .table-user-data tbody tr:nth-child(odd) {
             background-color: white;
         }
@@ -255,6 +260,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="admin-wrapper">
         <!-- SIDEBAR KIRI (navbar posisi kiri) -->
@@ -309,80 +315,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- baris 1: farellaiyo persis -->
+                        @foreach($users as $user)
                         <tr>
-                            <td class="user-badge">1</td>
-                            <td><span style="font-weight:600;">farellaiyo</span></td>
-                            <td>suprandi08@gmail.com</td>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$user->username}}</td>
+                            <td>{{$user->email}}</td>
                             <td>
-                                <div class="history-block">
-                                    <span class="history-line"><i class="bi bi-arrow-repeat"></i> update : 02 Mar 2026</span>
-                                    <span class="history-line"><i class="bi bi-calendar-plus"></i> diubuat : 05 Mar 2026</span>
-                                </div>
+                                <b>Dibuat Pada:</b> {{$user->created_at->format('d/m/Y')}} <br>
+                                <b>Diupdate Pada:</b> {{$user->updated_at->format('d/m/Y')}}
                             </td>
-                            <td>
-                                <div class="action-btns">
-                                    <span class="edit-btn"><i class="bi bi-pencil-square"></i> edit</span>
-                                    <span class="delete-btn"><i class="bi bi-trash3"></i> delete</span>
-                                </div>
+
+                            <td class="gap-3 d-flex">
+                                <a class="btn btn-outline-secondary" href="{{ route('users.edit', $user->id) }}">Edit</a>
+
+                                <form action="{{ route('users.destroy',$user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-outline-danger" type="submit">Delete</button>
+                                </form>
+
                             </td>
                         </tr>
-                        <!-- data service masuk dalam tabel? sesuai deskripsi: setelah action, ada data service sebagai row terpisah. 
-                             TAPI di contoh tertulis "Data service" seolah kategori baru. Kita ikuti persis urutan:
-                             setelah baris pertama ada baris kosong? Tapi biar sama, kita letakkan sebagai bagian tbody dengan baris kedua mewakili "Data service"  -->
-                        <tr>
-                            <td class="user-badge">2</td>
-                            <td><span style="font-weight:600;">wismanliyo</span></td>
-                            <td>kusuma09@gmail.com</td>
-                            <td>
-                                <div class="history-block">
-                                    <span class="history-line"><i class="bi bi-arrow-repeat"></i> update : 21 Jun 2026</span>
-                                    <span class="history-line"><i class="bi bi-calendar-plus"></i> diubuat : 23 Jun 2026</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-btns">
-                                    <span class="edit-btn"><i class="bi bi-pencil-square"></i> edit</span>
-                                    <span class="delete-btn"><i class="bi bi-trash3"></i> delete</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- Data customer (donilliyo) baris 3 -->
-                        <tr>
-                            <td class="user-badge">3</td>
-                            <td><span style="font-weight:600;">donilliyo</span></td>
-                            <td>putra08@gmail.com</td>
-                            <td>
-                                <div class="history-block">
-                                    <span class="history-line"><i class="bi bi-arrow-repeat"></i> update : 01 Jul 2025</span>
-                                    <span class="history-line"><i class="bi bi-calendar-plus"></i> diubuat : 07 Jul 2026</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-btns">
-                                    <span class="edit-btn"><i class="bi bi-pencil-square"></i> edit</span>
-                                    <span class="delete-btn"><i class="bi bi-trash3"></i> delete</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- Data barber (wigunalliyo) baris 4 -->
-                        <tr>
-                            <td class="user-badge">4</td>
-                            <td><span style="font-weight:600;">wigunalliyo</span></td>
-                            <td> — </td>   <!-- tidak ada email di baris terakhir pada teks, tapi agar rapi, kita isi kosong atau strip -->
-                            <td>
-                                <div class="history-block">
-                                    <span class="history-line"><i class="bi bi-arrow-repeat"></i> update : 01 Jul 2025</span>
-                                    <span class="history-line"><i class="bi bi-calendar-plus"></i> diubuat : 07 Jul 2026</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="action-btns">
-                                    <span class="edit-btn"><i class="bi bi-pencil-square"></i> edit</span>
-                                    <span class="delete-btn"><i class="bi bi-trash3"></i> delete</span>
-                                </div>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
@@ -392,4 +346,5 @@
 
     <!-- opsional bootstrap js (untuk interaksi kecil tidak diperlukan)  -->
 </body>
+
 </html>
