@@ -3,7 +3,7 @@
 @section('title', 'Barbershop - Premium Haircut')
 
 @push('styles')
-<link rel="stylesheet" href="{{asset('css/user_dashboard.css')}}">
+<link rel="stylesheet" href="{{asset('css/user/user_dashboard.css')}}">
 @endpush
 
 @section('content')
