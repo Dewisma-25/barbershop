@@ -30,11 +30,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return match($role)
-        {
-            'admin' => redirect()->intended('/admin/admindashboard'),
-            'kasir' => redirect()->intended('/admin/admindashboard'),
-            'customer' => redirect()->intended('/user/dashboard'),
+        return match ($role) {
+            'admin' => redirect('/admin/admindashboard'),
+            'kasir' => redirect('/admin/admindashboard'),
+            'customer' => redirect('/user/dashboard'),
         };
     }
 

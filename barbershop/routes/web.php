@@ -28,7 +28,9 @@ Route::get('/user/booking', function () {
 
 
 // - - - - CRUD untuk data di table users pada dashboard admin - - - -
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin,kasir'])
+    ->prefix('admin')
+    ->group(function () {
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
