@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Edit User</title>
+    <title>Add User</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -44,7 +44,7 @@
 
             <div class="mb-4">
                 <select id="role" name="role" class="form-select custom-input role-select">
-                    <option selected disabled>Role</option>
+                    <option value="" selected disabled>Pilih Role</option>
                     <option value="admin">Admin</option>
                     <option value="kasir">Kasir</option>
                     <option value="customer">Customer</option>
@@ -89,7 +89,7 @@
         let role = this.value
         let customerForm = document.getElementById('customerForm')
 
-        if (role === 'customer') {
+        if (role === 'customer' || role === 'kasir') {
             customerForm.style.display = 'block'
         } else {
             customerForm.style.display = 'none'
