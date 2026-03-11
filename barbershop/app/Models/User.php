@@ -30,6 +30,13 @@ class User extends Authenticatable
         return $this->hasOne(Customer::class, 'id_user');
     }
 
+
+    //relasi id dengan kasir
+    public function kasir()
+    {
+        return $this->hasOne(Kasir::class, 'id_user');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

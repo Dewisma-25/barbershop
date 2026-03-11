@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
 
+    protected $fillable = [
+        'nama_service',
+        'harga',
+        'estimasi_menit',
+        'is_active'
+    ];
+
 //relasi id dengan table booking_details
 public function bookingDetails()
 {
