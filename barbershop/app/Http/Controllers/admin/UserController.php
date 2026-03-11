@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\Kasir;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class UserController extends Controller
     //menampilkan data dari tab;e users
     public function index()
     {
-        $users = User::with('customer')->get();
+        $users = User::get();
 
         return view('admin.users.index', compact('users'));
     }
@@ -44,7 +45,15 @@ class UserController extends Controller
         ]);
 
         if ($request->role == 'customer') {
+
             Customer::create([
+                'id_user' => $user->id,
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat
+            ]);
+        } elseif ($request->role == 'kasir') {
+
+            Kasir::create([
                 'id_user' => $user->id,
                 'no_hp' => $request->no_hp,
                 'alamat' => $request->alamat
@@ -84,13 +93,17 @@ class UserController extends Controller
     }
 
 
-    //menghapus data users dan data customers
+    //menghapus data users dan data customers serta kasir
     public function destroy($id)
     {
         $user = User::findOrFail($id);
 
         if ($user->customer) {
             $user->customer->delete();
+        }
+
+        if ($user->kasir) {
+            $user->kasir->delete();
         }
 
         $user->delete();
