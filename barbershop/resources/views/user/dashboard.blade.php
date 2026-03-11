@@ -8,7 +8,7 @@
 
 @section('content')
 
-<!-- ===== HOME / HERO ===== -->
+<!--HOME-->
 <section id="home">
     <h1 class="hero-title">Barbershop</h1>
     <p class="hero-subtitle">Professional and Affordable</p>
@@ -34,7 +34,7 @@
     </div>
 </section>
 
-<!-- ===== SERVICE ===== -->
+<!--SERVICE-->
 <section id="service">
     <div class="section-title">
         <h2>Our Service</h2>
@@ -77,7 +77,7 @@
     </div>
 </section>
 
-<!-- ===== GALLERY ===== -->
+<!--GALLERY-->
 <section id="gallery">
     <div class="section-title">
         <h2>Our Gallery</h2>
@@ -106,7 +106,7 @@
     </div>
 </section>
 
-<!-- ===== REVIEW ===== -->
+<!--REVIEW-->
 <section id="review">
     <div class="section-title">
         <h2>Review</h2>
