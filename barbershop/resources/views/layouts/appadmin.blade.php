@@ -195,7 +195,7 @@
         .topbar-user .avatar {
             width: 34px;
             height: 34px;
-            background: linear-gradient(135deg, #e94560, #0f3460);
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -248,7 +248,7 @@
                 <i class="bi bi-calendar-check"></i>
                 <span>Booking Data</span>
             </a>
-            <a href="admin/services" class="nav-item {{ request()->routeIs('admin.service*') ? 'active' : '' }}">
+            <a href="/admin/services" class="nav-item {{ request()->routeIs('admin.services*') ? 'active' : '' }}">
                 <i class="bi bi-shop"></i>
                 <span>Service Data</span>
             </a>
