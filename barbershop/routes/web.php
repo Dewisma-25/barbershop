@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\KasirController;
+use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\ServiceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,6 +46,42 @@ Route::middleware(['auth', 'role:admin,kasir'])
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
+//route CRUD customers
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+
+    Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+
+    Route::put('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
+
+    Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+
+    
+//route CRUD kasir
+    Route::get('/kasir', [KasirController::class, 'index'])->name('kasir.index');
+
+    Route::get('/kasir/{id}/edit', [KasirController::class, 'edit'])->name('kasir.edit');
+
+    Route::put('/kasir/{id}', [KasirController::class, 'update'])->name('kasir.update');
+
+    Route::delete('/kasir/{id}', [KasirController::class, 'destroy'])->name('kasir.destroy');
+
+
+
+//route CRUD service
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+
+    Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
+
+    Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
+
+    Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+
+    Route::put('/services/{id}', [ServiceController::class, 'update'])->name('services.update');
+
+    Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
 });
 
