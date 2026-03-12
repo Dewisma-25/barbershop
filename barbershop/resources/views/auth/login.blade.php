@@ -1,4 +1,4 @@
-@extends('layouts.navbaruser')
+@extends('layouts.app')
 
 @section('content')
 <style>
