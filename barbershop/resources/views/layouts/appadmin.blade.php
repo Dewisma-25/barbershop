@@ -232,15 +232,15 @@
         </div>
 
         <div class="sidebar-nav">
-            <a href="#" class="nav-item {{ request()->routeIs('admin.report*') ? 'active' : '' }}">
+            <a href="/admin/admindashboard" class="nav-item {{ request()->routeIs('admin.report*') ? 'active' : '' }}">
                 <i class="bi bi-file-earmark-bar-graph"></i>
                 <span>Report</span>
             </a>
-            <a href="/admin/users" class="nav-item {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+            <a href="/admin/users" class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
                 <i class="bi bi-person"></i>
                 <span>User Data</span>
             </a>
-            <a href="/admin/kasir" class="nav-item {{ request()->routeIs('admin.cashier*') ? 'active' : '' }}">
+            <a href="/admin/kasir" class="nav-item {{ request()->routeIs('kasir.*') ? 'active' : '' }}">
                 <i class="bi bi-receipt"></i>
                 <span>Cashier Data</span>
             </a>
@@ -248,15 +248,15 @@
                 <i class="bi bi-calendar-check"></i>
                 <span>Booking Data</span>
             </a>
-            <a href="/admin/services" class="nav-item {{ request()->routeIs('admin.services*') ? 'active' : '' }}">
+            <a href="/admin/services" class="nav-item {{ request()->routeIs('services.*') ? 'active' : '' }}">
                 <i class="bi bi-shop"></i>
                 <span>Service Data</span>
             </a>
-            <a href="/admin/customers" class="nav-item {{ request()->routeIs('admin.customer') ? 'active' : '' }}">
+            <a href="/admin/customers" class="nav-item {{ request()->routeIs('customers.*') ? 'active' : '' }}">
                 <i class="bi bi-person-fill-lock"></i>
                 <span>Data Customer</span>
             </a>
-            <a href="/admin/barbers" class="nav-item {{ request()->routeIs('admin.barbers') ? 'active' : '' }}">
+            <a href="/admin/barbers" class="nav-item {{ request()->routeIs('barbers.*') ? 'active' : '' }}">
                 <i class="bi bi-scissors"></i>
                 <span>Data Barber</span>
             </a>
