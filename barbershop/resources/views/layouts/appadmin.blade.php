@@ -256,7 +256,7 @@
                 <i class="bi bi-person-fill-lock"></i>
                 <span>Data Customer</span>
             </a>
-            <a href="#" class="nav-item {{ request()->routeIs('admin.barber*') ? 'active' : '' }}">
+            <a href="/admin/barbers" class="nav-item {{ request()->routeIs('admin.barbers') ? 'active' : '' }}">
                 <i class="bi bi-scissors"></i>
                 <span>Data Barber</span>
             </a>
