@@ -35,6 +35,32 @@
         background: #8b2a1e !important;
         color: #ffffff !important;
     }
+
+    /* chart tabs */
+    .chart-tabs {
+        display: flex;
+        gap: 8px;
+        padding: 12px 16px 0;
+    }
+    .chart-tab-btn {
+        background: #3a3a3a;
+        color: #aaaaaa;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 16px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .chart-tab-btn.active {
+        background: #b5a08c;
+        color: #1a1a1a;
+    }
+    .chart-tab-btn:hover:not(.active) {
+        background: #4a4a4a;
+        color: #ffffff;
+    }
 </style>
 @endpush
 
@@ -123,6 +149,14 @@
                 </tr>
             </tbody>
         </table>
+
+        {{-- TAB BUTTONS --}}
+        <div class="chart-tabs">
+            <button class="chart-tab-btn active" onclick="switchChart('weekly', this)">Mingguan</button>
+            <button class="chart-tab-btn" onclick="switchChart('monthly', this)">Bulanan</button>
+            <button class="chart-tab-btn" onclick="switchChart('yearly', this)">Tahunan</button>
+        </div>
+
         <div style="background:#1e1e1e; padding: 8px 16px 16px;">
             <canvas id="incomeChart" style="max-height: 220px;"></canvas>
         </div>
@@ -135,39 +169,36 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script>
-    const labels      = {!! json_encode($chartLabels) !!};
-    const dataSelesai = {!! json_encode($chartSelesai) !!};
-    const dataBaru    = {!! json_encode($chartBaru) !!};
-    const dataRepeat  = {!! json_encode($chartRepeat) !!};
+    const chartData = {
+        weekly: {
+            labels: {!! json_encode($weeklyLabels) !!},
+            data:   {!! json_encode($weeklyData) !!},
+        },
+        monthly: {
+            labels: {!! json_encode($monthlyLabels) !!},
+            data:   {!! json_encode($monthlyData) !!},
+        },
+        yearly: {
+            labels: {!! json_encode($yearlyLabels) !!},
+            data:   {!! json_encode($yearlyData) !!},
+        }
+    };
 
     const ctx = document.getElementById('incomeChart').getContext('2d');
-    new Chart(ctx, {
+
+    const chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Customer Repeat',
-                    data: dataRepeat,
-                    backgroundColor: 'rgba(180, 140, 110, 0.75)',
-                    borderRadius: 4,
-                    borderSkipped: false,
-                },
-                {
-                    label: 'Customer Baru',
-                    data: dataBaru,
-                    backgroundColor: 'rgba(100, 160, 210, 0.75)',
-                    borderRadius: 4,
-                    borderSkipped: false,
-                },
-                {
-                    label: 'Pesanan Selesai',
-                    data: dataSelesai,
-                    backgroundColor: 'rgba(100, 200, 140, 0.75)',
-                    borderRadius: 4,
-                    borderSkipped: false,
-                },
-            ]
+            labels: chartData.weekly.labels,
+            datasets: [{
+                label: 'Income (Rp)',
+                data: chartData.weekly.data,
+                backgroundColor: 'rgba(180, 80, 60, 0.8)',
+                borderColor: 'rgba(220, 100, 80, 1)',
+                borderWidth: 1,
+                borderRadius: 5,
+                borderSkipped: false,
+            }]
         },
         options: {
             responsive: true,
@@ -180,6 +211,11 @@
                     backgroundColor: '#2e2e2e',
                     titleColor: '#ffffff',
                     bodyColor: '#cccccc',
+                    callbacks: {
+                        label: function(context) {
+                            return ' Rp ' + context.parsed.y.toLocaleString('id-ID');
+                        }
+                    }
                 }
             },
             scales: {
@@ -188,12 +224,29 @@
                     grid: { color: 'rgba(255,255,255,0.05)' }
                 },
                 y: {
-                    ticks: { color: '#aaaaaa', font: { size: 10 } },
+                    ticks: {
+                        color: '#aaaaaa',
+                        font: { size: 10 },
+                        callback: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
+                        }
+                    },
                     grid: { color: 'rgba(255,255,255,0.07)' },
                     beginAtZero: true
                 }
             }
         }
     });
+
+    function switchChart(type, btn) {
+        // update active button
+        document.querySelectorAll('.chart-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // update chart data
+        chart.data.labels = chartData[type].labels;
+        chart.data.datasets[0].data = chartData[type].data;
+        chart.update();
+    }
 </script>
 @endpush
