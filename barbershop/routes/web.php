@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\KasirController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\BarberController;
+use App\Http\Controllers\admin\AdminreportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,9 +23,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/admin/admindashboard', function () {
-    return view('admin.admindashboard');
-})->middleware(['auth']);
+Route::get('/admin/admindashboard', [AdminreportController::class, 'index'])
+     ->middleware(['auth', 'role:admin'])
+     ->name('admin.report');
+// Route::get('/admin/admindashboard', function () {
+//     return view('admin.admindashboard');
+// })->middleware(['auth']);
 
 Route::get('/user/booking', function () {
     return view('user.booking');
