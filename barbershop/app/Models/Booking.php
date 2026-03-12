@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
 
+    protected $fillable = [
+        'id_customer',
+        'id_barber',
+        'tanggal',
+        'status',
+        'created_by',
+        'updated_by'
+    ];
 
     //relaso dengan id customer
     public function customer()

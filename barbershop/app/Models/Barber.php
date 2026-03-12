@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Barber extends Model
 {
 
-
+    protected $fillable = [
+        'nama',
+        'no_hp',
+        'alamat'
+    ];
 
     //relasi id dengan table bookings
     public function bookings()
