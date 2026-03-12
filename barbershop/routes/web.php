@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\KasirController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ServiceController;
+use App\Http\Controllers\admin\BarberController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -82,6 +83,21 @@ Route::middleware(['auth', 'role:admin,kasir'])
     Route::put('/services/{id}', [ServiceController::class, 'update'])->name('services.update');
 
     Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
+
+
+
+    //route CRUD Barber
+    Route::get('/barbers', [BarberController::class, 'index'])->name('barbers.index');
+
+    Route::get('/barbers/create', [BarberController::class, 'create'])->name('barbers.create');
+
+    Route::post('/barbers', [BarberController::class, 'store'])->name('barbers.store');
+
+    Route::get('/barbers/{id}/edit', [BarberController::class, 'edit'])->name('barbers.edit');
+
+    Route::put('/barbers/{id}', [BarberController::class, 'update'])->name('barbers.update');
+
+    Route::delete('/barbers/{id}', [BarberController::class, 'destroy'])->name('barbers.destroy');
 
 });
 
