@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\BarberController;
 use App\Http\Controllers\admin\AdminreportController;
 use App\Http\Controllers\User\BookingController;
+use App\Http\Controllers\admin\BookingAdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 // - - - - CRUD untuk data di table users pada dashboard admin - - - -
-Route::middleware(['auth', 'role:admin,kasir'])
+Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->group(function () {
 
@@ -105,6 +106,16 @@ Route::middleware(['auth', 'role:admin,kasir'])
 
     Route::delete('/barbers/{id}', [BarberController::class, 'destroy'])->name('barbers.destroy');
 
+});
+
+// Admin + Kasir — booking saja
+Route::middleware(['auth', 'role:admin,kasir'])
+    ->prefix('admin')->group(function () {
+    Route::get('/bookings',               [BookingAdminController::class, 'index']) ->name('bookings.index');
+    Route::patch('/bookings/{id}/accept', [BookingAdminController::class, 'accept'])->name('bookings.accept');
+    Route::patch('/bookings/{id}/reject', [BookingAdminController::class, 'reject'])->name('bookings.reject');
+    Route::get('/bookings/{id}/edit',     [BookingAdminController::class, 'edit'])  ->name('bookings.edit');    // nanti
+    Route::get('/bookings/{id}/payment',  [BookingAdminController::class, 'payment'])->name('bookings.payment'); // nanti
 });
 
 require __DIR__.'/auth.php';
