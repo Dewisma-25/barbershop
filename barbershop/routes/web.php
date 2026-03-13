@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\BarberController;
 use App\Http\Controllers\admin\AdminreportController;
+use App\Http\Controllers\User\BookingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,9 +31,10 @@ Route::get('/admin/admindashboard', [AdminreportController::class, 'index'])
 //     return view('admin.admindashboard');
 // })->middleware(['auth']);
 
-Route::get('/user/booking', function () {
-    return view('user.booking');
-})->middleware('auth')->name('user.booking');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/booking', [BookingController::class, 'index'])->name('user.booking');
+    Route::post('/user/booking', [BookingController::class, 'store'])->name('user.booking.store');
+});
 
 
 // - - - - CRUD untuk data di table users pada dashboard admin - - - -

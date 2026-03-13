@@ -9,101 +9,68 @@
 @section('content')
 <div class="booking-page">
     <div class="booking-container">
-        
+
         <h1 class="page-title">Select a service</h1>
 
+        {{-- SUCCESS / ERROR MESSAGE --}}
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
         <div class="booking-wrapper">
-            
+
             <!-- LEFT COLUMN -->
             <div class="left-column">
-                
+
                 <!-- Service Selection -->
                 <div class="service-section">
                     <span class="section-label">Service Haircut and Hairstyle</span>
-                    
+
                     <div class="service-list">
-                        <div class="service-item active" onclick="selectService(this, 1)">
-                            <div class="service-number">1</div>
+                        @foreach($services as $index => $service)
+                        <div class="service-item {{ $index === 0 ? 'active' : '' }}"
+                             onclick="selectService(this, {{ $service->id }}, '{{ $service->nama_service }}', {{ $service->harga }})">
+                            <div class="service-number">{{ $index + 1 }}</div>
                             <div class="service-info">
-                                <h4>Basic Haircut</h4>
-                                <p>Cut standard hair according to the customer's desired model.</p>
+                                <h4>{{ $service->nama_service }}</h4>
                                 <div class="service-price">
                                     <i class="bi bi-cash-stack"></i>
-                                    <span>Price : Rp 150.000</span>
+                                    <span>Price : Rp {{ number_format($service->harga, 0, ',', '.') }}</span>
                                 </div>
                             </div>
                             <i class="bi bi-chevron-right service-arrow"></i>
                         </div>
-
-                        <div class="service-item" onclick="selectService(this, 2)">
-                            <div class="service-number">2</div>
-                            <div class="service-info">
-                                <h4>Premium Haircut</h4>
-                                <p>Hair cut + shampoo + styling + light massage.</p>
-                                <div class="service-price">
-                                    <i class="bi bi-cash-stack"></i>
-                                    <span>Price : Rp 200.000</span>
-                                </div>
-                            </div>
-                            <i class="bi bi-chevron-right service-arrow"></i>
-                        </div>
-
-                        <div class="service-item" onclick="selectService(this, 3)">
-                            <div class="service-number">3</div>
-                            <div class="service-info">
-                                <h4>Highlight / Bleaching</h4>
-                                <p>Special coloring technique for bright effects.</p>
-                                <div class="service-price">
-                                    <i class="bi bi-cash-stack"></i>
-                                    <span>Price : Rp 350.000</span>
-                                </div>
-                            </div>
-                            <i class="bi bi-chevron-right service-arrow"></i>
-                        </div>
-
-                        <div class="service-item" onclick="selectService(this, 4)">
-                            <div class="service-number">4</div>
-                            <div class="service-info">
-                                <h4>Hair Styling (Pomade / Wax Styling)</h4>
-                                <p>Styling according to trends (undercut, pompadour, slick back, etc.).</p>
-                                <div class="service-price">
-                                    <i class="bi bi-cash-stack"></i>
-                                    <span>Price : Rp 400.000</span>
-                                </div>
-                            </div>
-                            <i class="bi bi-chevron-right service-arrow"></i>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
                 <!-- Barber Profile -->
                 <div class="barber-section">
                     <span class="section-label">Barber Profile</span>
-                    
+
                     <div class="barber-grid">
-                        <div class="barber-card active" onclick="selectBarber(this, 'Wismuy')">
+                        @foreach($barbers as $index => $barber)
+                        <div class="barber-card {{ $index === 0 ? 'active' : '' }}"
+                             onclick="selectBarber(this, {{ $barber->id }}, '{{ $barber->nama }}')">
                             <span class="barber-status"></span>
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop" alt="Wismuy">
+                            {{-- gunakan avatar inisial karena tidak ada foto --}}
+                            <div class="barber-avatar">
+                                {{ strtoupper(substr($barber->nama, 0, 1)) }}
+                            </div>
                             <div class="barber-overlay">
-                                <div class="barber-name">Wismuy</div>
+                                <div class="barber-name">{{ $barber->nama }}</div>
                             </div>
                         </div>
-
-                        <div class="barber-card" onclick="selectBarber(this, 'Silvuy')">
-                            <span class="barber-status"></span>
-                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=400&fit=crop" alt="Silvuy">
-                            <div class="barber-overlay">
-                                <div class="barber-name">Silvuy</div>
-                            </div>
-                        </div>
-
-                        <div class="barber-card" onclick="selectBarber(this, 'Donuy')">
-                            <span class="barber-status busy"></span>
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop" alt="Donuy">
-                            <div class="barber-overlay">
-                                <div class="barber-name">Donuy</div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -111,65 +78,77 @@
 
             <!-- RIGHT COLUMN -->
             <div class="right-column">
-                
+
                 <!-- Filling Form -->
                 <div class="form-section">
                     <span class="form-label">Filling Form</span>
-                    
-                    <div class="form-group">
-                        <div class="form-button selected" onclick="openServiceModal()">
-                            <div class="form-button-content">
-                                <i class="bi bi-scissors"></i>
-                                <span id="selected-service-text">Select service type</span>
+
+                    {{-- FORM submit ke BookingController@store --}}
+                    <form id="booking-form" action="{{ route('user.booking.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id_service" id="input-service" value="{{ $services->first()->id ?? '' }}">
+                        <input type="hidden" name="id_barber"  id="input-barber"  value="{{ $barbers->first()->id ?? '' }}">
+                        <input type="hidden" name="tanggal"    id="input-tanggal" value="">
+
+                        <div class="form-group">
+                            <div class="form-button selected" onclick="openScheduleModal()">
+                                <div class="form-button-content">
+                                    <i class="bi bi-scissors"></i>
+                                    <span id="selected-service-text">
+                                        {{ $services->first()->nama_service ?? 'Select service type' }}
+                                    </span>
+                                </div>
+                                <i class="bi bi-chevron-right"></i>
                             </div>
-                            <i class="bi bi-chevron-right"></i>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="form-button" onclick="openScheduleModal()" id="schedule-btn">
-                            <div class="form-button-content booking-schedule">
-                                <i class="bi bi-calendar3"></i>
-                                <span id="selected-schedule-text">Booking Schedule</span>
+                        <div class="form-group">
+                            <div class="form-button" onclick="openScheduleModal()" id="schedule-btn">
+                                <div class="form-button-content booking-schedule">
+                                    <i class="bi bi-calendar3"></i>
+                                    <span id="selected-schedule-text">Booking Schedule</span>
+                                </div>
+                                <i class="bi bi-calendar-check"></i>
                             </div>
-                            <i class="bi bi-calendar-check"></i>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="form-button" onclick="openBarberModal()" id="barber-btn">
-                            <div class="form-button-content">
-                                <i class="bi bi-person"></i>
-                                <span id="selected-barber-text">Select barber (optional)</span>
+                        <div class="form-group">
+                            <div class="form-button" id="barber-btn">
+                                <div class="form-button-content">
+                                    <i class="bi bi-person"></i>
+                                    <span id="selected-barber-text">
+                                        {{ $barbers->first()->nama ?? 'Select barber (optional)' }}
+                                    </span>
+                                </div>
+                                <i class="bi bi-chevron-right"></i>
                             </div>
-                            <i class="bi bi-chevron-right"></i>
                         </div>
-                    </div>
 
-                    <!-- Selected Summary -->
-                    <div class="selected-summary" id="summary-box" style="display: none;">
-                        <h5>Booking Summary</h5>
-                        <div class="summary-item">
-                            <span>Service</span>
-                            <span id="summary-service">-</span>
+                        <!-- Selected Summary -->
+                        <div class="selected-summary" id="summary-box" style="display:none;">
+                            <h5>Booking Summary</h5>
+                            <div class="summary-item">
+                                <span>Service</span>
+                                <span id="summary-service">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Barber</span>
+                                <span id="summary-barber">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Schedule</span>
+                                <span id="summary-schedule">-</span>
+                            </div>
+                            <div class="summary-item total">
+                                <span>Total</span>
+                                <span id="summary-total">Rp 0</span>
+                            </div>
                         </div>
-                        <div class="summary-item">
-                            <span>Barber</span>
-                            <span id="summary-barber">-</span>
-                        </div>
-                        <div class="summary-item">
-                            <span>Schedule</span>
-                            <span id="summary-schedule">-</span>
-                        </div>
-                        <div class="summary-item total">
-                            <span>Total</span>
-                            <span id="summary-total">Rp 0</span>
-                        </div>
-                    </div>
 
-                    <button class="confirm-btn" id="confirm-btn" onclick="confirmBooking()">
-                        Confirm
-                    </button>
+                        <button type="submit" class="confirm-btn" id="confirm-btn">
+                            Confirm
+                        </button>
+                    </form>
                 </div>
 
             </div>
@@ -219,30 +198,33 @@
 @push('scripts')
 <script>
     let selectedData = {
-        service: { id: 1, name: 'Basic Haircut', price: 150000 },
-        barber: 'Wismuy',
+        serviceId:   document.getElementById('input-service').value,
+        serviceName: document.getElementById('selected-service-text').textContent.trim(),
+        servicePrice: {{ $services->first()->harga ?? 0 }},
+        barberId:    document.getElementById('input-barber').value,
+        barberName:  document.getElementById('selected-barber-text').textContent.trim(),
         date: null,
         time: null
     };
 
-    const services = {
-        1: { name: 'Basic Haircut', price: 150000 },
-        2: { name: 'Premium Haircut', price: 200000 },
-        3: { name: 'Highlight / Bleaching', price: 350000 },
-        4: { name: 'Hair Styling', price: 400000 }
-    };
-
-    function selectService(element, id) {
+    function selectService(element, id, name, price) {
         document.querySelectorAll('.service-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
-        selectedData.service = { id: id, ...services[id] };
+        selectedData.serviceId   = id;
+        selectedData.serviceName = name;
+        selectedData.servicePrice = price;
+        document.getElementById('input-service').value = id;
+        document.getElementById('selected-service-text').textContent = name;
         updateSummary();
     }
 
-    function selectBarber(element, name) {
+    function selectBarber(element, id, name) {
         document.querySelectorAll('.barber-card').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
-        selectedData.barber = name;
+        selectedData.barberId   = id;
+        selectedData.barberName = name;
+        document.getElementById('input-barber').value = id;
+        document.getElementById('selected-barber-text').textContent = name;
         updateSummary();
     }
 
@@ -265,43 +247,34 @@
             return;
         }
         selectedData.date = dateInput;
-        
-        const scheduleText = `${selectedData.date} | ${selectedData.time}`;
+
+        // gabungkan tanggal + jam untuk kolom tanggal di DB
+        const fullDatetime = dateInput + ' ' + selectedData.time + ':00';
+        document.getElementById('input-tanggal').value = fullDatetime;
+
+        const scheduleText = `${dateInput} | ${selectedData.time}`;
         document.getElementById('selected-schedule-text').textContent = scheduleText;
         document.getElementById('schedule-btn').classList.add('selected');
-        
+
         bootstrap.Modal.getInstance(document.getElementById('scheduleModal')).hide();
         updateSummary();
     }
 
     function updateSummary() {
-        document.getElementById('selected-service-text').textContent = selectedData.service.name;
-        document.getElementById('selected-barber-text').textContent = selectedData.barber;
-        
-        document.getElementById('summary-service').textContent = selectedData.service.name;
-        document.getElementById('summary-barber').textContent = selectedData.barber;
-        document.getElementById('summary-schedule').textContent = selectedData.date && selectedData.time 
-            ? `${selectedData.date} | ${selectedData.time}` 
+        document.getElementById('summary-service').textContent  = selectedData.serviceName;
+        document.getElementById('summary-barber').textContent   = selectedData.barberName;
+        document.getElementById('summary-schedule').textContent = selectedData.date && selectedData.time
+            ? `${selectedData.date} | ${selectedData.time}`
             : '-';
-        document.getElementById('summary-total').textContent = `Rp ${selectedData.service.price.toLocaleString('id-ID')}`;
-        
+        document.getElementById('summary-total').textContent =
+            'Rp ' + selectedData.servicePrice.toLocaleString('id-ID');
         document.getElementById('summary-box').style.display = 'block';
-        
-        // Enable confirm button if all selected
-        if (selectedData.date && selectedData.time) {
-            document.getElementById('confirm-btn').classList.add('active');
-        }
     }
 
-    function confirmBooking() {
-        if (!selectedData.date || !selectedData.time) {
-            alert('Please complete all fields');
-            return;
-        }
-        alert(`Booking confirmed!\n\nService: ${selectedData.service.name}\nBarber: ${selectedData.barber}\nSchedule: ${selectedData.date} | ${selectedData.time}\nTotal: Rp ${selectedData.service.price.toLocaleString('id-ID')}`);
-    }
-
-    // Set min date to today
+    // min date = hari ini
     document.getElementById('booking-date').min = new Date().toISOString().split('T')[0];
+
+    // tampilkan summary awal
+    updateSummary();
 </script>
 @endpush
