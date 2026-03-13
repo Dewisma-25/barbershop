@@ -47,8 +47,9 @@
         border: 3px solid rgba(255, 255, 255, 0.3 );
         padding: 25px;
         margin-top: 50px;
+        width: 75%;
         display: flex;
-        gap: 50px;
+        gap: 150px;
         flex-wrap: wrap;
         justify-content: center;
     }
@@ -66,7 +67,7 @@
     }
     .hero-info-item p {
         margin: 0;
-        font-size: 0.9rem;
+        font-size: 1.2rem;
     }
 
     /* SERVICE SECTION */
