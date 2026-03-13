@@ -241,25 +241,25 @@
 
         /* khusus table */
         .user-card {
-            background: #8f7a73;
+            background: #2D2D2D;
             border-radius: 12px;
             padding: 0;
             overflow: hidden;
         }
 
         .user-table thead th {
-            background: #b79a87 !important;
+            background: #3E3B3B !important;
             color: white !important;
         }
 
         .user-table tbody tr:nth-child(odd) td {
-            background: #8f7a73;
-            color: white;
+            background: #FFFFFF;
+            color: black;
         }
 
         .user-table tbody tr:nth-child(even) td {
-            background: #b79a87;
-            color: white;
+            background: #FFFFFF;
+            color: black;
         }
 
         .user-header {
@@ -272,7 +272,7 @@
         }
 
         .btn-add {
-            background: #bca49a;
+            background: rgba(255, 255, 255, 0.20);
             padding: 5px 14px;
             border-radius: 20px;
             text-decoration: none;
@@ -290,13 +290,8 @@
             vertical-align: middle;
         }
 
-        .history {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
         .btn-edit {
-            background: #d1b2a1;
+            background: #3B82F6;
             border: none;
             padding: 4px 12px;
             border-radius: 15px;
@@ -304,7 +299,7 @@
         }
 
         .btn-delete {
-            background: #c9b3a7;
+            background: #374151;
             border: none;
             padding: 4px 12px;
             border-radius: 15px;

@@ -45,7 +45,7 @@
                         <td>{{$user->username}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role}}</td>
-                        <td class="history">
+                        <td>
                             update : {{$user->updated_at->format('d/m/Y')}} <br>
                             dibuat : {{$user->created_at->format('d/m/Y')}}
                         </td>
