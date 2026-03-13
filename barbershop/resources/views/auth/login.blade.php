@@ -185,7 +185,7 @@
 
 <div class="login-page">
     <div class="login-card">
-        <!-- Kolom Kiri: Info Barbershop -->
+        <!-- Kolom Info Kiri -->
         <div class="info-panel">
             <h2>Barbershop <span>●</span></h2>
             <div class="tagline">Professional & Affordable</div>
@@ -204,7 +204,7 @@
             </div>
         </div>
 
-        <!-- Kolom Kanan: Form Login -->
+        <!-- Kolom Kanan -->
         <div class="form-panel">
             <h3>Login Account</h3>
             <div class="sub">Silakan masuk untuk melanjutkan</div>

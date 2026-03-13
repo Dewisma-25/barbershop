@@ -196,6 +196,7 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="/user/dashboard#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/user/dashboard#service">Service</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/user/dashboard#gallery">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="/user/dashboard#review">Review</a></li>
                 </ul>
                 
