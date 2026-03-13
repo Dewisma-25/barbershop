@@ -253,8 +253,8 @@
                 <!-- Media Sosial -->
                 <div class="col-md-4 col-6">
                     <div class="footer-contact">
-                        <h4>Hubungi Kami</h4>
-                        <small>Media Sosial</small>
+                        <h4>Contact Us</h4>
+                        <small>Social media</small>
                         
                         <div class="contact-item">
                             <i class="bi bi-telephone-fill"></i>
