@@ -50,7 +50,6 @@
         width: 75%;
         display: flex;
         gap: 150px;
-        flex-wrap: wrap;
         justify-content: center;
     }
 
