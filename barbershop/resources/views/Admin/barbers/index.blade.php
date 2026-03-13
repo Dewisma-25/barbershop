@@ -33,6 +33,7 @@
                         <th>nama</th>
                         <th>No Telp</th>
                         <th>Alamat</th>
+                        <th>Foto</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -44,6 +45,7 @@
                         <td>{{$barber->nama}}</td>
                         <td>{{$barber->no_hp}}</td>
                         <td>{{$barber->alamat}}</td>
+                        <td><img width="80" src="{{asset('storage/'.$barber->image)}}" alt="Foto Barber"></td>
                         <td>
                             <div class="d-flex gap-2">
                                 <a class="btn-edit text-decoration-none" href="{{route('barbers.edit', $barber->id)}}">Edit</a>

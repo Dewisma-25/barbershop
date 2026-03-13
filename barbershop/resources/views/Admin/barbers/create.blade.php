@@ -19,7 +19,7 @@
 
         <div style="width: 20%;" class="title-badge">Tambah Barber</div>
 
-        <form method="POST" action="{{ route('barbers.store') }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route('barbers.store') }}">
             @csrf
  
             <div class="mb-3">
@@ -32,6 +32,10 @@
 
             <div class="mb-3">
                 <input type="text" name="alamat" class="form-control custom-input" placeholder="alamat">
+            </div>
+
+            <div class="mb-3">
+                <input type="file" name="image" class="form-control custom-input" placeholder="Gambar">
             </div>
 
             <div class="row">

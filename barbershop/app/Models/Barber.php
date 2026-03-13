@@ -10,7 +10,8 @@ class Barber extends Model
     protected $fillable = [
         'nama',
         'no_hp',
-        'alamat'
+        'alamat',
+        'image'
     ];
 
     //relasi id dengan table bookings

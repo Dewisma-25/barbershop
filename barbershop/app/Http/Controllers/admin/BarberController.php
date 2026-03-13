@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barber;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class BarberController extends Controller
@@ -31,16 +32,25 @@ class BarberController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'nama' => 'required|string|max:255',
             'no_hp' => 'required',
-            'alamat' => 'required'
+            'alamat' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg'
         ]);
+
+        if($request->hasFile('image')) {
+            $image = $request->file('image')->store('barbers', 'public');
+        } else {
+            $image = null;
+        }
 
         Barber::create([
             'nama' =>$request->nama,
             'no_hp' =>$request->no_hp,
-            'alamat' =>$request->alamat
+            'alamat' =>$request->alamat,
+            'image' => $image
         ]);
 
         return redirect()->route('barbers.index')->with('success', 'data barber berhasil ditambahkan');
@@ -64,7 +74,8 @@ class BarberController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'no_hp' => 'required',
-            'alamat' => 'required'
+            'alamat' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg'
         ]);
 
         $barber = Barber::findOrFail($id);
@@ -74,6 +85,12 @@ class BarberController extends Controller
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat
         ];
+
+        if($barber->image) {
+            Storage::disk('public')->delete($barber->image);
+        }
+
+        $data['image']->$request->file('image')->store('barbers', 'public');
 
         $barber->update($data);
         return redirect()->route('barbers.index')->with('success', 'data barber berhasil di edit');

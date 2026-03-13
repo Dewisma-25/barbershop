@@ -19,7 +19,7 @@
 
     <div class="title-badge">Edit Barber</div>
 
-    <form method="POST" action="{{route('barbers.update', $barber->id)}}">
+    <form method="POST" enctype="multipart/form-data" action="{{route('barbers.update', $barber->id)}}">
             @csrf
             @method('PUT')
 
@@ -33,6 +33,10 @@
 
         <div class="mb-3">
             <input type="text" name="alamat" value="{{$barber->alamat}}" class="form-control custom-input" placeholder="Alamat">
+        </div>
+
+        <div class="mb-3">
+            <input type="file" name="image" class="form-control custom-input" placeholder="Gambar">
         </div>
 
         <div class="row">

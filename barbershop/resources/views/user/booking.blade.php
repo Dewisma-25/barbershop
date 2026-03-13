@@ -71,7 +71,7 @@
                             <input type="radio" name="id_barber" value="{{ $barber->id }}"
                                 {{ old('id_barber', $barbers->first()->id) == $barber->id ? 'checked' : '' }}>
                             <div class="barber-avatar">
-                                {{ strtoupper(substr($barber->nama, 0, 1)) }}
+                                <img id="foto_barber" src="{{asset('storage/'. $barber->image)}}" alt="Foto Barber">
                             </div>
                             <div class="barber-overlay">
                                 <div class="barber-name">{{ $barber->nama }}</div>
