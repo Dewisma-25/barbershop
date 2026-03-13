@@ -21,39 +21,36 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_service' => 'required|exists:services,id',
-            'id_barber'  => 'nullable|exists:barbers,id',
-            'tanggal'    => 'required|date|after_or_equal:today',
+            'id_service'      => 'required|exists:services,id',
+            'id_barber'       => 'nullable|exists:barbers,id',
+            'tanggal_booking' => 'required|date|after_or_equal:today',
+            'jam_booking'     => 'required|in:10:00,11:00,13:00,14:00,15:00,16:00,19:00',
         ]);
 
-        // ambil id_customer dari tabel customers berdasarkan user login
-        $customer = DB::table('customers')
-            ->where('id_user', Auth::id())
-            ->first();
+        $customer = DB::table('customers')->where('id_user', Auth::id())->first();
 
         if (!$customer) {
             return back()->with('error', 'Data customer tidak ditemukan.');
         }
 
-        $service = DB::table('services')->find($request->id_service);
+        $service  = DB::table('services')->find($request->id_service);
+        $tanggal  = $request->tanggal_booking . ' ' . $request->jam_booking . ':00';
 
-        // simpan ke tabel bookings
         $bookingId = DB::table('bookings')->insertGetId([
             'id_customer' => $customer->id,
             'id_barber'   => $request->id_barber ?? null,
-            'tanggal'     => $request->tanggal,
+            'tanggal'     => $tanggal,
             'status'      => 'menunggu',
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now(),
         ]);
 
-        // simpan ke tabel booking_details
         DB::table('booking_details')->insert([
-            'id_booking'  => $bookingId,
-            'id_service'  => $service->id,
-            'harga'       => $service->harga,
-            'created_at'  => Carbon::now(),
-            'updated_at'  => Carbon::now(),
+            'id_booking' => $bookingId,
+            'id_service' => $service->id,
+            'harga'      => $service->harga,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         return redirect()->route('user.booking')
