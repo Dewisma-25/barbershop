@@ -241,7 +241,6 @@
 
         /* khusus table */
         .user-card {
-            background: #2D2D2D;
             border-radius: 12px;
             padding: 0;
             overflow: hidden;
@@ -266,9 +265,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
             padding: 15px;
             color: white;
+            background: #2D2D2D;
         }
 
         .btn-add {
