@@ -12,7 +12,7 @@
 
     <!-- panel atas breadcrumb -->
     <div class="breadcrumb-panel">
-        <i style="color: black;" class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">User data</span>
+        <i style="color: black;" class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Customers data</span>
     </div>
     <div class="page-title">Data Customers</div>
 
