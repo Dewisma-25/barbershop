@@ -32,7 +32,7 @@ class BarberController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'nama' => 'required|string|max:255',
             'no_hp' => 'required',
@@ -86,13 +86,17 @@ class BarberController extends Controller
             'alamat' => $request->alamat
         ];
 
+        if($request->hasFile('image')) {
         if($barber->image) {
             Storage::disk('public')->delete($barber->image);
         }
 
-        $data['image']->$request->file('image')->store('barbers', 'public');
+        $data['image'] = $request->file('image')->store('barbers', 'public');
 
+        }
         $barber->update($data);
+        
+
         return redirect()->route('barbers.index')->with('success', 'data barber berhasil di edit');
     }
 
