@@ -27,7 +27,8 @@
         /* ===== SIDEBAR ===== */
         .sidebar {
             width: 240px;
-            min-height: 100vh;
+            overflow-y: auto;
+            height: 100vh;
             background: linear-gradient(180deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
             display: flex;
             flex-direction: column;
