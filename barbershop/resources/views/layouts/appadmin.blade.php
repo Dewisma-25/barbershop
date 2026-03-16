@@ -248,7 +248,7 @@
                 <i class="bi bi-calendar3"></i>
                 <span>Booking Data</span>
             </a>
-            <a href="/admin/transactions" class="nav-item {{ request()->routeIs('Transaction.*') ? 'active' : '' }}">
+            <a href="/admin/transactions" class="nav-item {{ request()->routeIs('transactions.*') ? 'active' : '' }}">
                 <i class="bi bi-credit-card"></i>
                 <span>Transaction</span>
             </a>
