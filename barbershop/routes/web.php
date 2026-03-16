@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\AdminreportController;
 use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\admin\BookingAdminController;
 use App\Http\Controllers\admin\TransactionController;
+use App\Http\Controllers\admin\AdminDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,9 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/admin/admindashboard', [AdminreportController::class, 'index'])
+Route::get('/admin/admindashboard', [AdminDashboardController::class, 'index'])
      ->middleware(['auth', 'role:admin'])
-     ->name('admin.report');
+     ->name('admin.dashboard');
 // Route::get('/admin/admindashboard', function () {
 //     return view('admin.admindashboard');
 // })->middleware(['auth']);
