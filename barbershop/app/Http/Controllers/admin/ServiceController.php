@@ -46,7 +46,7 @@ class ServiceController extends Controller
             'is_active' => 1
         ]);
 
-        return redirect()->route('services.index');
+        return redirect()->route('services.index')->with('success', 'Service berhasil ditambahkan');
     }
 
     // /**
@@ -90,7 +90,7 @@ class ServiceController extends Controller
 
         $service->update($data);
 
-        return redirect()->route('services.index');
+        return redirect()->route('services.index')->with('Service berhasil diedit');
     }
 
     /**

@@ -25,6 +25,12 @@
                 <h5>👤 Data Kasir</h5>
             </div>
 
+        @if(session('success'))
+        <div class="user-header">
+            <p class="alert alert-success">{{session('success')}}</p>
+        </div>
+        @endif
+
             <table class="table table-borderless user-table">
                 <thead>
                     <tr>

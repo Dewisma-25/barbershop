@@ -38,7 +38,7 @@ class KasirController extends Controller
 
         $kasir->update($data);
 
-        return redirect()->route('kasir.index');
+        return redirect()->route('kasir.index')->with('success', 'Akun kasir berhasil di edit');
     }
 
 

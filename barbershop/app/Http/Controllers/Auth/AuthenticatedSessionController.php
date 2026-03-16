@@ -31,9 +31,9 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         return match ($role) {
-            'admin' => redirect('/admin/admindashboard'),
-            'kasir' => redirect('/admin/bookings'),
-            'customer' => redirect('/user/dashboard'),
+            'admin' => redirect('/admin/admindashboard')->with('success', 'Login successful'),
+            'kasir' => redirect('/admin/bookings')->with('success', 'Login successful'),
+            'customer' => redirect('/user/dashboard')->with('success', 'Login successful'),
         };
     }
 

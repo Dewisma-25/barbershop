@@ -19,6 +19,16 @@
 
         <div style="width: 20%;" class="title-badge">Tambah Barber</div>
 
+        @if($errors->any())
+        <div class="alert alert-danger user-header">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <form method="POST" enctype="multipart/form-data" action="{{ route('barbers.store') }}">
             @csrf
  

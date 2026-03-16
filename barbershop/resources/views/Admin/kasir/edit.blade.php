@@ -19,6 +19,16 @@
 
     <div class="title-badge">Edit Kasir</div>
 
+        @if($errors->any())
+        <div class="alert alert-danger user-header">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
     <form method="POST" action="{{route('kasir.update', $kasir->id)}}">
             @csrf
             @method('PUT')

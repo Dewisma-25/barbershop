@@ -26,6 +26,12 @@
                 <a href="{{route('barbers.create')}}" class="btn-add">add account +</a>
             </div>
 
+        @if(session('success'))
+        <div class="user-header">
+            <p class="alert alert-success">{{session('success')}}</p>
+        </div>
+        @endif
+
             <table class="table table-borderless user-table">
                 <thead>
                     <tr>

@@ -4,11 +4,13 @@
 <style>
     /* Reset dasar untuk konten */
     .login-page {
-        min-height: calc(100vh - 80px); /* kurangi tinggi navbar, sesuaikan */
+        min-height: calc(100vh - 80px);
+        /* kurangi tinggi navbar, sesuaikan */
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #f8f5f0; /* warna dasar hangat */
+        background: #f8f5f0;
+        /* warna dasar hangat */
         padding: 2rem;
         font-family: 'Inter', system-ui, sans-serif;
     }
@@ -43,7 +45,8 @@
     }
 
     .info-panel h2 span {
-        color: #b68b5c; /* aksen emas/coklat */
+        color: #b68b5c;
+        /* aksen emas/coklat */
     }
 
     .info-panel .tagline {
@@ -65,7 +68,7 @@
     .info-detail i {
         font-style: normal;
         color: #b68b5c;
-        background: rgba(255,255,255,0.08);
+        background: rgba(255, 255, 255, 0.08);
         width: 38px;
         height: 38px;
         border-radius: 50%;
@@ -171,12 +174,15 @@
             flex-direction: column;
             border-radius: 1.5rem;
         }
+
         .info-panel {
             padding: 2rem;
         }
+
         .form-panel {
             padding: 2rem;
         }
+
         .login-page {
             padding: 1rem;
         }
@@ -208,6 +214,23 @@
         <div class="form-panel">
             <h3>Login Account</h3>
             <div class="sub">Silakan masuk untuk melanjutkan</div>
+
+            @if (session('success'))
+            <div class="alert alert-success">
+                {{session('success')}}
+            </div>
+            @endif
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf

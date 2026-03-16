@@ -89,7 +89,7 @@
                     <span class="form-label">Filling Form</span>
 
                     <div class="form-group">
-                        <label class="schedule-label">Tanggal</label>
+                        <label class="schedule-label">Date</label>
                         <input type="date" name="tanggal_booking"
                                class="schedule-input"
                                min="{{ date('Y-m-d') }}"
@@ -98,9 +98,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="schedule-label">Jam</label>
+                        <label class="schedule-label">Hour</label>
                         <select name="jam_booking" class="schedule-input" required>
-                            <option value="" disabled {{ old('jam_booking') ? '' : 'selected' }}>-- Pilih Jam --</option>
+                            <option value="" disabled {{ old('jam_booking') ? '' : 'selected' }}>-- Select Hour --</option>
                             @foreach(['10:00','11:00','13:00','14:00','15:00','16:00','19:00'] as $jam)
                             <option value="{{ $jam }}" {{ old('jam_booking') === $jam ? 'selected' : '' }}>{{ $jam }}</option>
                             @endforeach

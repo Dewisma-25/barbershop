@@ -19,6 +19,16 @@
 
         <div style="width: 23%;" class="title-badge">Tambah Service</div>
 
+        @if($errors->any())
+        <div class="alert alert-danger user-header">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <form method="POST" action="{{ route('services.store') }}">
             @csrf
 

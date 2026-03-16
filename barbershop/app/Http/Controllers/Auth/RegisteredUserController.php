@@ -61,10 +61,10 @@ class RegisteredUserController extends Controller
 
         return match($role)
         {
-            'admin' => redirect()->intended('/admin/dashboard'),
-            'kasir' => redirect()->intended('/admin/dashboard'),
-            'customer' => redirect()->intended('/user/dashboard'),
-            default => redirect()->intended('/user/dashboard')
+            'admin' => redirect()->intended('/admin/dashboard')->with('success', 'Register Success'),
+            'kasir' => redirect()->intended('/admin/dashboard')->with('success', 'Register Success'),
+            'customer' => redirect()->intended('/user/dashboard')->with('success', 'Register Success'),
+            default => redirect()->intended('/user/dashboard')->with('success', 'Register Success')
         };
     }
 }

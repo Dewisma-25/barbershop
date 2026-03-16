@@ -60,7 +60,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Akun users berhasil dibuat');
     }
 
 
@@ -89,7 +89,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success','Akun users berhasil diedit');
     }
 
 
@@ -108,6 +108,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Akun berhasil dihapus');
     }
 }

@@ -64,7 +64,7 @@
     .info-detail i {
         font-style: normal;
         color: #b68b5c;
-        background: rgba(255,255,255,0.08);
+        background: rgba(255, 255, 255, 0.08);
         width: 34px;
         height: 34px;
         border-radius: 50%;
@@ -178,12 +178,16 @@
         .register-card {
             flex-direction: column;
         }
+
         .form-group {
             flex: 1 1 100%;
         }
-        .info-panel, .form-panel {
+
+        .info-panel,
+        .form-panel {
             padding: 1.5rem;
         }
+
         .register-page {
             padding: 0.5rem;
         }
@@ -205,6 +209,24 @@
         <div class="form-panel">
             <h3>Register Account</h3>
             <div class="sub">Buat akun baru untuk memesan</div>
+
+            @if(session('success'))
+            <div class="sub alert alert-success">
+                {{session('success')}}
+            </div>
+            @endif
+
+            @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+
+            </div>
+            @endif
+
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
