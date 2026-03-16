@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\BarberController;
 use App\Http\Controllers\admin\AdminreportController;
 use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\admin\BookingAdminController;
+use App\Http\Controllers\admin\TransactionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -117,5 +118,15 @@ Route::middleware(['auth', 'role:admin,kasir'])
     Route::get('/bookings/{id}/edit',     [BookingAdminController::class, 'edit'])  ->name('bookings.edit');    // nanti
     Route::put('/bookings/{id}',  [BookingAdminController::class, 'update'])->name('bookings.update'); // nanti
 });
+
+//transaction admin dan kasir
+Route::middleware(['auth', 'role:admin,kasir'])
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+        Route::get('/transactions/{bookingId}/create', [TransactionController::class, 'create'])->name('transactions.create');
+        Route::post('/transactions/{bookingId}/store', [TransactionController::class, 'store'])->name('transactions.store');
+        Route::post('/transactions/{bookingId}/complete', [TransactionController::class, 'complete'])->name('transactions.complete');
+    });
 
 require __DIR__.'/auth.php';

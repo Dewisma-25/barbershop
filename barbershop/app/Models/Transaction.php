@@ -7,6 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
 
+    protected $fillable = [
+        'id_customer',
+        'id_barber',
+        'id_kasir',
+        'id_booking',
+        'tanggal',
+        'metode_bayar',
+        'total',
+        'status_layanan',
+        'status_pembayaran'
+    ];
+
     
 
     //relasi id dengan table transaction_details
@@ -38,4 +50,8 @@ class Transaction extends Model
     {
         return $this->belongsTo(Kasir::class, 'id_kasir');
     }
+
+    protected $casts = [
+        'tanggal' => 'datetime'
+    ];
 }

@@ -36,6 +36,7 @@
                     <th>Date</th>
                     <th>Barber</th>
                     <th>Action</th>
+                    <th>Transaction Proccess</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,6 +65,16 @@
                             </a>
                         </div>
                     </td>
+                    <td>
+                        @if ($booking->status == 'diterima')
+                        <a class="btn btn-success btn-sm" href="{{ route('transactions.create', $booking->id) }}">Proses Transaksi</a>
+
+                        @elseif ($booking->status =='menuggu')
+                        <button disabled class="btn btn-secondary btn-sm">Proses Transaksi</button>
+                        @else
+                        <button disabled class="btn btn-secondary btn-sm">Proses Transaksi</button>
+                        @endif
+                </td>
                 </tr>
                 @empty
                 <tr>
