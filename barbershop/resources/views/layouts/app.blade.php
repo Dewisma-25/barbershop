@@ -23,7 +23,7 @@
 
         main { flex: 1; padding-top: 60px; }
 
-        /* ===== NAVBAR ===== */
+        /* NAVBAR */
         .navbar {
             background: rgba(15, 15, 15, 0.15);
             backdrop-filter: blur(10px);
@@ -89,7 +89,7 @@
 
         .btn-danger:hover { background: rgba(220, 53, 69, 0.3); }
 
-        /* ===== FOOTER ===== */
+        /* FOOTER */
         .footer {
             background: #0a0a0a;
             border-top: 1px solid rgba(255, 255, 255, 0.05);

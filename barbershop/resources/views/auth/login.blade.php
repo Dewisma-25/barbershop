@@ -2,15 +2,13 @@
 
 @section('content')
 <style>
-    /* Reset dasar untuk konten */
+    /* login-page */
     .login-page {
         min-height: calc(100vh - 80px);
-        /* kurangi tinggi navbar, sesuaikan */
         display: flex;
         align-items: center;
         justify-content: center;
         background: #f8f5f0;
-        /* warna dasar hangat */
         padding: 2rem;
         font-family: 'Inter', system-ui, sans-serif;
     }
@@ -26,7 +24,7 @@
         border: 1px solid #ece3d9;
     }
 
-    /* Kolom kiri - informasi barbershop */
+    /* Kolom kiri informasi barbershop */
     .info-panel {
         background: #1e1e1e;
         color: #fff;
@@ -46,7 +44,6 @@
 
     .info-panel h2 span {
         color: #b68b5c;
-        /* aksen emas/coklat */
     }
 
     .info-panel .tagline {
@@ -82,7 +79,7 @@
         color: #e0e0e0;
     }
 
-    /* Kolom kanan - form login */
+    /* Kolom kanan form login */
     .form-panel {
         flex: 1;
         padding: 2.5rem;
