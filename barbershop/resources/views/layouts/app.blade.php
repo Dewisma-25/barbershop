@@ -240,9 +240,9 @@
                         </a>
                     </div>
                     
-                    <div class="footer-service">
+                    <div class="footer-service d-flex flex-column align-items-start">
                         <h4>Service</h4>
-                        <ul>
+                        <ul class="d-flex flex-column align-items-start">
                             <li><a href="#service">basic haircut</a></li>
                             <li><a href="#service">premium haircut</a></li>
                             <li><a href="#service">highlight / bleaching</a></li>
