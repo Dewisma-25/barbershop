@@ -244,7 +244,7 @@
                 <i class="bi bi-receipt"></i>
                 <span>Cashier Data</span>
             </a>
-            <a href="/admin/bookings" class="nav-item {{ request()->routeIs('admin.booking*') ? 'active' : '' }}">
+            <a href="/admin/bookings" class="nav-item {{ request()->routeIs('bookings.*') ? 'active' : '' }}">
                 <i class="bi bi-calendar-check"></i>
                 <span>Booking Data</span>
             </a>

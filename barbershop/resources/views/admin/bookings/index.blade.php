@@ -1,7 +1,6 @@
 @extends('layouts.appadmin')
 
 @section('title', 'Admin Panel · Booking Data')
-
 @section('page-title', 'Booking Data')
 
 @push('styles')
@@ -11,15 +10,13 @@
 @section('content')
 
 <div class="breadcrumb-panel">
-    <i style="color:black;" class="bi bi-house-door"></i> Panel /
-    <span style="font-weight:500; color:black;">Booking Data</span>
+    <i class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Booking Data</span>
 </div>
-<div class="page-title">Data Booking</div>
 
 <div class="container mt-4">
 
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
@@ -27,10 +24,10 @@
 
     <div class="user-card">
         <div class="user-header">
-            <h5>Customer Booking Data</h5>
+            <h5 class="mb-0">Customer Booking Data</h5>
         </div>
 
-        <table class="table table-borderless user-table">
+        <table class="table table-borderless user-table mb-0">
             <thead>
                 <tr>
                     <th>No</th>
@@ -38,7 +35,6 @@
                     <th>Email</th>
                     <th>Date</th>
                     <th>Barber</th>
-                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -48,39 +44,22 @@
                     <td>{{ $i + 1 }}.</td>
                     <td>{{ $booking->username }}</td>
                     <td>{{ $booking->email }}</td>
-                    <td>{{ \Carbon\Carbon::parse($booking->tanggal)->format('j/n/Y·H:i') }}</td>
-                    <td>Barber {{ $booking->nama_barber ?? '-' }}</td>
-                    <td>
-                        @if($booking->status === 'diterima')
-                            <span class="badge bg-success">Diterima</span>
-                        @elseif($booking->status === 'batal')
-                            <span class="badge bg-danger">Batal</span>
-                        @else
-                            <span class="badge bg-warning text-dark">Menunggu</span>
-                        @endif
-                    </td>
+                    <td>{{ \Carbon\Carbon::parse($booking->tanggal)->format('d/m/Y H:i') }}</td>
+                    <td>{{ $booking->nama_barber ? 'Barber ' . $booking->nama_barber : '-' }}</td>
                     <td>
                         <div class="d-flex gap-2 flex-wrap">
                             @if($booking->status === 'menunggu')
-                                <form action="{{ route('bookings.accept', $booking->id) }}" method="POST">
+                                <form action="{{ route('bookings.accept', $booking->id) }}" method="POST" class="m-0">
                                     @csrf @method('PATCH')
-                                    <button type="submit" class="btn-edit border-0"
-                                            style="background:#4caf50; color:#fff; padding:5px 14px; border-radius:20px; cursor:pointer; font-size:0.85rem;">
-                                        Accept
-                                    </button>
+                                    <button type="submit" class="btn-edit">Accept</button>
                                 </form>
-                                <form action="{{ route('bookings.reject', $booking->id) }}" method="POST">
+                                <form action="{{ route('bookings.reject', $booking->id) }}" method="POST" class="m-0">
                                     @csrf @method('PATCH')
-                                    <button type="submit" class="btn-delete border-0"
-                                            style="padding:5px 14px; border-radius:20px; cursor:pointer; font-size:0.85rem;"
-                                            onclick="return confirm('Yakin tolak booking ini?')">
-                                        Reject
-                                    </button>
+                                    <button type="submit" class="btn-delete"
+                                            onclick="return confirm('Yakin tolak booking ini?')">Reject</button>
                                 </form>
                             @endif
-                            <a href="{{ route('bookings.edit', $booking->id) }}"
-                               class="btn-edit text-decoration-none"
-                               style="padding:5px 14px; border-radius:20px; font-size:0.85rem;">
+                            <a href="{{ route('bookings.edit', $booking->id) }}" class="btn-edit text-decoration-none">
                                 Edit
                             </a>
                         </div>
@@ -88,7 +67,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center py-4">Belum ada data booking.</td>
+                    <td colspan="6" class="text-center py-4">Belum ada data booking.</td>
                 </tr>
                 @endforelse
             </tbody>

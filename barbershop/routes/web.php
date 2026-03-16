@@ -115,7 +115,7 @@ Route::middleware(['auth', 'role:admin,kasir'])
     Route::patch('/bookings/{id}/accept', [BookingAdminController::class, 'accept'])->name('bookings.accept');
     Route::patch('/bookings/{id}/reject', [BookingAdminController::class, 'reject'])->name('bookings.reject');
     Route::get('/bookings/{id}/edit',     [BookingAdminController::class, 'edit'])  ->name('bookings.edit');    // nanti
-    Route::get('/bookings/{id}/payment',  [BookingAdminController::class, 'payment'])->name('bookings.payment'); // nanti
+    Route::put('/bookings/{id}',  [BookingAdminController::class, 'update'])->name('bookings.update'); // nanti
 });
 
 require __DIR__.'/auth.php';
