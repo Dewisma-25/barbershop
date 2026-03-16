@@ -217,7 +217,7 @@
 {{-- ROW: SERVICE --}}
 <div class="dash-card">
     <div class="dash-card-header">
-        <i class="bi bi-grid"></i> Daftar Service
+        <i class="bi bi-card-checklist"></i> Daftar Service
     </div>
     <table class="dash-table">
         <thead>

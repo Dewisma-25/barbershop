@@ -233,7 +233,7 @@
 
         <div class="sidebar-nav">
             <a href="/admin/admindashboard" class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-bar-graph"></i>
+                <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
             <a href="/admin/users" class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
@@ -253,7 +253,7 @@
                 <span>Transaction</span>
             </a>
             <a href="/admin/services" class="nav-item {{ request()->routeIs('services.*') ? 'active' : '' }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-card-checklist"></i>
                 <span>Service Data</span>
             </a>
             <a href="/admin/customers" class="nav-item {{ request()->routeIs('customers.*') ? 'active' : '' }}">

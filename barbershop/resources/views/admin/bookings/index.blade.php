@@ -35,6 +35,7 @@
                     <th>Email</th>
                     <th>Date</th>
                     <th>Barber</th>
+                    <th>Status</th>
                     <th>Action</th>
                     <th>Transaction Proccess</th>
                 </tr>
@@ -47,6 +48,15 @@
                     <td>{{ $booking->email }}</td>
                     <td>{{ \Carbon\Carbon::parse($booking->tanggal)->format('d/m/Y H:i') }}</td>
                     <td>{{ $booking->nama_barber ? 'Barber ' . $booking->nama_barber : '-' }}</td>
+                    <td>
+                        @if($booking->status === 'diterima')
+                            <span class="badge bg-success">Diterima</span>
+                        @elseif($booking->status === 'batal')
+                            <span class="badge bg-danger">Batal</span>
+                        @else
+                            <span class="badge bg-warning text-dark">Menunggu</span>
+                        @endif
+                    </td>
                     <td>
                         <div class="d-flex gap-2 flex-wrap">
                             @if($booking->status === 'menunggu')
@@ -66,19 +76,16 @@
                         </div>
                     </td>
                     <td>
-                        @if ($booking->status == 'diterima')
-                        <a class="btn btn-success btn-sm" href="{{ route('transactions.create', $booking->id) }}">Proses Transaksi</a>
-
-                        @elseif ($booking->status =='menuggu')
-                        <button disabled class="btn btn-secondary btn-sm">Proses Transaksi</button>
+                        @if($booking->status === 'diterima')
+                            <a class="btn btn-success btn-sm" href="{{ route('transactions.create', $booking->id) }}">Proses Transaksi</a>
                         @else
-                        <button disabled class="btn btn-secondary btn-sm">Proses Transaksi</button>
+                            <button disabled class="btn btn-secondary btn-sm">Proses Transaksi</button>
                         @endif
-                </td>
+                    </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center py-4">Belum ada data booking.</td>
+                    <td colspan="8" class="text-center py-4">Belum ada data booking.</td>
                 </tr>
                 @endforelse
             </tbody>
