@@ -2,6 +2,7 @@
 
 @section('content')
 <style>
+    /* register-page */
     .register-page {
         min-height: calc(100vh - 80px);
         display: flex;
@@ -23,7 +24,7 @@
         border: 1px solid #ece3d9;
     }
 
-    /* Kolom kiri - info barbershop */
+    /* Kolom kiri info barbershop */
     .info-panel {
         background: #1e1e1e;
         color: #fff;
@@ -74,7 +75,7 @@
         font-size: 1.1rem;
     }
 
-    /* Kolom kanan - form register */
+    /* Kolom kanan form register */
     .form-panel {
         flex: 1.2;
         padding: 1.8rem;

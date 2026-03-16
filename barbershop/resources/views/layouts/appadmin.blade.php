@@ -24,7 +24,7 @@
             min-height: 100vh;
         }
 
-        /* ===== SIDEBAR ===== */
+        /* SIDEBAR */
         .sidebar {
             width: 240px;
             min-height: 100vh;
@@ -64,7 +64,7 @@
             font-weight: 300;
         }
 
-        /* ===== NAV ITEMS ===== */
+        /* NAV ITEMS */
         .sidebar-nav {
             flex: 1;
             padding: 16px 0;
@@ -116,7 +116,7 @@
             color: #e94560;
         }
 
-        /* ===== LOGOUT BUTTON ===== */
+        /* LOGOUT BUTTON */
         .sidebar-logout {
             padding: 16px 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -149,7 +149,7 @@
             border-color: #e94560;
         }
 
-        /* ===== MAIN CONTENT ===== */
+        /* MAIN CONTENT */
         .main-wrapper {
             margin-left: 240px;
             flex: 1;
@@ -158,7 +158,7 @@
             min-height: 100vh;
         }
 
-        /* ===== TOP BAR ===== */
+        /* TOP BAR */
         .topbar {
             background: #ffffff;
             padding: 14px 28px;
@@ -205,13 +205,13 @@
             font-weight: 700;
         }
 
-        /* ===== PAGE CONTENT ===== */
+        /* PAGE CONTENT */
         .page-content {
             flex: 1;
             padding: 28px;
         }
 
-        /* ===== SCROLLBAR ===== */
+        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f0f2f5; }
         ::-webkit-scrollbar-thumb { background: #c5c9d6; border-radius: 10px; }
@@ -222,7 +222,7 @@
 </head>
 <body>
 
-    {{-- ===== SIDEBAR ===== --}}
+    {{-- SIDEBAR --}}
     <div class="sidebar">
         <div class="sidebar-header">
             <h3>
@@ -277,7 +277,7 @@
         </div>
     </div>
 
-    {{-- ===== MAIN WRAPPER ===== --}}
+    {{-- MAIN WRAPPER --}}
     <div class="main-wrapper">
 
         {{-- TOP BAR --}}
