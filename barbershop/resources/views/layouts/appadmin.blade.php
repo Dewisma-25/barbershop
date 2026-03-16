@@ -232,9 +232,9 @@
         </div>
 
         <div class="sidebar-nav">
-            <a href="/admin/admindashboard" class="nav-item {{ request()->routeIs('admin.report*') ? 'active' : '' }}">
+            <a href="/admin/admindashboard" class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="bi bi-file-earmark-bar-graph"></i>
-                <span>Report</span>
+                <span>Dashboard</span>
             </a>
             <a href="/admin/users" class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
                 <i class="bi bi-person"></i>
@@ -245,11 +245,15 @@
                 <span>Cashier Data</span>
             </a>
             <a href="/admin/bookings" class="nav-item {{ request()->routeIs('bookings.*') ? 'active' : '' }}">
-                <i class="bi bi-calendar-check"></i>
+                <i class="bi bi-calendar3"></i>
                 <span>Booking Data</span>
             </a>
+            <a href="/admin/#" class="nav-item {{ request()->routeIs('Transaction.*') ? 'active' : '' }}">
+                <i class="bi bi-credit-card"></i>
+                <span>Transaction</span>
+            </a>
             <a href="/admin/services" class="nav-item {{ request()->routeIs('services.*') ? 'active' : '' }}">
-                <i class="bi bi-shop"></i>
+                <i class="bi bi-grid"></i>
                 <span>Service Data</span>
             </a>
             <a href="/admin/customers" class="nav-item {{ request()->routeIs('customers.*') ? 'active' : '' }}">

@@ -6,68 +6,15 @@
     <title>Edit Booking</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: #f5f5f5;
-        }
-        .container-box {
-            background: linear-gradient(180deg, #1c1c1c, #151515);
-            padding: 30px 28px;
-            border-radius: 10px;
-            width: 420px;
-            position: relative;
-        }
-        .edit-title {
-            text-align: center;
-            color: #ffffff;
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 22px;
-        }
-        .custom-input {
-            background: #e9e9e9;
-            border: none;
-            height: 45px;
-            border-radius: 6px;
-            color: #1a1a1a;
-            font-size: 0.9rem;
-        }
-        .custom-input:focus {
-            background: #e0e0e0;
-            box-shadow: none;
-            border: none;
-        }
-        .input-group-text {
-            background: #e9e9e9;
-            border: none;
-            color: #555;
-            height: 45px;
-        }
-        .btn-cancel {
-            background: #dc3545;
-            color: white;
-            font-weight: 600;
-            border: none;
-            height: 45px;
-            flex: 1;
-        }
-        .btn-cancel:hover { background: #bb2d3b; color: #fff; }
-        .btn-save {
-            background: #a7b27a;
-            color: white;
-            font-weight: 600;
-            border: none;
-            height: 45px;
-            flex: 1;
-        }
-        .btn-save:hover { background: #8e9a63; }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/admin/users/create.css') }}">
 </head>
 <body>
 
 <div class="d-flex align-items-center justify-content-center min-vh-100">
     <div class="container-box">
-        <div class="edit-title">Edit Data Booking</div>
+        <div style="text-align:center; color:#fff; font-size:1rem; font-weight:700; margin-bottom:22px;">
+            Edit Data Booking
+        </div>
 
         @if($errors->any())
             <div style="background:#c0392b; color:#fff; border-radius:6px; padding:8px 12px; margin-bottom:14px; font-size:0.82rem;">
@@ -103,7 +50,7 @@
             </div>
 
             {{-- Barber --}}
-            <div class="input-group mb-4">
+            <div class="input-group mb-3">
                 <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                 <select name="id_barber" class="form-select custom-input">
                     <option value="">-- Pilih Barber --</option>
@@ -113,6 +60,16 @@
                             {{ $barber->nama }}
                         </option>
                     @endforeach
+                </select>
+            </div>
+
+            {{-- Status --}}
+            <div class="input-group mb-4">
+                <span class="input-group-text"><i class="bi bi-flag"></i></span>
+                <select name="status" class="form-select custom-input">
+                    <option value="menunggu" {{ $booking->status === 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                    <option value="diterima" {{ $booking->status === 'diterima' ? 'selected' : '' }}>Diterima</option>
+                    <option value="batal"    {{ $booking->status === 'batal'    ? 'selected' : '' }}>Batal</option>
                 </select>
             </div>
 

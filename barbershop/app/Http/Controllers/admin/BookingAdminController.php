@@ -64,6 +64,7 @@ class BookingAdminController extends Controller
             'tanggal_booking' => 'required|date',
             'jam_booking'     => 'required|in:10:00,11:00,13:00,14:00,15:00,16:00,19:00',
             'id_barber'       => 'nullable|exists:barbers,id',
+            'status'          => 'required|in:menunggu,diterima,batal',
         ]);
 
         $tanggal = $request->tanggal_booking . ' ' . $request->jam_booking . ':00';
@@ -71,6 +72,7 @@ class BookingAdminController extends Controller
         DB::table('bookings')->where('id', $id)->update([
             'tanggal'    => $tanggal,
             'id_barber'  => $request->id_barber ?? null,
+            'status'     => $request->status,
             'updated_at' => Carbon::now(),
         ]);
 

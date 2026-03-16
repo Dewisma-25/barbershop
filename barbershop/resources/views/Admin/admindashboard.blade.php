@@ -1,252 +1,255 @@
 @extends('layouts.appadmin')
 
-@section('title', 'Admin Panel · Laporan')
-
-@section('page-title', 'Laporan')
+@section('title', 'Admin Panel · Dashboard')
+@section('page-title', 'Dashboard')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
 <style>
-    .dark-card {
-        background: #1e1e1e !important;
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+    .stat-card {
+        background: #2D2D2D;
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+    .stat-info p {
+        margin: 0;
+        font-size: 0.78rem;
+        color: #aaa;
+    }
+    .stat-info h4 {
+        margin: 4px 0 0;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #fff;
+    }
+    .row-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+    .dash-card {
+        background: #2D2D2D;
         border-radius: 12px;
         overflow: hidden;
     }
-    .dark-card .user-header {
-        background: #1e1e1e !important;
-    }
-    .dark-card thead th {
-        background: #2e2e2e !important;
-        color: #e0e0e0 !important;
-    }
-    .dark-card tbody tr:nth-child(odd) td {
-        background: #1e1e1e !important;
-        color: #e0e0e0 !important;
-    }
-    .dark-card tbody tr:nth-child(even) td {
-        background: #2e2e2e !important;
-        color: #e0e0e0 !important;
-    }
-    .dark-card.income-card thead th {
-        background: #8b2a1e !important;
-        color: #ffffff !important;
-    }
-    .dark-card.income-card tbody tr td {
-        background: #8b2a1e !important;
-        color: #ffffff !important;
-    }
-
-    /* chart tabs */
-    .chart-tabs {
-        display: flex;
-        gap: 8px;
-        padding: 12px 16px 0;
-    }
-    .chart-tab-btn {
-        background: #3a3a3a;
-        color: #aaaaaa;
-        border: none;
-        border-radius: 20px;
-        padding: 5px 16px;
-        font-size: 0.82rem;
+    .dash-card-header {
+        background: #1e1e1e;
+        padding: 14px 18px;
+        color: #fff;
         font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
-    .chart-tab-btn.active {
-        background: #b5a08c;
-        color: #1a1a1a;
+    .dash-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.84rem;
     }
-    .chart-tab-btn:hover:not(.active) {
-        background: #4a4a4a;
-        color: #ffffff;
+    .dash-table thead th {
+        background: #3E3B3B;
+        color: #ccc;
+        padding: 10px 14px;
+        font-weight: 600;
+        text-align: left;
+    }
+    .dash-table tbody td {
+        padding: 10px 14px;
+        color: #e0e0e0;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        vertical-align: middle;
+    }
+    .dash-table tbody tr:last-child td { border-bottom: none; }
+    .dash-table tbody tr:hover td { background: rgba(255,255,255,0.03); }
+    .status-badge {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+    .status-menunggu { background: rgba(255,193,7,0.15); color: #ffc107; }
+    .status-diterima { background: rgba(76,175,80,0.15); color: #4caf50; }
+    .status-batal    { background: rgba(229,57,53,0.15);  color: #e57373; }
+    @media (max-width: 992px) {
+        .stat-grid  { grid-template-columns: repeat(2, 1fr); }
+        .row-cards  { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 576px) {
+        .stat-grid  { grid-template-columns: 1fr; }
     }
 </style>
 @endpush
 
 @section('content')
+<div style="padding: 0 15px;">
 
 <div class="breadcrumb-panel">
-    <i class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Laporan</span>
+    <i class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Dashboard</span>
 </div>
 
-<div class="d-flex flex-column gap-3">
-
-    {{-- LAPORAN CUSTOMER BULAN INI --}}
-    <div class="user-card">
-        <div class="user-header">
-            <h5 class="mb-0">
-                <i class="bi bi-person-circle me-2"></i> Laporan Customer Bulan Ini
-            </h5>
+{{-- STAT CARDS --}}
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(59,130,246,0.15);">
+            <i class="bi bi-people" style="color:#3b82f6;"></i>
         </div>
-        <table class="table table-borderless user-table mb-0">
+        <div class="stat-info">
+            <p>Total Customer</p>
+            <h4>{{ $totalCustomer }}</h4>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(76,175,80,0.15);">
+            <i class="bi bi-calendar-check" style="color:#4caf50;"></i>
+        </div>
+        <div class="stat-info">
+            <p>Booking Hari Ini</p>
+            <h4>{{ $bookingHariIni }}</h4>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(255,193,7,0.15);">
+            <i class="bi bi-scissors" style="color:#ffc107;"></i>
+        </div>
+        <div class="stat-info">
+            <p>Total Barber</p>
+            <h4>{{ $totalBarber }}</h4>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(181,160,140,0.2);">
+            <i class="bi bi-currency-dollar" style="color:#b5a08c;"></i>
+        </div>
+        <div class="stat-info">
+            <p>Income Bulan Ini</p>
+            <h4 style="font-size:1rem;">Rp {{ number_format($incomeBulanIni, 0, ',', '.') }}</h4>
+        </div>
+    </div>
+</div>
+
+{{-- ROW: BOOKING TERBARU + BARBER --}}
+<div class="row-cards">
+
+    {{-- BOOKING TERBARU --}}
+    <div class="dash-card">
+        <div class="dash-card-header">
+            <i class="bi bi-calendar3"></i> Booking Terbaru
+        </div>
+        <table class="dash-table">
             <thead>
                 <tr>
-                    <th class="text-center">Customer Repeat</th>
-                    <th class="text-center">Customer Baru</th>
-                    <th class="text-center">Total Customer</th>
+                    <th>Customer</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
+                @forelse($bookingTerbaru as $b)
                 <tr>
-                    <td class="text-center fw-bold">{{ $customerRepeat }} Person</td>
-                    <td class="text-center fw-bold">{{ $customerBaru }} Person</td>
-                    <td class="text-center fw-bold">{{ $totalCustomer }} Person</td>
+                    <td>{{ $b->username }}</td>
+                    <td>{{ \Carbon\Carbon::parse($b->tanggal)->format('d/m/Y H:i') }}</td>
+                    <td>
+                        <span class="status-badge status-{{ $b->status }}">
+                            {{ ucfirst($b->status) }}
+                        </span>
+                    </td>
                 </tr>
+                @empty
+                <tr><td colspan="3" class="text-center" style="color:#666;">Belum ada booking.</td></tr>
+                @endforelse
             </tbody>
         </table>
     </div>
 
-    {{-- PESANAN HARI INI --}}
-    <div class="user-card dark-card">
-        <div class="user-header">
-            <span class="btn-add" style="pointer-events:none; background:#b5a08c; color:#1a1a1a;">Pesanan Hari Ini</span>
+    {{-- DATA BARBER --}}
+    <div class="dash-card">
+        <div class="dash-card-header">
+            <i class="bi bi-scissors"></i> Data Barber
         </div>
-        <table class="table table-borderless user-table mb-0">
+        <table class="dash-table">
             <thead>
                 <tr>
-                    <th class="text-center">Laporan Pesanana Selesai</th>
-                    <th class="text-center">Laporan Pesanan Tidak Selesai</th>
+                    <th>Nama</th>
+                    <th>No HP</th>
+                    <th>Alamat</th>
                 </tr>
             </thead>
             <tbody>
+                @forelse($barbers as $barber)
                 <tr>
-                    <td class="text-center">
-                        <i class="bi bi-receipt-cutoff me-1"></i>
-                        pesanan selesai : {{ $pesananSelesai }} person
-                    </td>
-                    <td class="text-center">
-                        <i class="bi bi-receipt-cutoff me-1"></i>
-                        pesanan tidak selesai : {{ $pesananTidakSelesai }} person
-                    </td>
+                    <td>{{ $barber->nama }}</td>
+                    <td>{{ $barber->no_hp ?? '-' }}</td>
+                    <td>{{ $barber->alamat ?? '-' }}</td>
                 </tr>
+                @empty
+                <tr><td colspan="3" class="text-center" style="color:#666;">Belum ada barber.</td></tr>
+                @endforelse
             </tbody>
         </table>
-    </div>
-
-    {{-- INCOME REPORT --}}
-    <div class="user-card dark-card income-card">
-        <div class="user-header">
-            <span class="btn-add" style="pointer-events:none; background:#b5a08c; color:#1a1a1a;">Income Report</span>
-        </div>
-        <table class="table table-borderless user-table">
-            <thead>
-                <tr>
-                    <th class="text-center">Total Income This Month</th>
-                    <th class="text-center">Total Income This Year</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center fw-bold fs-5">
-                        <i class="bi bi-currency-dollar"></i>
-                        Rp {{ number_format($incomeBulanIni, 0, ',', '.') }}
-                    </td>
-                    <td class="text-center fw-bold fs-5">
-                        <i class="bi bi-currency-dollar"></i>
-                        Rp {{ number_format($incomeTahunIni, 0, ',', '.') }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        {{-- TAB BUTTONS --}}
-        <div class="chart-tabs">
-            <button class="chart-tab-btn active" onclick="switchChart('weekly', this)">Mingguan</button>
-            <button class="chart-tab-btn" onclick="switchChart('monthly', this)">Bulanan</button>
-            <button class="chart-tab-btn" onclick="switchChart('yearly', this)">Tahunan</button>
-        </div>
-
-        <div style="background:#1e1e1e; padding: 8px 16px 16px;">
-            <canvas id="incomeChart" style="max-height: 220px;"></canvas>
-        </div>
     </div>
 
 </div>
 
+{{-- ROW: SERVICE --}}
+<div class="dash-card">
+    <div class="dash-card-header">
+        <i class="bi bi-grid"></i> Daftar Service
+    </div>
+    <table class="dash-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Service</th>
+                <th>Harga</th>
+                <th>Estimasi</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($services as $i => $s)
+            <tr>
+                <td>{{ $i + 1 }}</td>
+                <td>{{ $s->nama_service }}</td>
+                <td>Rp {{ number_format($s->harga, 0, ',', '.') }}</td>
+                <td>{{ $s->estimasi_menit }} menit</td>
+                <td>
+                    @if($s->is_active)
+                        <span class="status-badge status-diterima">Aktif</span>
+                    @else
+                        <span class="status-badge status-batal">Nonaktif</span>
+                    @endif
+                </td>
+            </tr>
+            @empty
+            <tr><td colspan="5" class="text-center" style="color:#666;">Belum ada service.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+
+</div>
 @endsection
-
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<script>
-    const chartData = {
-        weekly: {
-            labels: {!! json_encode($weeklyLabels) !!},
-            data:   {!! json_encode($weeklyData) !!},
-        },
-        monthly: {
-            labels: {!! json_encode($monthlyLabels) !!},
-            data:   {!! json_encode($monthlyData) !!},
-        },
-        yearly: {
-            labels: {!! json_encode($yearlyLabels) !!},
-            data:   {!! json_encode($yearlyData) !!},
-        }
-    };
-
-    const ctx = document.getElementById('incomeChart').getContext('2d');
-
-    const chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: chartData.weekly.labels,
-            datasets: [{
-                label: 'Income (Rp)',
-                data: chartData.weekly.data,
-                backgroundColor: 'rgba(180, 80, 60, 0.8)',
-                borderColor: 'rgba(220, 100, 80, 1)',
-                borderWidth: 1,
-                borderRadius: 5,
-                borderSkipped: false,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    labels: { color: '#cccccc', font: { size: 11 } }
-                },
-                tooltip: {
-                    backgroundColor: '#2e2e2e',
-                    titleColor: '#ffffff',
-                    bodyColor: '#cccccc',
-                    callbacks: {
-                        label: function(context) {
-                            return ' Rp ' + context.parsed.y.toLocaleString('id-ID');
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: { color: '#aaaaaa', font: { size: 10 } },
-                    grid: { color: 'rgba(255,255,255,0.05)' }
-                },
-                y: {
-                    ticks: {
-                        color: '#aaaaaa',
-                        font: { size: 10 },
-                        callback: function(value) {
-                            return 'Rp ' + value.toLocaleString('id-ID');
-                        }
-                    },
-                    grid: { color: 'rgba(255,255,255,0.07)' },
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    function switchChart(type, btn) {
-        // update active button
-        document.querySelectorAll('.chart-tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // update chart data
-        chart.data.labels = chartData[type].labels;
-        chart.data.datasets[0].data = chartData[type].data;
-        chart.update();
-    }
-</script>
-@endpush
