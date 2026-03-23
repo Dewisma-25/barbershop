@@ -91,6 +91,7 @@
     .status-menunggu { background: rgba(255,193,7,0.15); color: #ffc107; }
     .status-diterima { background: rgba(76,175,80,0.15); color: #4caf50; }
     .status-batal    { background: rgba(229,57,53,0.15);  color: #e57373; }
+    .status-selesai    { background: rgb(44, 114, 227, 0.15);  color: #3B82F6; }
     @media (max-width: 992px) {
         .stat-grid  { grid-template-columns: repeat(2, 1fr); }
         .row-cards  { grid-template-columns: 1fr; }

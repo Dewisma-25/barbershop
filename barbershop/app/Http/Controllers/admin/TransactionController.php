@@ -85,6 +85,12 @@ class TransactionController extends Controller
             ]);
         }
 
+        $status = Booking::findOrFail($bookingId);
+
+        $status->update([
+            'status' => 'selesai',
+        ]);
+
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diproses');
     }
 

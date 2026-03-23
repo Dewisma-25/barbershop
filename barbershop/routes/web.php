@@ -12,9 +12,10 @@ use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\admin\BookingAdminController;
 use App\Http\Controllers\admin\TransactionController;
 use App\Http\Controllers\admin\AdminDashboardController;
+use App\Http\Controllers\admin\LaporanController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.dashboard');
 });
 
 Route::get('/user/dashboard', function () {
@@ -128,6 +129,14 @@ Route::middleware(['auth', 'role:admin,kasir'])
         Route::get('/transactions/{bookingId}/create', [TransactionController::class, 'create'])->name('transactions.create');
         Route::post('/transactions/{bookingId}/store', [TransactionController::class, 'store'])->name('transactions.store');
         Route::post('/transactions/{bookingId}/complete', [TransactionController::class, 'complete'])->name('transactions.complete');
+    });
+
+//Laporan customer haroan dan pendapatan bulanan
+Route::middleware(['auth', 'role:admin,kasir'])
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+        Route::get('/laporan/print', [LaporanController::class, 'print'])->name('laporan.print');
     });
 
 require __DIR__.'/auth.php';

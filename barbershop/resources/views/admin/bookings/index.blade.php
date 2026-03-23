@@ -53,6 +53,8 @@
                             <span class="badge bg-success">Diterima</span>
                         @elseif($booking->status === 'batal')
                             <span class="badge bg-danger">Batal</span>
+                            @elseif($booking->status === 'selesai')
+                            <span class="badge btn-edit">Selesai</span>
                         @else
                             <span class="badge bg-warning text-dark">Menunggu</span>
                         @endif
@@ -79,7 +81,7 @@
                         @if($booking->status === 'diterima')
                             <a class="btn btn-success btn-sm" href="{{ route('transactions.create', $booking->id) }}">Proses Transaksi</a>
                         @else
-                            <button disabled class="btn btn-secondary btn-sm">Proses Transaksi</button>
+                            <button style="background-color: #2D2D2D;" disabled class="btn btn-secondary btn-sm">Proses Transaksi</button>
                         @endif
                     </td>
                 </tr>
