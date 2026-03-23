@@ -1,10 +1,11 @@
+@push('styles')
+<link rel="stylesheet" href="{{asset('css/user/user_dashboard.css')}}">
+@endpush
 @extends('layouts.app')
 
 @section('title', 'Barbershop - Premium Haircut')
 
-@push('styles')
-<link rel="stylesheet" href="{{asset('css/user/user_dashboard.css')}}">
-@endpush
+
 
 @section('content')
 

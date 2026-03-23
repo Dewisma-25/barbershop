@@ -53,10 +53,10 @@
                 @foreach($transactions as $transaction)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$transaction->customer->user->nama}}</td>
-                    <td>{{$transaction->barber->nama}}</td>
-                    <td>{{$transaction->kasir->user->nama}}</td>
-                    <td>{{$transaction->booking->id}}</td>
+                    <td>{{$transaction->customer->user->nama ?? '-'}}</td>
+                    <td>{{$transaction->barber->nama ?? '-'}}</td>
+                    <td>{{$transaction->kasir->user->nama ?? '-'}}</td>
+                    <td>{{$transaction->booking->id ?? '-'}}</td>
                     <td>{{$transaction->tanggal->format('j/n/Y·H:i')}}</td>
                     <td>{{$transaction->metode_bayar}}</td>
                     <td>Rp {{number_format($transaction->total,0,',','.' )}}</td>
@@ -80,6 +80,13 @@
                             <form action="{{ route('transactions.complete', $transaction->id) }}" method="POST">
                                 @csrf
                                 <button class="btn btn-success btn-sm">
+                                    Selesaikan
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('transactions.complete', $transaction->id) }}" method="POST">
+                                @csrf
+                                <button style="background-color: #2D2D2D;" disabled class="btn btn-secondary btn-sm text-white">
                                     Selesaikan
                                 </button>
                             </form>

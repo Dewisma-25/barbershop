@@ -253,6 +253,10 @@
                 <i class="bi bi-credit-card"></i>
                 <span>Transaction</span>
             </a>
+            <a href="/admin/laporan" class="nav-item {{ request()->routeIs('laporan.*') ? 'active' : '' }}">
+                <i class="bi bi-credit-card"></i>
+                <span>Report Data</span>
+            </a>
             <a href="/admin/services" class="nav-item {{ request()->routeIs('services.*') ? 'active' : '' }}">
                 <i class="bi bi-card-checklist"></i>
                 <span>Service Data</span>
