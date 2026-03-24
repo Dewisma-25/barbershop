@@ -1,82 +1,158 @@
 @extends('layouts.appadmin')
 
 @section('title', 'Admin Panel · Data Services')
-
 @section('page-title', 'Data Services')
 
 @push('styles')
-    <link rel="stylesheet" href="{{asset('css/admin/users/index.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
 @endpush
 
 @section('content')
 
-    <!-- panel atas breadcrumb -->
-    <div class="breadcrumb-panel">
-        <i style="color: black;" class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Service data</span>
-    </div>
+<div class="breadcrumb-panel">
+    <i style="color:black;" class="bi bi-house-door"></i> Panel /
+    <span style="font-weight:500; color:black;">Service data</span>
+</div>
 
-    <!-- CARD UTAMA -->
-    <div class="container-fluid p-0 mt-4">
+<div class="container-fluid p-0 mt-4">
+    <div class="user-card">
 
-        <div class="user-card">
-
-            <div class="user-header">
-                <h5>⚙️ Data Services</h5>
-                <a href="{{route('services.create')}}" class="btn-add">add Services +</a>
-            </div>
+        <div class="user-header">
+            <h5>⚙️ Data Services</h5>
+            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#createModal">
+                add Services +
+            </button>
+        </div>
 
         @if(session('success'))
-        <div class="user-header">
-            <p class="alert alert-success">{{session('success')}}</p>
-        </div>
+            <div class="user-header">
+                <p class="alert alert-success">{{ session('success') }}</p>
+            </div>
         @endif
 
-        <div class="table-wrapper">
-            <table class="table table-borderless user-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Service</th>
-                        <th>Harga</th>
-                        <th>Durasi</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach($services as $service)
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$service->nama_service}}</td>
-                        <td>{{number_format($service->harga, 0, ',' , '.')}}</td>
-                        <td>{{$service->estimasi_menit}} menit</td>
-                        <td>
-                            @if($service->is_active == 1)
+        <table class="table table-borderless user-table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Service</th>
+                    <th>Harga</th>
+                    <th>Durasi</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($services as $service)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $service->nama_service }}</td>
+                    <td>{{ number_format($service->harga, 0, ',', '.') }}</td>
+                    <td>{{ $service->estimasi_menit }} menit</td>
+                    <td>
+                        @if($service->is_active == 1)
                             <span class="badge bg-success">Active</span>
-                            @else
+                        @else
                             <span class="badge bg-secondary">Inactive</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="d-flex gap-2">
-                                <a class="btn-edit text-decoration-none" href="{{route('services.edit', $service->id)}}">Edit</a>
+                        @endif
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button class="btn-edit"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal-{{ $service->id }}">
+                                Edit
+                            </button>
 
-                                <form action="{{ route('services.destroy',$service->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn-delete" type="submit" onclick="return confirm('Yakin ingin menonaktifkan service ini?')">Inaktif</button>
-                                </form>
+                            <form action="{{ route('services.destroy', $service->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn-delete" type="submit"
+                                    onclick="return confirm('Yakin ingin menonaktifkan service ini?')">
+                                    Inaktif
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+
+                {{-- MODAL EDIT per baris --}}
+                <div class="modal fade" id="editModal-{{ $service->id }}" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
+                        <div class="modal-content bg-dark text-white border-0">
+                            <div class="modal-header border-0 pb-0">
+                                <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
+                                    Edit Service
+                                </span>
                             </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            </div>
+                            <form method="POST" action="{{ route('services.update', $service->id) }}">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-body d-flex flex-column gap-3">
+                                    <input type="text" name="nama_service"
+                                           class="form-control custom-input"
+                                           placeholder="nama service"
+                                           value="{{ $service->nama_service }}">
 
-        </div>
+                                    <input type="number" name="harga"
+                                           class="form-control custom-input"
+                                           placeholder="harga"
+                                           value="{{ $service->harga }}">
+
+                                    <input type="number" name="estimasi_menit"
+                                           class="form-control custom-input"
+                                           placeholder="durasi"
+                                           value="{{ $service->estimasi_menit }}">
+
+                                    <select name="is_active" class="form-control custom-input">
+                                        <option value="1" {{ $service->is_active == 1 ? 'selected' : '' }}>Active</option>
+                                        <option value="0" {{ $service->is_active == 0 ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer border-0 d-flex gap-2">
+                                    <button type="button" class="btn flex-fill"
+                                            style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn flex-fill"
+                                            style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                @endforeach
+            </tbody>
+        </table>
 
     </div>
+</div>
+
+{{-- MODAL CREATE --}}
+<div class="modal fade" id="createModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
+        <div class="modal-content bg-dark text-white border-0">
+            <div class="modal-header border-0 pb-0">
+                <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
+                    Tambah Service
+                </span>
+            </div>
+            <form method="POST" action="{{ route('services.store') }}">
+                @csrf
+                <div class="modal-body d-flex flex-column gap-3">
+                    <input type="text"   name="nama_service"   class="form-control custom-input" placeholder="nama service" required>
+                    <input type="number" name="harga"          class="form-control custom-input" placeholder="harga"        required>
+                    <input type="number" name="estimasi_menit" class="form-control custom-input" placeholder="durasi"       required>
+                </div>
+                <div class="modal-footer border-0 d-flex gap-2">
+                    <button type="button" class="btn flex-fill"
+                            style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
+                            data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn flex-fill"
+                            style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection
