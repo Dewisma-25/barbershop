@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use SebastianBergmann\CodeCoverage\Report\Html\CustomCssFile;
 
 class LaporanController extends Controller
@@ -16,12 +17,15 @@ class LaporanController extends Controller
     public function index(Request $request)
     {
 
-        $tanggal = $request->tanggal ?? now()->toDateString();
+        $tanggalAwal = $request->tanggal_awal ? Carbon::parse($request->tanggal_awal)->startOfDay() : now()->startOfMonth();
+        $tanggalAkhir = $request->tanggal_akhir ? Carbon::parse($request->tanggal_akhir)->endOfDay() : now()->endOfMonth();
 
-        $data = Transaction::with('customer.user', 'details.service')->whereBetween('created_at', [
-            $tanggal . ' 00:00:00',
-            $tanggal . ' 23:59:59'
-        ])->get();
+        $data = Transaction::with('customer.user', 'details.service')
+        ->whereBetween('tanggal', [
+            $tanggalAwal,
+            $tanggalAkhir
+        ])->where('status_pembayaran', 'lunas')
+        ->get();
 
         $totalCustomer = $data->count();
 
@@ -44,23 +48,28 @@ class LaporanController extends Controller
         $totals = $dataIncome->pluck('total_harian'); // income per hari
 
         $total = $totals->sum();
-        return view('admin.laporan.index', compact('data', 'totalCustomer', 'tanggal', 'bulan', 'labels', 'totals', 'dataIncome'));
+        return view('admin.laporan.index', compact('data', 'totalCustomer', 'tanggalAwal', 'tanggalAkhir', 'bulan', 'labels', 'totals', 'dataIncome'));
     }
 
 
     public function print(Request $request)
     {
 
-        $tanggal = $request->tanggal ?? now()->toDateString();
+        $tanggalAwal = $request->tanggal_awal ? Carbon::parse($request->tanggal_awal)->startOfDay() : now()->startOfMonth();
+        $tanggalAkhir = $request->tanggal_akhir ? Carbon::parse($request->tanggal_akhir)->endOfDay() : now()->endOfMonth();
 
-        $data = Transaction::with('customer.user', 'details.service')->whereBetween('created_at', [
-            $tanggal . ' 00:00:00',
-            $tanggal . ' 23:59:59'
-        ])->get();
+        // $tanggal = $request->tanggal ?? now()->toDateString();
+
+        $data = Transaction::with('customer.user', 'details.service')->whereBetween('tanggal', [
+            $tanggalAwal,
+            $tanggalAkhir
+        ])
+        ->where('status_pembayaran', 'lunas')
+        ->get();
 
 
         $totalCustomer = $data->count();
 
-        return view('admin.laporan.print', compact('data', 'totalCustomer', 'tanggal'));
+        return view('admin.laporan.print', compact('data', 'totalCustomer', 'tanggalAwal', 'tanggalAkhir'));
     }
 }

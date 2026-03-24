@@ -33,7 +33,7 @@
             background-color: #3E3B3B;
             color: white;
             -webkit-print-color-adjust: exact;
-            print-color-adjust:exact;
+            print-color-adjust: exact;
         }
 
         td {
@@ -77,7 +77,12 @@
         </center>
 
 
-        <p class="mb-1">Tanggal: {{ \Carbon\Carbon::parse($tanggal)->format('d/m/Y') }}</p>
+        <p class="mb-1">
+            Tanggal:
+            {{ $tanggalAwal->translatedFormat('l, d/m/Y') }}
+            -
+            {{ $tanggalAkhir->translatedFormat('l, d/m/Y') }}
+        </p>
         <p>Total Customer: {{ $totalCustomer }}</p>
 
         <table>
@@ -86,7 +91,7 @@
                     <th>No</th>
                     <th>Customer</th>
                     <th>Service</th>
-                    <th>Jam</th>
+                    <th>Waktu</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,7 +111,10 @@
                         -
                         @endforelse
                     </td>
-                    <td>{{ $item->created_at->format('H:i') }}</td>
+                    <td style="text-align: start;">
+                        tanggal: {{ $item->tanggal->translatedFormat('l, d/m/Y') }} <br>
+                        jam: {{$item->tanggal->format('H:i')}}
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

@@ -6,7 +6,6 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
 <style>
-
     table {
         width: 100%;
         border-collapse: collapse;
@@ -46,7 +45,7 @@
 
     .inputBulan {
         width: 25%;
-        background: #2D2D2D ;
+        background: #2D2D2D;
         color: white;
     }
 
@@ -81,9 +80,21 @@
 
             <!-- FILTER TANGGAL -->
             <form class="mb-2" method="GET">
-                <label><strong>Pilih Tanggal:</strong></label>
-                <input class="schedule-input" type="date" name="tanggal" value="{{ request('tanggal') ?? date('Y-m-d') }}">
-                <button class="btn btn-success rounded" type="submit">Tampilkan</button>
+                <label><strong>Pilih Tanggal awal - Tanggal akhir:</strong></label>
+                <p class="mb-0 mt-3">
+                    {{ request('tanggal_awal') 
+                      ? \Carbon\Carbon::parse(request('tanggal_awal'))->translatedFormat('l') 
+                      : '' 
+                    }}
+                </p>
+                <input class="schedule-input mt-0" type="date" name="tanggal_awal" value="{{ request('tanggal_awal') ? \Carbon\Carbon::parse(request('tanggal_awal'))->format('Y-m-d') : date('Y-m-01') }}" onchange="this.form.submit()">
+                <p class="mb-0 mt-1">
+                    {{ request('tanggal_akhir') 
+                      ? \Carbon\Carbon::parse(request('tanggal_akhir'))->translatedFormat('l') 
+                      : '' 
+                    }}
+                </p>
+                <input class="schedule-input mt-0" type="date" name="tanggal_akhir" value="{{ request('tanggal_akhir') ? \Carbon\Carbon::parse(request('tanggal_akhir'))->format('Y-m-d') : date('Y-m-t') }}" onchange="this.form.submit()">
             </form>
 
             <button style="width: 19%;" class="mt-2 btn-edit rounded" onclick="printLaporan()">Print</button>
@@ -136,58 +147,58 @@
             </tbody>
         </table>
 
-<div >
-    <h2 class="mt-5 mb-0"><strong>Income Harian</strong></h2>
-    <form class="mt-2 mb-2" method="GET">
-    <select class="inputBulan" name="bulan" class="form-control" onchange="this.form.submit()">
-        @for ($i = 1; $i <= 12; $i++)
-            <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
-                {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
-            </option>
-        @endfor
-    </select>
-</form>
-    <canvas class="mt-0" id="incomeChart" height="100"></canvas>
+        <div>
+            <h2 class="mt-5 mb-0"><strong>Income Harian</strong></h2>
+            <form class="mt-2 mb-2" method="GET">
+                <select class="inputBulan" name="bulan" class="form-control" onchange="this.form.submit()">
+                    @for ($i = 1; $i <= 12; $i++)
+                        <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
+                        {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+                        </option>
+                        @endfor
+                </select>
+            </form>
+            <canvas class="mt-0" id="incomeChart" height="100"></canvas>
 
-</div>
+        </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
 
-    const labels = <?= json_encode($labels) ?>;
-    const totals = <?= json_encode($totals) ?>;
+                const labels = <?= json_encode($labels) ?>;
+                const totals = <?= json_encode($totals) ?>;
 
-    const ctx = document.getElementById('incomeChart').getContext('2d');
+                const ctx = document.getElementById('incomeChart').getContext('2d');
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Income Harian',
-                data: totals,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function(value) {
-                            return 'Rp ' + value.toLocaleString('id-ID');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Income Harian',
+                            data: totals,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return 'Rp ' + value.toLocaleString('id-ID');
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            }
-        }
-    });
+                });
 
-});
-</script>
+            });
+        </script>
 
     </div>
 
@@ -195,14 +206,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script>
     function printLaporan() {
-        let tanggal = document.querySelector('input[name=tanggal]').value;
+        let tanggalAwal = document.querySelector('input[name=tanggal_awal]').value;
+        let tanggalAkhir = document.querySelector('input[name=tanggal_akhir]').value;
 
-        if (!tanggal) {
+        if (!tanggalAwal || !tanggalAkhir) {
             alert('Pilih tanggal dulu!');
             return;
         }
 
-        window.open('/admin/laporan/print?tanggal=' + tanggal, '_blank');
+        window.open(`/admin/laporan/print?tanggal_awal=${tanggalAwal}&tanggal_akhir=${tanggalAkhir}`, '_blank');
     }
 </script>
 
