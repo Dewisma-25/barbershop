@@ -9,22 +9,16 @@
 @endpush
 
 @section('content')
-
-    <!-- panel atas breadcrumb -->
     <div class="breadcrumb-panel">
         <i style="color: black;" class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">User data</span>
     </div>
     <div class="page-title">Data Customers</div>
 
-    <!-- CARD UTAMA -->
     <div class="container mt-4">
-
         <div class="user-card">
-
             <div class="user-header">
                 <h5>👤 Data Customers</h5>
             </div>
-
             <table class="table table-borderless user-table">
                 <thead>
                     <tr>
@@ -35,7 +29,6 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     @foreach($customers as $customer)
                     <tr>
@@ -58,9 +51,7 @@
                     @endforeach
                 </tbody>
             </table>
-
         </div>
-
     </div>
 
 @endsection
