@@ -12,7 +12,7 @@
 
     <!-- panel atas breadcrumb -->
     <div class="breadcrumb-panel">
-        <i style="color: black;" class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Customers data</span>
+        <i style="color: black;" class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">User data</span>
     </div>
     <div class="page-title">Data Customers</div>
 
@@ -25,17 +25,11 @@
                 <h5>👤 Data Customers</h5>
             </div>
 
-        @if(session('success'))
-        <div class="user-header">
-            <p class="alert alert-success">{{session('success')}}</p>
-        </div>
-        @endif
-
             <table class="table table-borderless user-table">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Id User</th>
+                        <th>Username</th>
                         <th>Alamat</th>
                         <th>No Telp</th>
                         <th>Action</th>
@@ -46,7 +40,7 @@
                     @foreach($customers as $customer)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$customer->id_user}}</td>
+                        <td>{{$customer->user->username ?? '-'}}</td>
                         <td>{{$customer->alamat}}</td>
                         <td>{{$customer->no_hp}}</td>
                         <td>
