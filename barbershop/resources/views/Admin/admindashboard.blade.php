@@ -19,6 +19,11 @@
         display: flex;
         align-items: center;
         gap: 16px;
+        transition: transform 0.2s, background 0.2s;
+    }
+    .stat-card:hover {
+        background: #3a3a3a;
+        transform: translateY(-3px);
     }
     .stat-icon {
         width: 50px;
@@ -30,17 +35,9 @@
         font-size: 1.4rem;
         flex-shrink: 0;
     }
-    .stat-info p {
-        margin: 0;
-        font-size: 0.78rem;
-        color: #aaa;
-    }
-    .stat-info h4 {
-        margin: 4px 0 0;
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #fff;
-    }
+    .stat-info p { margin: 0; font-size: 0.78rem; color: #aaa; }
+    .stat-info h4 { margin: 4px 0 0; font-size: 1.4rem; font-weight: 700; color: #fff; }
+
     .row-cards {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -51,6 +48,7 @@
         background: #2D2D2D;
         border-radius: 12px;
         overflow: hidden;
+        margin-bottom: 20px;
     }
     .dash-card-header {
         background: #1e1e1e;
@@ -73,6 +71,7 @@
         padding: 10px 14px;
         font-weight: 600;
         text-align: left;
+        white-space: nowrap;
     }
     .dash-table tbody td {
         padding: 10px 14px;
@@ -80,31 +79,42 @@
         border-bottom: 1px solid rgba(255,255,255,0.04);
         vertical-align: middle;
     }
-    
     .dash-table tbody tr:last-child td { border-bottom: none; }
     .dash-table tbody tr:hover td { background: rgba(255,255,255,0.03); }
+
+    /* table scroll on small screens */
+    .table-wrap { overflow-x: auto; }
+
     .status-badge {
         padding: 3px 10px;
         border-radius: 20px;
         font-size: 0.75rem;
         font-weight: 600;
+        white-space: nowrap;
     }
-    .status-menunggu { background: rgba(255,193,7,0.15); color: #ffc107; }
-    .status-diterima { background: rgba(76,175,80,0.15); color: #4caf50; }
-    .status-batal    { background: rgba(229,57,53,0.15);  color: #e57373; }
-    .status-selesai    { background: rgb(44, 114, 227, 0.15);  color: #3B82F6; }
+    .status-menunggu { background: rgba(255,193,7,0.15);   color: #ffc107; }
+    .status-diterima { background: rgba(76,175,80,0.15);   color: #4caf50; }
+    .status-batal    { background: rgba(229,57,53,0.15);   color: #e57373; }
+    .status-selesai  { background: rgba(59,130,246,0.15);  color: #3b82f6; }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 992px) {
-        .stat-grid  { grid-template-columns: repeat(2, 1fr); }
+        .stat-grid { grid-template-columns: repeat(2, 1fr); }
         .row-cards  { grid-template-columns: 1fr; }
     }
     @media (max-width: 576px) {
+        .stat-grid  { grid-template-columns: 1fr 1fr; }
+        .stat-card  { padding: 14px; gap: 10px; }
+        .stat-icon  { width: 38px; height: 38px; font-size: 1.1rem; }
+        .stat-info h4 { font-size: 1.1rem; }
+    }
+    @media (max-width: 400px) {
         .stat-grid  { grid-template-columns: 1fr; }
     }
 </style>
 @endpush
 
 @section('content')
-<div style="padding: 0 15px;">
 
 <div class="breadcrumb-panel">
     <i class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Dashboard</span>
@@ -112,7 +122,7 @@
 
 {{-- STAT CARDS --}}
 <div class="stat-grid">
-    <div class="stat-card">
+    <a href="{{ route('customers.index') }}" class="stat-card text-decoration-none">
         <div class="stat-icon" style="background:rgba(59,130,246,0.15);">
             <i class="bi bi-people" style="color:#3b82f6;"></i>
         </div>
@@ -120,9 +130,8 @@
             <p>Total Customer</p>
             <h4>{{ $totalCustomer }}</h4>
         </div>
-    </div>
-
-    <div class="stat-card">
+    </a>
+    <a href="{{ route('bookings.index') }}" class="stat-card text-decoration-none">
         <div class="stat-icon" style="background:rgba(76,175,80,0.15);">
             <i class="bi bi-calendar-check" style="color:#4caf50;"></i>
         </div>
@@ -130,9 +139,8 @@
             <p>Booking Hari Ini</p>
             <h4>{{ $bookingHariIni }}</h4>
         </div>
-    </div>
-
-    <div class="stat-card">
+    </a>
+    <a href="{{ route('barbers.index') }}" class="stat-card text-decoration-none">
         <div class="stat-icon" style="background:rgba(255,193,7,0.15);">
             <i class="bi bi-scissors" style="color:#ffc107;"></i>
         </div>
@@ -140,9 +148,8 @@
             <p>Total Barber</p>
             <h4>{{ $totalBarber }}</h4>
         </div>
-    </div>
-
-    <div class="stat-card">
+    </a>
+    <a href="{{ route('laporan.index') }}" class="stat-card text-decoration-none">
         <div class="stat-icon" style="background:rgba(181,160,140,0.2);">
             <i class="bi bi-currency-dollar" style="color:#b5a08c;"></i>
         </div>
@@ -150,108 +157,109 @@
             <p>Income Bulan Ini</p>
             <h4 style="font-size:1rem;">Rp {{ number_format($incomeBulanIni, 0, ',', '.') }}</h4>
         </div>
-    </div>
+    </a>
 </div>
 
-{{-- ROW: BOOKING TERBARU + BARBER --}}
+{{-- BOOKING TERBARU + BARBER --}}
 <div class="row-cards">
-
-    {{-- BOOKING TERBARU --}}
-    <div class="dash-card">
+    <div class="dash-card" style="margin-bottom:0;">
         <div class="dash-card-header">
             <i class="bi bi-calendar3"></i> Booking Terbaru
         </div>
-        <table class="dash-table">
-            <thead>
-                <tr>
-                    <th>Customer</th>
-                    <th>Tanggal</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($bookingTerbaru as $b)
-                <tr>
-                    <td>{{ $b->username }}</td>
-                    <td>{{ \Carbon\Carbon::parse($b->tanggal)->format('d/m/Y H:i') }}</td>
-                    <td>
-                        <span class="status-badge status-{{ $b->status }}">
-                            {{ ucfirst($b->status) }}
-                        </span>
-                    </td>
-                </tr>
-                @empty
-                <tr><td colspan="3" class="text-center" style="color:#666;">Belum ada booking.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
+        <div class="table-wrap">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($bookingTerbaru as $b)
+                    <tr>
+                        <td>{{ $b->username }}</td>
+                        <td>{{ \Carbon\Carbon::parse($b->tanggal)->format('d/m/Y H:i') }}</td>
+                        <td>
+                            <span class="status-badge status-{{ $b->status }}">
+                                {{ ucfirst($b->status) }}
+                            </span>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr><td colspan="3" class="text-center" style="color:#666; padding:16px;">Belum ada booking.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    {{-- DATA BARBER --}}
-    <div class="dash-card">
+    <div class="dash-card" style="margin-bottom:0;">
         <div class="dash-card-header">
             <i class="bi bi-scissors"></i> Data Barber
         </div>
-        <table class="dash-table">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>No HP</th>
-                    <th>Alamat</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($barbers as $barber)
-                <tr>
-                    <td>{{ $barber->nama }}</td>
-                    <td>{{ $barber->no_hp ?? '-' }}</td>
-                    <td>{{ $barber->alamat ?? '-' }}</td>
-                </tr>
-                @empty
-                <tr><td colspan="3" class="text-center" style="color:#666;">Belum ada barber.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
+        <div class="table-wrap">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>No HP</th>
+                        <th>Alamat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($barbers as $barber)
+                    <tr>
+                        <td>{{ $barber->nama }}</td>
+                        <td>{{ $barber->no_hp ?? '-' }}</td>
+                        <td>{{ $barber->alamat ?? '-' }}</td>
+                    </tr>
+                    @empty
+                    <tr><td colspan="3" class="text-center" style="color:#666; padding:16px;">Belum ada barber.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
-
 </div>
 
-{{-- ROW: SERVICE --}}
+{{-- DAFTAR SERVICE --}}
 <div class="dash-card">
     <div class="dash-card-header">
         <i class="bi bi-card-checklist"></i> Daftar Service
     </div>
-    <table class="dash-table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama Service</th>
-                <th>Harga</th>
-                <th>Estimasi</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($services as $i => $s)
-            <tr>
-                <td>{{ $i + 1 }}</td>
-                <td>{{ $s->nama_service }}</td>
-                <td>Rp {{ number_format($s->harga, 0, ',', '.') }}</td>
-                <td>{{ $s->estimasi_menit }} menit</td>
-                <td>
-                    @if($s->is_active)
-                        <span class="status-badge status-diterima">Aktif</span>
-                    @else
-                        <span class="status-badge status-batal">Nonaktif</span>
-                    @endif
-                </td>
-            </tr>
-            @empty
-            <tr><td colspan="5" class="text-center" style="color:#666;">Belum ada service.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
+    <div class="table-wrap">
+        <table class="dash-table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Service</th>
+                    <th>Harga</th>
+                    <th>Estimasi</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($services as $i => $s)
+                <tr>
+                    <td>{{ $i + 1 }}</td>
+                    <td>{{ $s->nama_service }}</td>
+                    <td>Rp {{ number_format($s->harga, 0, ',', '.') }}</td>
+                    <td>{{ $s->estimasi_menit }} menit</td>
+                    <td>
+                        @if($s->is_active)
+                            <span class="status-badge status-diterima">Aktif</span>
+                        @else
+                            <span class="status-badge status-batal">Nonaktif</span>
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                <tr><td colspan="5" class="text-center" style="color:#666; padding:16px;">Belum ada service.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
 
-</div>
 @endsection
