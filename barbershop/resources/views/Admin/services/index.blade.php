@@ -14,7 +14,6 @@
     <div class="breadcrumb-panel">
         <i style="color: black;" class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Service data</span>
     </div>
-    <div class="page-title">Data Services</div>
 
     <!-- CARD UTAMA -->
     <div class="container-fluid p-0 mt-4">
