@@ -15,54 +15,52 @@ class LaporanController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         $tanggal = $request->tanggal ?? now()->toDateString();
 
         $data = Transaction::with('customer.user', 'details.service')->whereBetween('created_at', [
             $tanggal . ' 00:00:00',
             $tanggal . ' 23:59:59'
         ])->get();
-        
+
         $totalCustomer = $data->count();
 
 
-    $bulan = $request->bulan ?? now()->month;
+        $bulan = $request->bulan ?? now()->month;
 
-    $dataIncome = Transaction::select(
-            DB::raw('DAY(created_at) as hari'),
+        $dataIncome = Transaction::select(
+            DB::raw('DAY(tanggal) as hari'),
             DB::raw('SUM(total) as total_harian')
         )
-        ->whereMonth('created_at', $bulan)
-        ->groupBy('hari')
-        ->orderBy('hari')
-        ->get();
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', now()->year)
+            ->where('status_pembayaran', 'lunas')
+            ->groupBy('hari')
+            ->orderBy('hari')
+            ->get();
 
-    // Siapkan array untuk chart
-    $labels = $dataIncome->pluck('hari'); // tanggal (1,2,3,...)
-    $totals = $dataIncome->pluck('total_harian'); // income per hari
+        // Siapkan array untuk chart
+        $labels = $dataIncome->pluck('hari'); // tanggal (1,2,3,...)
+        $totals = $dataIncome->pluck('total_harian'); // income per hari
 
-    $total = $totals->sum();
+        $total = $totals->sum();
         return view('admin.laporan.index', compact('data', 'totalCustomer', 'tanggal', 'bulan', 'labels', 'totals', 'dataIncome'));
     }
 
 
     public function print(Request $request)
     {
-        
+
         $tanggal = $request->tanggal ?? now()->toDateString();
 
         $data = Transaction::with('customer.user', 'details.service')->whereBetween('created_at', [
             $tanggal . ' 00:00:00',
             $tanggal . ' 23:59:59'
         ])->get();
-        
+
 
         $totalCustomer = $data->count();
 
         return view('admin.laporan.print', compact('data', 'totalCustomer', 'tanggal'));
     }
-
-
-
-
 }
