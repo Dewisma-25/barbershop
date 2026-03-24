@@ -1,7 +1,7 @@
 @extends('layouts.appadmin')
 
 @section('title', 'Admin Panel · Data Users')
-@section('page-title', 'Data User')
+@section('page-title', 'Data Barber')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">

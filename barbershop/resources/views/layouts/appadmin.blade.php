@@ -8,16 +8,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/layouts/appadmin.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
     @stack('styles')
 </head>
 <body>
 
-    {{-- CHECKBOX HACK — harus di luar semua wrapper --}}
+    {{-- CHECKBOX HACK --}}
     <input type="checkbox" id="sidebar-toggle">
 
-    {{-- OVERLAY — klik untuk tutup sidebar (pakai label) --}}
+    {{-- OVERLAY --}}
     <label for="sidebar-toggle" class="sidebar-overlay"></label>
 
     {{-- SIDEBAR --}}
@@ -35,9 +34,6 @@
             </a>
             <a href="/admin/users" class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
                 <i class="bi bi-person"></i><span>User Data</span>
-            </a>
-            <a href="/admin/kasir" class="nav-item {{ request()->routeIs('kasir.*') ? 'active' : '' }}">
-                <i class="bi bi-receipt"></i><span>Cashier Data</span>
             </a>
             <a href="/admin/bookings" class="nav-item {{ request()->routeIs('bookings.*') ? 'active' : '' }}">
                 <i class="bi bi-calendar3"></i><span>Booking Data</span>
@@ -73,7 +69,6 @@
     <div class="main-wrapper">
         <div class="topbar">
             <div class="topbar-left">
-                {{-- Hamburger label --}}
                 <label for="sidebar-toggle" class="btn-toggle">
                     <i class="bi bi-list"></i>
                 </label>
@@ -81,8 +76,8 @@
             </div>
             <div class="topbar-right">
                 <div class="topbar-user">
-                    <div class="avatar">A</div>
-                    <span>Admin</span>
+                    <!-- <div class="avatar">A</div>
+                    <span>Admin</span> -->
                 </div>
             </div>
         </div>
@@ -92,6 +87,7 @@
         </div>
     </div>
 
+    {{-- Bootstrap JS hanya sekali, di bawah --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
 
