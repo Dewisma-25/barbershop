@@ -27,6 +27,7 @@
             <h5 class="mb-0">Customer Booking Data</h5>
         </div>
 
+        <div class="table-wrapper">
         <table class="table table-borderless user-table mb-0">
             <thead>
                 <tr>
@@ -92,6 +93,7 @@
                 @endforelse
             </tbody>
         </table>
+        </div>
     </div>
 
 </div>
