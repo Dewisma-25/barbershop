@@ -66,7 +66,7 @@
     <i class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Data Laporan</span>
 </div>
 
-<div class="container mt-4">
+<div class="container-fluid p-0 mt-4">
 
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -75,7 +75,7 @@
     </div>
     @endif
 
-    <div class="container container-head p-0 m-0 d-flex gap-3 justify-content-start">
+    <div class="container-fluid container-head p-0 m-0 d-flex gap-3 justify-content-start">
         <div class="header-logic p-4 gap-2 mb-5 rounded d-flex flex-column align-items-start">
             <h5 class="mb-2">Booking Harian</h5>
 

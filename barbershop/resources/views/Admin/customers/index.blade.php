@@ -14,7 +14,7 @@
     </div>
     <div class="page-title">Data Customers</div>
 
-    <div class="container mt-4">
+    <div class="container-fluid p-0 mt-4">
         <div class="user-card">
             <div class="user-header">
                 <h5>👤 Data Customers</h5>

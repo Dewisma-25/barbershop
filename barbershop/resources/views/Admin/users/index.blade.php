@@ -17,7 +17,8 @@
 <div class="page-title">Data User</div>
 
 <!-- CARD UTAMA -->
-<div class="container mt-4">
+<div class="container-fluid p-0 mt-4">
+
 
     <div class="user-card">
 
@@ -31,6 +32,7 @@
         </div>
         @endif
 
+        <div class="table-wrapper">
         <table class="table table-borderless user-table">
             <thead>
                 <tr>
@@ -70,6 +72,7 @@
             </tbody>
         </table>
 
+    </div>
     </div>
 
 </div>

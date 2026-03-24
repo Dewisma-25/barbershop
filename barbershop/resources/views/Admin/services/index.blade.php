@@ -17,7 +17,7 @@
     <div class="page-title">Data Services</div>
 
     <!-- CARD UTAMA -->
-    <div class="container mt-4">
+    <div class="container-fluid p-0 mt-4">
 
         <div class="user-card">
 

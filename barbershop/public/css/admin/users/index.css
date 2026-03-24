@@ -242,8 +242,19 @@
         /* khusus table */
         .user-card {
             border-radius: 12px;
+            width: 100%;
             padding: 0;
             overflow: hidden;
+        }
+
+        .user-table {
+            width: 100%;
+            min-width: 500px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
         }
 
         .user-table thead th {
@@ -309,3 +320,101 @@
         .user-table th {
             border: none !important;
         }
+
+        /* ===== RESPONSIVE ===== */
+
+/* Tablet (≤ 992px) */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        padding: 16px 18px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Mobile landscape / small tablet (≤ 768px) */
+@media (max-width: 768px) {
+
+    /* Sidebar disembunyikan, layout berubah jadi kolom */
+    .admin-wrapper {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Nav item sidebar jadi horizontal scroll */
+    .sidebar-nav {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 8px 0;
+    }
+
+    .sidebar-nav .nav-item {
+        flex-shrink: 0;
+        padding: 10px 14px;
+        margin: 0 4px;
+    }
+
+    .sidebar-footer {
+        display: none; /* sembunyikan footer sidebar di mobile */
+    }
+
+    .main-content {
+        padding: 14px;
+        overflow-y: visible;
+    }
+
+    /* Tabel scroll horizontal */
+    .user-card,
+    .panel-card {
+        overflow-x: auto;
+    }
+
+    .table-user-data,
+    .user-table {
+        min-width: 600px; /* paksa scroll kalau layar sempit */
+    }
+
+    .action-btns {
+        flex-direction: column;
+        gap: 6px;
+    }
+}
+
+/* Mobile portrait (≤ 480px) */
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.2rem;
+    }
+
+    .breadcrumb-panel {
+        font-size: 0.8rem;
+    }
+
+    .user-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .btn-add {
+        width: 100%;
+        text-align: center;
+    }
+
+    .section-label {
+        font-size: 1.1rem;
+    }
+}

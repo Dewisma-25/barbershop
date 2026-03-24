@@ -13,7 +13,7 @@
     <i class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Booking Data</span>
 </div>
 
-<div class="container mt-4">
+<div class="container-fluid p-0 mt-4">
 
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
