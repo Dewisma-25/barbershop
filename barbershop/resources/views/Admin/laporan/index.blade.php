@@ -6,10 +6,6 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
 <style>
-    body {
-        font-family: Arial;
-        padding: 20px;
-    }
 
     table {
         width: 100%;
@@ -25,7 +21,7 @@
 
     .header-logic {
         background: #2D2D2D;
-        width: 40%;
+        width: 100%;
         color: white;
         margin: 0px;
     }
@@ -46,6 +42,12 @@
         position: relative;
         bottom: 1.5rem;
         margin: 0px;
+    }
+
+    .inputBulan {
+        width: 25%;
+        background: #2D2D2D ;
+        color: white;
     }
 
     @media print {
@@ -73,7 +75,7 @@
     </div>
     @endif
 
-    <div class="container container-head d-flex gap-3 justify-content-start">
+    <div class="container container-head p-0 m-0 d-flex gap-3 justify-content-start">
         <div class="header-logic p-4 gap-2 mb-5 rounded d-flex flex-column align-items-start">
             <h5 class="mb-2">Booking Harian</h5>
 
@@ -136,7 +138,17 @@
 
 <div >
     <h2 class="mt-5 mb-0"><strong>Income Harian</strong></h2>
+    <form class="mt-2 mb-2" method="GET">
+    <select class="inputBulan" name="bulan" class="form-control" onchange="this.form.submit()">
+        @for ($i = 1; $i <= 12; $i++)
+            <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
+                {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+            </option>
+        @endfor
+    </select>
+</form>
     <canvas class="mt-0" id="incomeChart" height="100"></canvas>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>

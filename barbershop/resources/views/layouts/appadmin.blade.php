@@ -254,7 +254,7 @@
                 <span>Transaction</span>
             </a>
             <a href="/admin/laporan" class="nav-item {{ request()->routeIs('laporan.*') ? 'active' : '' }}">
-                <i class="bi bi-credit-card"></i>
+                <i class="bi bi-bar-chart-line"></i>
                 <span>Report Data</span>
             </a>
             <a href="/admin/services" class="nav-item {{ request()->routeIs('services.*') ? 'active' : '' }}">

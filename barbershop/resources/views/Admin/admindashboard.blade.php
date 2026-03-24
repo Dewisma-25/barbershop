@@ -80,6 +80,7 @@
         border-bottom: 1px solid rgba(255,255,255,0.04);
         vertical-align: middle;
     }
+    
     .dash-table tbody tr:last-child td { border-bottom: none; }
     .dash-table tbody tr:hover td { background: rgba(255,255,255,0.03); }
     .status-badge {

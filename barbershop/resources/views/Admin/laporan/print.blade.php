@@ -29,6 +29,17 @@
             border-collapse: collapse;
         }
 
+        th {
+            background-color: #3E3B3B;
+            color: white;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust:exact;
+        }
+
+        td {
+            color: #3E3B3B;
+        }
+
         th,
         td {
             border: 1px solid black;
@@ -36,15 +47,12 @@
             text-align: center;
         }
 
-        .garis {
+        .gariss {
             width: 60%;
-            height: 5px;
-            background: #000000;
-            color: black;
-        }
-
-        th {
-            background: #eee;
+            border-top: 3px solid black;
+            border-bottom: none;
+            border-left: none;
+            border-right: none;
         }
 
         @media print {
@@ -56,52 +64,55 @@
 </head>
 
 <body class="pt-5">
-    <div class="d-flex flex-column text-center align-items-center mb-1">
-        <h1 class="m-0"><strong>Barbershop Report</strong></h1>
-        <p class="m-0"><strong>Laporan Booking Harian</strong></p>
-    </div>
-    <center>
-        <div class="garis mb-5">
+    <div class="container-md">
+
+
+        <div class="d-flex flex-column text-center align-items-center mb-3">
+            <h1 class="m-0"><strong>Barbershop Report</strong></h1>
+            <p class="m-0"><strong>Laporan Booking Harian</strong></p>
         </div>
+        <center>
+            <div class="mb-4 gariss">
+            </div>
+        </center>
 
-    </center>
 
+        <p class="mb-1">Tanggal: {{ \Carbon\Carbon::parse($tanggal)->format('d/m/Y') }}</p>
+        <p>Total Customer: {{ $totalCustomer }}</p>
 
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Jam</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if($data->isEmpty())
+                <tr>
+                    <td colspan="4">Tidak ada data</td>
+                </tr>
+                @endif
+                @foreach($data as $i => $item)
+                <tr>
+                    <td>{{ $i+1 }}</td>
+                    <td>{{ $item->customer->user->nama ?? '-' }}</td>
+                    <td>
+                        @forelse($item->details as $d)
+                        {{ $d->service->nama_service ?? '-' }}<br>
+                        @empty
+                        -
+                        @endforelse
+                    </td>
+                    <td>{{ $item->created_at->format('H:i') }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-    <p class="mb-1">Tanggal: {{ \Carbon\Carbon::parse($tanggal)->format('d/m/Y') }}</p>
-    <p>Total Customer: {{ $totalCustomer }}</p>
-
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Customer</th>
-                <th>Service</th>
-                <th>Jam</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if($data->isEmpty())
-            <tr>
-                <td colspan="4">Tidak ada data</td>
-            </tr>
-            @endif
-            @foreach($data as $i => $item)
-            <tr>
-                <td>{{ $i+1 }}</td>
-                <td>{{ $item->customer->user->nama ?? '-' }}</td>
-                <td>
-                    @forelse($item->details as $d)
-                    {{ $d->service->nama_service ?? '-' }}<br>
-                    @empty
-                    -
-                    @endforelse
-                </td>
-                <td>{{ $item->created_at->format('H:i') }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    </div>
 
     <script>
         window.onload = function() {
