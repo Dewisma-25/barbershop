@@ -170,7 +170,7 @@
             <select name="metode_bayar" class="custom-select" required>
                 <option value="" disabled selected>Pilih Metode Bayar</option>
                 <option value="tunai">Tunai</option>
-                <option value="qris">Barbershop Qris</option>
+                <option value="qris">Qris</option>
             </select>
 
             {{-- INFO CUSTOMER --}}

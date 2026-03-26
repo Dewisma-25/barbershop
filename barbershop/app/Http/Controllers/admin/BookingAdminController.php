@@ -15,13 +15,28 @@ class BookingAdminController extends Controller
             ->join('customers', 'bookings.id_customer', '=', 'customers.id')
             ->join('users', 'customers.id_user', '=', 'users.id')
             ->leftJoin('barbers', 'bookings.id_barber', '=', 'barbers.id')
+            ->leftJoin('booking_details', 'bookings.id', '=', 'booking_details.id_booking')
+            ->leftJoin('transactions', 'bookings.id', '=', 'transactions.id_booking')
             ->select(
                 'bookings.id',
                 'bookings.tanggal',
                 'bookings.status',
+                'bookings.id_barber',
                 'users.username',
                 'users.email',
-                'barbers.nama as nama_barber'
+                'barbers.nama as nama_barber',
+                DB::raw('SUM(booking_details.harga) as total_harga'),
+                'transactions.id as transaction_id'
+            )
+            ->groupBy(
+                'bookings.id',
+                'bookings.tanggal',
+                'bookings.status',
+                'bookings.id_barber',
+                'users.username',
+                'users.email',
+                'barbers.nama',
+                'transactions.id'
             )
             ->orderBy('bookings.tanggal', 'desc')
             ->get();

@@ -53,7 +53,9 @@ class TransactionController extends Controller
         $booking = Booking::with('details')->findOrFail($bookingId);
 
         if (Transaction::where('id_booking', $booking->id)->exists()) {
-            return back()->with('error', 'Booking sudah memiliki transaksi');
+            return back()->with('error', 'Booking sudah memiliki transaksi')
+            ->with('booking_id', $booking->id);
+            
         }
 
         $kasir = Auth::user()->kasir;
