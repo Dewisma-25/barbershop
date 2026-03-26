@@ -15,7 +15,9 @@ class UserController extends Controller
     //menampilkan data dari tab;e users
     public function index()
     {
-        $users = User::get();
+        $users = User::with('kasir')
+        ->whereIn('role', ['admin', 'kasir'])
+        ->get();
 
         return view('admin.users.index', compact('users'));
     }

@@ -1,7 +1,7 @@
 @extends('layouts.appadmin')
 
-@section('title', 'Admin Panel · Data Laporan')
-@section('page-title', 'Laporan')
+@section('title', 'Admin Panel · Report data')
+@section('page-title', 'Report data')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
@@ -62,7 +62,7 @@
 @section('content')
 
 <div class="breadcrumb-panel">
-    <i class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Data Laporan</span>
+    <i class="bi bi-house-door"></i> Panel / <span style="font-weight:500; color:black;">Report data</span>
 </div>
 
 <div class="container-fluid p-0 mt-4">
@@ -76,11 +76,11 @@
 
     <div class="container-fluid container-head p-0 m-0 d-flex gap-3 justify-content-start">
         <div class="header-logic p-4 gap-2 mb-5 rounded d-flex flex-column align-items-start">
-            <h5 class="mb-2">Booking Harian</h5>
+            <h5 class="mb-2">Daily booking</h5>
 
             <!-- FILTER TANGGAL -->
             <form class="mb-2" method="GET">
-                <label><strong>Pilih Tanggal awal - Tanggal akhir:</strong></label>
+                <label><strong>Choose first date - last fate:</strong></label>
                 <p class="mb-0 mt-3">
                     {{ request('tanggal_awal') 
                       ? \Carbon\Carbon::parse(request('tanggal_awal'))->translatedFormat('l') 
@@ -111,7 +111,7 @@
 
     <div class="user-card">
         <div class="user-header">
-            <h5 class="mb-0">Data Laporan</h5>
+            <h5 class="mb-0">Report data</h5>
         </div>
 
 
@@ -127,7 +127,7 @@
             <tbody>
                 @if($data->isEmpty())
                 <tr>
-                    <td colspan="4">Tidak ada data</td>
+                    <td colspan="4">There's no data yet</td>
                 </tr>
                 @endif
                 @foreach($data as $i => $item)
@@ -148,7 +148,7 @@
         </table>
 
         <div>
-            <h2 class="mt-5 mb-0"><strong>Income Harian</strong></h2>
+            <h2 class="mt-5 mb-0"><strong>Daily income</strong></h2>
             <form class="mt-2 mb-2" method="GET">
                 <select class="inputBulan" name="bulan" class="form-control" onchange="this.form.submit()">
                     @for ($i = 1; $i <= 12; $i++)

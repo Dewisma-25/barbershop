@@ -1,7 +1,7 @@
 @extends('layouts.appadmin')
 
-@section('title', 'Admin Panel · Data Services')
-@section('page-title', 'Data Services')
+@section('title', 'Admin Panel · Service data')
+@section('page-title', 'Service data')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
@@ -18,7 +18,7 @@
     <div class="user-card">
 
         <div class="user-header">
-            <h5>⚙️ Data Services</h5>
+            <h5>⚙️ Service data</h5>
             <button class="btn-add" data-bs-toggle="modal" data-bs-target="#createModal">
                 add Services +
             </button>
@@ -34,9 +34,9 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Service</th>
-                    <th>Harga</th>
-                    <th>Durasi</th>
+                    <th>Services name</th>
+                    <th>Price</th>
+                    <th>Duration</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -68,7 +68,7 @@
                                 @method('DELETE')
                                 <button class="btn-delete" type="submit"
                                     onclick="return confirm('Yakin ingin menonaktifkan service ini?')">
-                                    Inaktif
+                                    Inactive
                                 </button>
                             </form>
                         </div>
@@ -90,17 +90,17 @@
                                 <div class="modal-body d-flex flex-column gap-3">
                                     <input type="text" name="nama_service"
                                            class="form-control custom-input"
-                                           placeholder="nama service"
+                                           placeholder="Services name"
                                            value="{{ $service->nama_service }}">
 
                                     <input type="number" name="harga"
                                            class="form-control custom-input"
-                                           placeholder="harga"
+                                           placeholder="Price"
                                            value="{{ $service->harga }}">
 
                                     <input type="number" name="estimasi_menit"
                                            class="form-control custom-input"
-                                           placeholder="durasi"
+                                           placeholder="Duration"
                                            value="{{ $service->estimasi_menit }}">
 
                                     <select name="is_active" class="form-control custom-input">
@@ -139,9 +139,9 @@
             <form method="POST" action="{{ route('services.store') }}">
                 @csrf
                 <div class="modal-body d-flex flex-column gap-3">
-                    <input type="text"   name="nama_service"   class="form-control custom-input" placeholder="nama service" required>
-                    <input type="number" name="harga"          class="form-control custom-input" placeholder="harga"        required>
-                    <input type="number" name="estimasi_menit" class="form-control custom-input" placeholder="durasi"       required>
+                    <input type="text"   name="nama_service"   class="form-control custom-input" placeholder="Services name" required>
+                    <input type="number" name="harga"          class="form-control custom-input" placeholder="Price"        required>
+                    <input type="number" name="estimasi_menit" class="form-control custom-input" placeholder="Duration"       required>
                 </div>
                 <div class="modal-footer border-0 d-flex gap-2">
                     <button type="button" class="btn flex-fill"

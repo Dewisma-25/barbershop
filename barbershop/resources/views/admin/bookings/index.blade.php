@@ -51,13 +51,13 @@
                     <td>{{ $booking->nama_barber ? 'Barber ' . $booking->nama_barber : '-' }}</td>
                     <td>
                         @if($booking->status === 'diterima')
-                            <span class="badge bg-success">Diterima</span>
+                            <span class="badge bg-success">Accepted</span>
                         @elseif($booking->status === 'batal')
-                            <span class="badge bg-danger">Batal</span>
+                            <span class="badge bg-danger">Rejected</span>
                             @elseif($booking->status === 'selesai')
-                            <span class="badge btn-edit">Selesai</span>
+                            <span class="badge btn-edit">Done</span>
                         @else
-                            <span class="badge bg-warning text-dark">Menunggu</span>
+                            <span class="badge bg-warning text-dark">Pending</span>
                         @endif
                     </td>
                     <td>
@@ -80,15 +80,15 @@
                     </td>
                     <td>
                         @if($booking->status === 'diterima')
-                            <a class="btn btn-success btn-sm" href="{{ route('transactions.create', $booking->id) }}">Proses Transaksi</a>
+                            <a class="btn btn-success btn-sm" href="{{ route('transactions.create', $booking->id) }}">Transaction proccess</a>
                         @else
-                            <button style="background-color: #2D2D2D;" disabled class="btn btn-secondary btn-sm">Proses Transaksi</button>
+                            <button style="background-color: #2D2D2D;" disabled class="btn btn-secondary btn-sm">Transaction done</button>
                         @endif
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="text-center py-4">Belum ada data booking.</td>
+                    <td colspan="8" class="text-center py-4">No booking's yet.</td>
                 </tr>
                 @endforelse
             </tbody>

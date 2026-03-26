@@ -1,7 +1,7 @@
 @extends('layouts.appadmin')
 
-@section('title', 'Admin Panel · Data Users')
-@section('page-title', 'Data Barber')
+@section('title', 'Admin Panel · Barber data')
+@section('page-title', 'Barber data')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
@@ -18,7 +18,7 @@
     <div class="user-card">
 
         <div class="user-header">
-            <h5>👤 Data Barber</h5>
+            <h5>👤 Barber's data</h5>
             <button class="btn-add" data-bs-toggle="modal" data-bs-target="#createModal">
                 add account +
             </button>
@@ -35,10 +35,10 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>No Telp</th>
-                        <th>Alamat</th>
-                        <th>Foto</th>
+                        <th>Name</th>
+                        <th>Phone number</th>
+                        <th>Address</th>
+                        <th>Photo</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -49,7 +49,7 @@
                         <td>{{ $barber->nama }}</td>
                         <td>{{ $barber->no_hp }}</td>
                         <td>{{ $barber->alamat }}</td>
-                        <td><img width="80" height="110" src="{{ asset('storage/'.$barber->image) }}" alt="Foto Barber"></td>
+                        <td><img width="80" height="110" src="{{ asset('storage/'.$barber->image) }}" alt="Barber's photo"></td>
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn-edit"
@@ -61,7 +61,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn-delete" type="submit"
-                                        onclick="return confirm('Yakin ingin menghapus data ini?')">Delete</button>
+                                        onclick="return confirm('Are you sure want to delete this data?')">Delete</button>
                                 </form>
                             </div>
                         </td>
@@ -84,15 +84,15 @@
                                     <div class="modal-body d-flex flex-column gap-3">
                                         <input type="text" name="nama"
                                                class="form-control custom-input"
-                                               placeholder="Nama"
+                                               placeholder="Name"
                                                value="{{ $barber->nama }}">
                                         <input type="text" name="no_hp"
                                                class="form-control custom-input"
-                                               placeholder="No Telp"
+                                               placeholder="Phone number"
                                                value="{{ $barber->no_hp }}">
                                         <input type="text" name="alamat"
                                                class="form-control custom-input"
-                                               placeholder="Alamat"
+                                               placeholder="Address"
                                                value="{{ $barber->alamat }}">
                                         <input type="file" name="image"
                                                class="form-control custom-input">
@@ -127,15 +127,15 @@
         <div class="modal-content bg-dark text-white border-0">
             <div class="modal-header border-0 pb-0">
                 <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
-                    Tambah Barber
+                    Add barber
                 </span>
             </div>
             <form method="POST" enctype="multipart/form-data" action="{{ route('barbers.store') }}">
                 @csrf
                 <div class="modal-body d-flex flex-column gap-3">
-                    <input type="text" name="nama"   class="form-control custom-input" placeholder="Nama">
-                    <input type="text" name="no_hp"  class="form-control custom-input" placeholder="No Telp">
-                    <input type="text" name="alamat" class="form-control custom-input" placeholder="Alamat">
+                    <input type="text" name="nama"   class="form-control custom-input" placeholder="Name">
+                    <input type="text" name="no_hp"  class="form-control custom-input" placeholder="Phone number">
+                    <input type="text" name="alamat" class="form-control custom-input" placeholder="Address">
                     <input type="file" name="image"  class="form-control custom-input">
                 </div>
                 <div class="modal-footer border-0 d-flex gap-2">

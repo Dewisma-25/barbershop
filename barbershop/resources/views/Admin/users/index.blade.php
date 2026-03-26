@@ -18,7 +18,7 @@
     <div class="user-card">
 
         <div class="user-header">
-            <h5>👤 Data User</h5>
+            <h5>👤 User data</h5>
             <button class="btn-add" data-bs-toggle="modal" data-bs-target="#createModal">
                 add account +
             </button>
@@ -38,7 +38,9 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>History</th>
+                        <th>Address</th>
+                        <th>Phone number</th>
+                        <!-- <th>History</th> -->
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -49,10 +51,12 @@
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->role }}</td>
-                        <td>
+                        <td>{{ $user->kasir->alamat ?? "-"}}</td>
+                        <td>{{ $user->kasir->no_hp ?? "-"}}</td>
+                        <!-- <td>
                             update : {{ $user->updated_at->format('d/m/Y') }} <br>
                             dibuat : {{ $user->created_at->format('d/m/Y') }}
-                        </td>
+                        </td> -->
                         <td>
                             <div class="d-flex gap-2">
                                 <button class="btn-edit"
@@ -64,7 +68,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn-delete" type="submit"
-                                        onclick="return confirm('Yakin ingin menghapus data ini?')">Delete</button>
+                                        onclick="return confirm('Are you sure want to delete this data?')">Delete</button>
                                 </form>
                             </div>
                         </td>
@@ -89,7 +93,7 @@
                                                value="{{ $user->username }}">
                                         <input type="password" name="password"
                                                class="form-control custom-input"
-                                               placeholder="Password (kosongkan jika tidak diubah)">
+                                               placeholder="Password (leave it blank if not changed password)">
                                         <input type="email" name="email"
                                                class="form-control custom-input"
                                                placeholder="Email"
@@ -119,7 +123,7 @@
     </div>
 </div>
 
-{{-- MODAL CREATE --}}
+<!-- {{-- MODAL CREATE --}} -->
 <div class="modal fade" id="createModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
         <div class="modal-content bg-dark text-white border-0">
@@ -131,10 +135,10 @@
             <form method="POST" action="{{ route('users.store') }}">
                 @csrf
                 <div class="modal-body d-flex flex-column gap-3">
-                    <input type="text"     name="nama"                  class="form-control custom-input" placeholder="Nama">
+                    <input type="text"     name="nama"                  class="form-control custom-input" placeholder="Name">
                     <input type="text"     name="username"              class="form-control custom-input" placeholder="Username">
                     <input type="password" name="password"              class="form-control custom-input" placeholder="Password">
-                    <input type="password" name="password_confirmation" class="form-control custom-input" placeholder="Konfirmasi Password">
+                    <input type="password" name="password_confirmation" class="form-control custom-input" placeholder="Confirm password">
                     <input type="email"    name="email"                 class="form-control custom-input" placeholder="Email">
                     <select id="create-role" name="role" class="form-select custom-input role-select">
                         <option value="" selected disabled>Pilih Role</option>
@@ -143,10 +147,10 @@
                         <option value="customer">Customer</option>
                     </select>
 
-                    {{-- Show/hide tergantung role --}}
+                    <!-- {{-- Show/hide tergantung role --}} -->
                     <div id="customerFields" style="display:none;" class="d-flex flex-column gap-3">
-                        <input type="text" name="no_hp"  class="form-control custom-input" placeholder="Nomor HP">
-                        <input type="text" name="alamat" class="form-control custom-input" placeholder="Alamat">
+                        <input type="text" name="no_hp"  class="form-control custom-input" placeholder="Phone number">
+                        <input type="text" name="alamat" class="form-control custom-input" placeholder="Address">
                     </div>
                 </div>
                 <div class="modal-footer border-0 d-flex gap-2">
@@ -166,9 +170,22 @@
 @push('scripts')
 <script>
     // Hanya untuk show/hide field customer, tidak bisa dihindari
-    document.getElementById('create-role').addEventListener('change', function () {
-        document.getElementById('customerFields').style.display =
-            (this.value === 'customer' || this.value === 'kasir') ? 'block' : 'none';
-    });
+    const showFields = ['customer', 'kasir'];
+    const roleSelect = document.getElemetById('create-role');
+    const customerFields = document.getElemetById('customerFields');
+
+    function toggleFields() {
+            customerFields.style.display =
+                showFields.includes('roleSelect.value') ? 'block' : 'none';
+    }
+
+    roleSelect.addEventListener('change', toggleFields);
+
+    toggleFields();
+
+    // document.getElementById('create-role').addEventListener('change', function () {
+    //     document.getElementById('customerFields').style.display =
+    //         showFields.includes(this.value) ? 'block' : 'none';
+    // });
 </script>
 @endpush

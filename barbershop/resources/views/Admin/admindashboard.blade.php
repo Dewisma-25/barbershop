@@ -136,7 +136,7 @@
             <i class="bi bi-calendar-check" style="color:#4caf50;"></i>
         </div>
         <div class="stat-info">
-            <p>Booking Hari Ini</p>
+            <p>Today's booking</p>
             <h4>{{ $bookingHariIni }}</h4>
         </div>
     </a>
@@ -154,7 +154,7 @@
             <i class="bi bi-currency-dollar" style="color:#b5a08c;"></i>
         </div>
         <div class="stat-info">
-            <p>Income Bulan Ini</p>
+            <p>Month's income</p>
             <h4 style="font-size:1rem;">Rp {{ number_format($incomeBulanIni, 0, ',', '.') }}</h4>
         </div>
     </a>
@@ -164,14 +164,14 @@
 <div class="row-cards">
     <div class="dash-card" style="margin-bottom:0;">
         <div class="dash-card-header">
-            <i class="bi bi-calendar3"></i> Booking Terbaru
+            <i class="bi bi-calendar3"></i> latest booking
         </div>
         <div class="table-wrap">
             <table class="dash-table">
                 <thead>
                     <tr>
                         <th>Customer</th>
-                        <th>Tanggal</th>
+                        <th>Date</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -181,13 +181,27 @@
                         <td>{{ $b->username }}</td>
                         <td>{{ \Carbon\Carbon::parse($b->tanggal)->format('d/m/Y H:i') }}</td>
                         <td>
+                            @if($b->status === 'selesai')
                             <span class="status-badge status-{{ $b->status }}">
-                                {{ ucfirst($b->status) }}
+                                Done
                             </span>
+                            @elseif($b->status === 'diterima')
+                            <span class="status-badge status-{{ $b->status }}">
+                                Accepted
+                            </span>
+                            @elseif($b->status === 'menunggu')
+                            <span class="status-badge status-{{ $b->status }}">
+                                Pending
+                            </span>
+                            @else
+                            <span class="status-badge status-{{ $b->status }}">
+                                Rejected
+                            </span>
+                            @endif
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="3" class="text-center" style="color:#666; padding:16px;">Belum ada booking.</td></tr>
+                    <tr><td colspan="3" class="text-center" style="color:#666; padding:16px;">No booking's yet.</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -196,15 +210,15 @@
 
     <div class="dash-card" style="margin-bottom:0;">
         <div class="dash-card-header">
-            <i class="bi bi-scissors"></i> Data Barber
+            <i class="bi bi-scissors"></i> Barber data
         </div>
         <div class="table-wrap">
             <table class="dash-table">
                 <thead>
                     <tr>
-                        <th>Nama</th>
-                        <th>No HP</th>
-                        <th>Alamat</th>
+                        <th>Name</th>
+                        <th>Phone number</th>
+                        <th>Address</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -215,7 +229,7 @@
                         <td>{{ $barber->alamat ?? '-' }}</td>
                     </tr>
                     @empty
-                    <tr><td colspan="3" class="text-center" style="color:#666; padding:16px;">Belum ada barber.</td></tr>
+                    <tr><td colspan="3" class="text-center" style="color:#666; padding:16px;">No Barber's yet.</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -226,16 +240,16 @@
 {{-- DAFTAR SERVICE --}}
 <div class="dash-card">
     <div class="dash-card-header">
-        <i class="bi bi-card-checklist"></i> Daftar Service
+        <i class="bi bi-card-checklist"></i> Service data
     </div>
     <div class="table-wrap">
         <table class="dash-table">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Service</th>
-                    <th>Harga</th>
-                    <th>Estimasi</th>
+                    <th>Services name</th>
+                    <th>Price</th>
+                    <th>Estimate</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -248,14 +262,14 @@
                     <td>{{ $s->estimasi_menit }} menit</td>
                     <td>
                         @if($s->is_active)
-                            <span class="status-badge status-diterima">Aktif</span>
+                            <span class="status-badge status-diterima">Active</span>
                         @else
-                            <span class="status-badge status-batal">Nonaktif</span>
+                            <span class="status-badge status-batal">Inactive</span>
                         @endif
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="5" class="text-center" style="color:#666; padding:16px;">Belum ada service.</td></tr>
+                <tr><td colspan="5" class="text-center" style="color:#666; padding:16px;">No services yet.</td></tr>
                 @endforelse
             </tbody>
         </table>

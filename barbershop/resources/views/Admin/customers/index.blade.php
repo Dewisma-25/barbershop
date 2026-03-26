@@ -1,7 +1,7 @@
 @extends('layouts.appadmin')
 
-@section('title', 'Admin Panel · Data Customers')
-@section('page-title', 'Data Customers')
+@section('title', 'Admin Panel · Customer data')
+@section('page-title', 'Customer data')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
@@ -11,13 +11,13 @@
 
 <div class="breadcrumb-panel">
     <i style="color:black;" class="bi bi-house-door"></i> Panel /
-    <span style="font-weight:500; color:black;">User data</span>
+    <span style="font-weight:500; color:black;">Customer's data</span>
 </div>
 
 <div class="container-fluid p-0 mt-4">
     <div class="user-card">
         <div class="user-header">
-            <h5>👤 Data Customers</h5>
+            <h5>👤 Customer's data</h5>
         </div>
 
         @if(session('success'))
@@ -33,8 +33,8 @@
                     <tr>
                         <th>No</th>
                         <th>Username</th>
-                        <th>Alamat</th>
-                        <th>No Telp</th>
+                        <th>Address</th>
+                        <th>Phone number</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -56,7 +56,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn-delete" type="submit"
-                                        onclick="return confirm('Yakin ingin menghapus customer ini?')">Delete</button>
+                                        onclick="return confirm('Are you sure want to delete this data?')">Delete</button>
                                 </form>
                             </div>
                         </td>
@@ -77,11 +77,11 @@
                                     <div class="modal-body d-flex flex-column gap-3">
                                         <input type="text" name="no_hp"
                                                class="form-control"
-                                               placeholder="Nomor HP"
+                                               placeholder="Phone number"
                                                value="{{ $customer->no_hp }}" required>
                                         <input type="text" name="alamat"
                                                class="form-control"
-                                               placeholder="Alamat"
+                                               placeholder="Address"
                                                value="{{ $customer->alamat }}">
                                     </div>
                                     <div class="modal-footer border-0 d-flex gap-2">
