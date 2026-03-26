@@ -4,7 +4,7 @@
 @section('page-title', 'Data User')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/users/index.css') }}">
 @endpush
 
 @section('content')
@@ -25,10 +25,16 @@
         </div>
 
         @if(session('success'))
-            <div class="user-header">
-                <p class="alert alert-success">{{ session('success') }}</p>
-            </div>
+        <div class="user-header">
+            <p class="alert alert-success">{{ session('success') }}</p>
+        </div>
         @endif
+        @if($errors->has('password_lama'))
+        <div class="user-header">
+            <p class="alert alert-danger">{{ $errors->first('password_lama') }}</p>
+        </div>
+        @endif
+
 
         <div class="table-wrapper">
             <table class="table table-borderless user-table">
@@ -87,29 +93,29 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="modal-body d-flex flex-column gap-3">
-                                        <input type="text" name="username"
-                                               class="form-control custom-input"
-                                               placeholder="Username"
-                                               value="{{ $user->username }}">
-                                        <input type="password" name="password"
-                                               class="form-control custom-input"
-                                               placeholder="Password (leave it blank if not changed password)">
                                         <input type="email" name="email"
-                                               class="form-control custom-input"
-                                               placeholder="Email"
-                                               value="{{ $user->email }}">
+                                            class="form-control custom-input"
+                                            placeholder="Email"
+                                            value="{{ $user->email }}">
+                                        <input type="password" name="password_lama"
+                                            class="form-control custom-input"
+                                            placeholder="Pasword lama">
+                                        <input type="password" name="password_baru"
+                                            class="form-control custom-input"
+                                            placeholder="password _baru">
+
                                         <select name="role" class="form-select custom-input role-select">
-                                            <option value="admin"     {{ $user->role == 'admin'    ? 'selected' : '' }}>Admin</option>
-                                            <option value="kasir"     {{ $user->role == 'kasir'    ? 'selected' : '' }}>Kasir</option>
-                                            <option value="customer"  {{ $user->role == 'customer' ? 'selected' : '' }}>Customer</option>
+                                            <option value="admin" {{ $user->role == 'admin'    ? 'selected' : '' }}>Admin</option>
+                                            <option value="kasir" {{ $user->role == 'kasir'    ? 'selected' : '' }}>Kasir</option>
+                                            <option value="customer" {{ $user->role == 'customer' ? 'selected' : '' }}>Customer</option>
                                         </select>
                                     </div>
                                     <div class="modal-footer border-0 d-flex gap-2">
                                         <button type="button" class="btn flex-fill"
-                                                style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
-                                                data-bs-dismiss="modal">Cancel</button>
+                                            style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
+                                            data-bs-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn flex-fill"
-                                                style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
+                                            style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -135,11 +141,11 @@
             <form method="POST" action="{{ route('users.store') }}">
                 @csrf
                 <div class="modal-body d-flex flex-column gap-3">
-                    <input type="text"     name="nama"                  class="form-control custom-input" placeholder="Name">
-                    <input type="text"     name="username"              class="form-control custom-input" placeholder="Username">
-                    <input type="password" name="password"              class="form-control custom-input" placeholder="Password">
+                    <input type="text" name="nama" class="form-control custom-input" placeholder="Name">
+                    <input type="text" name="username" class="form-control custom-input" placeholder="Username">
+                    <input type="password" name="password" class="form-control custom-input" placeholder="Password">
                     <input type="password" name="password_confirmation" class="form-control custom-input" placeholder="Confirm password">
-                    <input type="email"    name="email"                 class="form-control custom-input" placeholder="Email">
+                    <input type="email" name="email" class="form-control custom-input" placeholder="Email">
                     <select id="create-role" name="role" class="form-select custom-input role-select">
                         <option value="" selected disabled>Pilih Role</option>
                         <option value="admin">Admin</option>
@@ -148,19 +154,19 @@
                     </select>
 
                     <!-- {{-- Show/hide tergantung role --}} -->
-                    <div id="customerFields" style="display: none;" >
+                    <div id="customerFields" style="display: none;">
                         <div class="d-flex flex-column gap-3">
-                        <input type="text" name="no_hp"  class="form-control custom-input" placeholder="Phone number">
-                        <input type="text" name="alamat" class="form-control custom-input" placeholder="Address">
+                            <input type="text" name="no_hp" class="form-control custom-input" placeholder="Phone number">
+                            <input type="text" name="alamat" class="form-control custom-input" placeholder="Address">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0 d-flex gap-2">
                     <button type="button" class="btn flex-fill"
-                            style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
-                            data-bs-dismiss="modal">Cancel</button>
+                        style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
+                        data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn flex-fill"
-                            style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
+                        style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
                 </div>
             </form>
         </div>
@@ -169,17 +175,17 @@
 
 @endsection
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const roleSelect = document.getElementById('create-role');
-    const customerFields = document.getElementById('customerFields');
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleSelect = document.getElementById('create-role');
+        const customerFields = document.getElementById('customerFields');
 
-    function toggleFields() {
-        customerFields.style.display =
-            roleSelect.value === 'admin' ? 'none' : 'block';
-    }
+        function toggleFields() {
+            customerFields.style.display =
+                roleSelect.value === 'admin' ? 'none' : 'block';
+        }
 
-    roleSelect.addEventListener('change', toggleFields);
-});
+        roleSelect.addEventListener('change', toggleFields);
+    });
 </script>
 @push('scripts')
 @endpush

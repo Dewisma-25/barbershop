@@ -80,13 +80,15 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $data = [
-            'username' => $request->username,
             'email' => $request->email,
             'role' => $request->role,
         ];
 
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
+        if ($request->filled('password_baru')) {
+            if(!Hash::check($request->password_lama, $user->password)) {
+                return back()->withErrors(['password_lama' => 'Password lama tidak sesuai']);
+            }
+        $data['password'] = Hash::make($request->password_baru);    
         }
 
         $user->update($data);
