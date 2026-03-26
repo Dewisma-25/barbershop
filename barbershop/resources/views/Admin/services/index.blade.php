@@ -47,7 +47,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $service->nama_service }}</td>
                     <td>{{ number_format($service->harga, 0, ',', '.') }}</td>
-                    <td>{{ $service->estimasi_menit }} menit</td>
+                    <td>{{ $service->estimasi_menit }} Minute</td>
                     <td>
                         @if($service->is_active == 1)
                             <span class="badge bg-success">Active</span>
