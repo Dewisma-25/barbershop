@@ -53,7 +53,7 @@ class TransactionController extends Controller
         $booking = Booking::with('details')->findOrFail($bookingId);
 
         if (Transaction::where('id_booking', $booking->id)->exists()) {
-            return back()->with('error', 'Booking sudah memiliki transaksi')
+            return back()->with('error', 'Booking already has transaction')
             ->with('booking_id', $booking->id);
             
         }
@@ -61,7 +61,7 @@ class TransactionController extends Controller
         $kasir = Auth::user()->kasir;
 
         if (!$kasir) {
-            return back()->with('error', 'User ini bukan kasir');
+            return back()->with('error', 'This account is not cashier');
         }
 
         $total = $booking->details->sum('harga');
@@ -93,7 +93,7 @@ class TransactionController extends Controller
             'status' => 'selesai',
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil diproses');
+        return redirect()->route('transactions.index')->with('success', 'Transaction successfully proccess');
     }
 
 
@@ -106,6 +106,6 @@ class TransactionController extends Controller
             'status_pembayaran' => 'lunas'
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaksi diselesaikan');
+        return redirect()->route('transactions.index')->with('success', 'Transaction finished');
     }
 }

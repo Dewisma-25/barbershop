@@ -62,7 +62,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('users.index')->with('success', 'Akun users berhasil dibuat');
+        return redirect()->route('users.index')->with('success', 'Users account successfully added');
     }
 
 
@@ -86,14 +86,14 @@ class UserController extends Controller
 
         if ($request->filled('password_baru')) {
             if(!Hash::check($request->password_lama, $user->password)) {
-                return back()->withErrors(['password_lama' => 'Password lama tidak sesuai']);
+                return back()->withErrors(['password_lama' => 'Old password not found']);
             }
         $data['password'] = Hash::make($request->password_baru);    
         }
 
         $user->update($data);
 
-        return redirect()->route('users.index')->with('success','Akun users berhasil diedit');
+        return redirect()->route('users.index')->with('success','Users account succsessfully updated');
     }
 
 
@@ -112,6 +112,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->back()->with('success', 'Akun berhasil dihapus');
+        return redirect()->back()->with('success', 'Account succsessfully deleted');
     }
 }

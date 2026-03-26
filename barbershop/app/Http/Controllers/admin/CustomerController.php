@@ -38,7 +38,7 @@ class CustomerController extends Controller
 
         $customer->update($data);
 
-        return redirect()->route('customers.index')->with('success', 'Akun customers berhasil di edit');
+        return redirect()->route('customers.index')->with('success', 'Customers account successfully edited.');
     }
 
 

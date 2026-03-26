@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barber;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,11 @@ class BarberController extends Controller
     public function store(Request $request)
     {
 
+        // Cek apakah role user adalah customer
+    if (Auth::user()->role !== 'customer') {
+        return back()->with('error', 'Only customer can make booking.');
+    }
+
         $request->validate([
             'nama' => 'required|string|max:255',
             'no_hp' => 'required',
@@ -53,7 +59,7 @@ class BarberController extends Controller
             'image' => $image
         ]);
 
-        return redirect()->route('barbers.index')->with('success', 'data barber berhasil ditambahkan');
+        return redirect()->route('barbers.index')->with('success', 'Barber data successfully added');
     }
 
     /**
@@ -97,7 +103,7 @@ class BarberController extends Controller
         $barber->update($data);
         
 
-        return redirect()->route('barbers.index')->with('success', 'data barber berhasil di edit');
+        return redirect()->route('barbers.index')->with('success', 'Barber data successfully edited');
     }
 
     /**
@@ -108,6 +114,6 @@ class BarberController extends Controller
         $barber = Barber::findOrFail($id);
 
         $barber->delete();
-        return redirect()->route('barbers.index')->with('success', 'data barber berhasil dihapus');
+        return redirect()->route('barbers.index')->with('success', 'Barber data successfully deleted');
     }
 }

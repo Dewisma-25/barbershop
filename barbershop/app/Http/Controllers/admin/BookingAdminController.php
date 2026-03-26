@@ -65,7 +65,7 @@ class BookingAdminController extends Controller
             ->first();
 
         if (!$booking) {
-            return redirect()->route('bookings.index')->with('error', 'Data booking tidak ditemukan.');
+            return redirect()->route('bookings.index')->with('error', 'Booking data not found.');
         }
 
         $barbers = DB::table('barbers')->get();
@@ -91,7 +91,7 @@ class BookingAdminController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Booking berhasil diupdate.');
+        return redirect()->route('bookings.index')->with('success', 'Booking data successfully updated.');
     }
 
     public function accept($id)
@@ -101,7 +101,7 @@ class BookingAdminController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Booking diterima.');
+        return redirect()->route('bookings.index')->with('success', 'Booking accepted.');
     }
 
     public function reject($id)
@@ -111,6 +111,6 @@ class BookingAdminController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Booking ditolak.');
+        return redirect()->route('bookings.index')->with('success', 'Booking rejected.');
     }
 }
