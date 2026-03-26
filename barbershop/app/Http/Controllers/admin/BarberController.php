@@ -4,7 +4,6 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barber;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -33,11 +32,6 @@ class BarberController extends Controller
      */
     public function store(Request $request)
     {
-
-        // Cek apakah role user adalah customer
-    if (Auth::user()->role !== 'customer') {
-        return back()->with('error', 'Only customer can make booking.');
-    }
 
         $request->validate([
             'nama' => 'required|string|max:255',

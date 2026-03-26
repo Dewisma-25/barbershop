@@ -30,7 +30,7 @@ class BookingController extends Controller
         $customer = DB::table('customers')->where('id_user', Auth::id())->first();
 
         if (!$customer) {
-            return back()->with('error', 'Data customer tidak ditemukan.');
+            return back()->with('error', 'Only customer can make booking.');
         }
 
         $service  = DB::table('services')->find($request->id_service);
@@ -54,6 +54,6 @@ class BookingController extends Controller
         ]);
 
         return redirect()->route('user.booking')
-            ->with('success', 'Booking berhasil! Silakan tunggu konfirmasi.');
+            ->with('success', 'Booking succefull.');
     }
 }
