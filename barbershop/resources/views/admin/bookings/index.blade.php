@@ -80,22 +80,25 @@
                                             onclick="return confirm('Yakin tolak booking ini?')">Reject</button>
                                 </form>
                             @endif
-                            {{-- UBAH: Jadi button modal --}}
                             <button type="button" class="btn-edit" data-bs-toggle="modal" data-bs-target="#editModal{{ $booking->id }}">
                                 Edit
                             </button>
                         </div>
                     </td>
                     <td>
-                        @if($booking->status === 'diterima' && !$booking->transaction_id)
-                            {{-- UBAH: Jadi button modal --}}
+                        {{-- PERBAIKAN: Hanya 3 kondisi, tidak ada duplikat --}}
+                        @if($booking->transaction_id)
+                            <button style="background-color: #2D2D2D;" disabled class="btn btn-secondary btn-sm">
+                                Transaction done
+                            </button>
+                        @elseif($booking->status === 'diterima')
                             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#transactionModal{{ $booking->id }}">
                                 Transaction Process
                             </button>
-                        @elseif($booking->transaction_id)
-                            <button style="background-color: #2D2D2D;" disabled class="btn btn-secondary btn-sm">Transaction created</button>
                         @else
-                            <button style="background-color: #2D2D2D;" disabled class="btn btn-secondary btn-sm">Transaction done</button>
+                            <button style="background-color: #2D2D2D;" disabled class="btn btn-secondary btn-sm">
+                                Cannot process
+                            </button>
                         @endif
                     </td>
                 </tr>
@@ -111,7 +114,7 @@
 
 </div>
 
-{{-- ═══════════════════════ MODALS ═══════════════════════ --}}
+{{-- MODALS --}}
 @foreach($bookings as $booking)
 
 {{-- EDIT MODAL --}}
@@ -129,14 +132,12 @@
                 @method('PUT')
                 
                 <div class="modal-body px-4 py-3">
-                    {{-- Error messages --}}
                     @if($errors->any() && old('booking_id') == $booking->id)
                         <div class="alert alert-danger py-2 mb-3" style="font-size:0.82rem;">
                             @foreach($errors->all() as $error)<div>{{ $error }}</div>@endforeach
                         </div>
                     @endif
 
-                    {{-- Date --}}
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-secondary border-0"><i class="bi bi-calendar3 text-white"></i></span>
                         <input type="date" name="tanggal_booking"
@@ -145,7 +146,6 @@
                                required>
                     </div>
 
-                    {{-- Hour --}}
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-secondary border-0"><i class="bi bi-clock text-white"></i></span>
                         <select name="jam_booking" class="form-select" required>
@@ -159,7 +159,6 @@
                         </select>
                     </div>
 
-                    {{-- Barber --}}
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-secondary border-0"><i class="bi bi-person-badge text-white"></i></span>
                         <select name="id_barber" class="form-select">
@@ -173,7 +172,6 @@
                         </select>
                     </div>
 
-                    {{-- Status --}}
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-secondary border-0"><i class="bi bi-flag text-white"></i></span>
                         <select name="status" class="form-select">
@@ -216,20 +214,6 @@
                 @csrf
                 
                 <div class="modal-body px-4 py-3">
-                    {{-- Error messages --}}
-                    @if($errors->any() && old('transaction_booking_id') == $booking->id)
-                        <div class="alert alert-danger py-2 mb-3" style="font-size:0.82rem;">
-                            @foreach($errors->all() as $error)<div>{{ $error }}</div>@endforeach
-                        </div>
-                    @endif
-
-                    @if(session('error') && session('booking_id') == $booking->id)
-                        <div class="alert alert-danger py-2 mb-3" style="font-size:0.82rem;">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
-                    {{-- Payment Method --}}
                     <div class="mb-3">
                         <select name="metode_bayar" class="form-select" required>
                             <option value="" disabled selected>Pilih Metode Bayar</option>
@@ -238,7 +222,6 @@
                         </select>
                     </div>
 
-                    {{-- Info Customer --}}
                     <div style="background:#3a3a3a; border-radius:8px; padding:14px 16px; font-size:0.86rem; color:#e0e0e0; display:flex; flex-direction:column; gap:8px;">
                         <div><strong style="color:#fff;">Username :</strong> {{ $booking->username }}</div>
                         <div><strong style="color:#fff;">Barber :</strong> {{ $booking->nama_barber ?? '-' }}</div>
@@ -262,12 +245,9 @@
                         </div>
                     </div>
 
-                    {{-- Total --}}
                     <div class="mt-3" style="background:#fff; border-radius:6px; padding:11px 14px; color:#1a1a1a; font-weight:700; font-size:0.92rem;">
                         Total : Rp {{ number_format($booking->total_harga ?? 0) }}
                     </div>
-                    
-                    <input type="hidden" name="transaction_booking_id" value="{{ $booking->id }}">
                 </div>
                 
                 <div class="modal-footer border-0 d-flex gap-2 px-4 pb-4 pt-0">
