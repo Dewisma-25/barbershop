@@ -123,7 +123,7 @@
     </div>
 </div>
 
-<!-- {{-- MODAL CREATE --}} -->
+{{-- MODAL CREATE --}}
 <div class="modal fade" id="createModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
         <div class="modal-content bg-dark text-white border-0">
@@ -148,9 +148,11 @@
                     </select>
 
                     <!-- {{-- Show/hide tergantung role --}} -->
-                    <div id="customerFields" style="display:none;" class="d-flex flex-column gap-3">
+                    <div id="customerFields" style="display: none;" >
+                        <div class="d-flex flex-column gap-3">
                         <input type="text" name="no_hp"  class="form-control custom-input" placeholder="Phone number">
                         <input type="text" name="alamat" class="form-control custom-input" placeholder="Address">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0 d-flex gap-2">
@@ -166,26 +168,18 @@
 </div>
 
 @endsection
-
-@push('scripts')
 <script>
-    // Hanya untuk show/hide field customer, tidak bisa dihindari
-    const showFields = ['customer', 'kasir'];
-    const roleSelect = document.getElemetById('create-role');
-    const customerFields = document.getElemetById('customerFields');
+document.addEventListener('DOMContentLoaded', function () {
+    const roleSelect = document.getElementById('create-role');
+    const customerFields = document.getElementById('customerFields');
 
     function toggleFields() {
-            customerFields.style.display =
-                showFields.includes('roleSelect.value') ? 'block' : 'none';
+        customerFields.style.display =
+            roleSelect.value === 'admin' ? 'none' : 'block';
     }
 
     roleSelect.addEventListener('change', toggleFields);
-
-    toggleFields();
-
-    // document.getElementById('create-role').addEventListener('change', function () {
-    //     document.getElementById('customerFields').style.display =
-    //         showFields.includes(this.value) ? 'block' : 'none';
-    // });
+});
 </script>
+@push('scripts')
 @endpush
