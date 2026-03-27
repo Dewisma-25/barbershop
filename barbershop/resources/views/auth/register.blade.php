@@ -236,6 +236,9 @@
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email">Email</label>
+                        @error('email')
+                        <span class="text-danger" style="font-size:.85rem;">{{ $message }}</span>
+                        @enderror
                         <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
                     </div>
 
@@ -260,6 +263,9 @@
                     <!-- Username -->
                     <div class="form-group">
                         <label for="username">Username</label>
+                        @error('username')
+                        <span class="text-danger" style="font-size:.85rem;">{{ $message }}</span>
+                        @enderror
                         <input type="text" id="username" name="username" placeholder="johndoe123" required>
                     </div>
 
