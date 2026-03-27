@@ -140,7 +140,7 @@
         <div class="modal-content bg-dark text-white border-0">
             <div class="modal-header border-0 pb-0">
                 <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
-                    Tambah User
+                    Add Account
                 </span>
             </div>
             <form method="POST" action="{{ route('users.store') }}">
