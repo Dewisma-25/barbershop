@@ -58,6 +58,8 @@ Route::middleware(['auth', 'role:admin'])
 
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
+    Route::put('users/{id}/change-password', [UserController::class, 'changePassword'])->name('users.changePassword');
+
 
 //route CRUD customers
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');

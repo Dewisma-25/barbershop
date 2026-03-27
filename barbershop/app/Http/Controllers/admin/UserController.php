@@ -16,8 +16,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('kasir')
-        ->whereIn('role', ['admin', 'kasir'])
-        ->get();
+            ->whereIn('role', ['admin', 'kasir'])
+            ->get();
 
         return view('admin.users.index', compact('users'));
     }
@@ -79,21 +79,38 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $data = [
+        // Update data user
+        $user->update([
             'email' => $request->email,
-            'role' => $request->role,
-        ];
+            'role'  => $request->role,
+        ]);
 
-        if ($request->filled('password_baru')) {
-            if(!Hash::check($request->password_lama, $user->password)) {
-                return back()->withErrors(['password_lama' => 'Old password not found']);
-            }
-        $data['password'] = Hash::make($request->password_baru);    
+        // Update atau buat data kasir jika ada no_hp / alamat
+        if ($request->filled('no_hp') || $request->filled('alamat')) {
+            $user->kasir()->updateOrCreate(
+                ['id_user' => $user->id],
+                [
+                    'no_hp'  => $request->no_hp,
+                    'alamat' => $request->alamat,
+                ]
+            );
         }
 
-        $user->update($data);
+        return redirect()->route('users.index')->with('success', 'Users account successfully updated');
+    }
 
-        return redirect()->route('users.index')->with('success','Users account succsessfully updated');
+    public function changePassword(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if (!Hash::check($request->password_lama, $user->password)) {
+            return back()->withErrors(['password_lama' => 'Old password incorrect']);
+        }
+
+        $user->password = Hash::make($request->password_baru);
+        $user->save();
+
+        return back()->with('success', 'Password successfully changed');
     }
 
 

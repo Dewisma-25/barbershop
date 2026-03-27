@@ -111,8 +111,8 @@
 
                                         <div id="kasirFields-{{$user->id}}" style="display: none;">
                                             <div class="d-flex flex-column gap-3">
-                                                <input type="text" name="no_hp" class="form-control custom-input" placeholder="Phone number">
-                                                <input type="text" name="alamat" class="form-control custom-input" placeholder="Address">
+                                                <input type="text" value="{{$user->kasir->no_hp ?? ''}}" name="no_hp" class="form-control custom-input" placeholder="Phone number">
+                                                <input type="text" value="{{$user->kasir->alamat ?? ''}}" name="alamat" class="form-control custom-input" placeholder="Address">
                                             </div>
                                         </div>
                                         <div class="modal-footer border-0 d-flex gap-2">
@@ -122,39 +122,6 @@
                                             <button type="submit" class="btn flex-fill"
                                                 style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
                                         </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    {{-- MODAL change password per baris --}}
-                    <div class="modal fade" id="changePassword-{{ $user->id }}" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
-                            <div class="modal-content bg-dark text-white border-0">
-                                <div class="modal-header border-0 pb-0">
-                                    <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
-                                        Change password
-                                    </span>
-                                </div>
-                                <form method="POST" action="{{ route('users.update', $user->id) }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="modal-body d-flex flex-column gap-3">
-                                        <input type="password" name="password_lama"
-                                            class="form-control custom-input"
-                                            placeholder="Pasword lama">
-                                        <input type="password" name="password_baru"
-                                            class="form-control custom-input"
-                                            placeholder="password _baru">
-                                    </div>
-                                    <div class="modal-footer border-0 d-flex gap-2">
-                                        <button type="button" class="btn flex-fill"
-                                            style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn flex-fill"
-                                            style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -210,6 +177,40 @@
         </div>
     </div>
 </div>
+
+                    {{-- MODAL change password --}}
+                    @foreach ($users as $user)
+                    <div class="modal fade" id="changePassword-{{ $user->id }}" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
+                            <div class="modal-content bg-dark text-white border-0">
+                                <div class="modal-header border-0 pb-0">
+                                    <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
+                                        Change password
+                                    </span>
+                                </div>
+                                <form method="POST" action="{{ route('users.changePassword', $user->id) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-body d-flex flex-column gap-3">
+                                        <input type="password" name="password_lama"
+                                            class="form-control custom-input"
+                                            placeholder="Old password">
+                                        <input type="password" name="password_baru"
+                                            class="form-control custom-input"
+                                            placeholder="New password">
+                                    </div>
+                                    <div class="modal-footer border-0 d-flex gap-2">
+                                        <button type="button" class="btn flex-fill"
+                                            style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn flex-fill"
+                                            style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
 
 @endsection
 <script>
