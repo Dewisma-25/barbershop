@@ -30,6 +30,7 @@
             </div>
         @endif
 
+        <div class="table-wrapper">
         <table class="table table-borderless user-table">
             <thead>
                 <tr>
@@ -123,6 +124,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
 
     </div>
 </div>
