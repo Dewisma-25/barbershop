@@ -47,7 +47,7 @@
             <div class="service-icon"><i class="bi bi-scissors"></i></div>
             <h4>Basic Haircut</h4>
             <div class="price">Rp 150.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 30 Menit</div>
+            <div class="time"><i class="bi bi-clock"></i> 30 Minute</div>
             <p>Standard haircut with neat and clean results</p>
         </div>
 
@@ -55,7 +55,7 @@
             <div class="service-icon"><i class="bi bi-award"></i></div>
             <h4>Premium Haircut</h4>
             <div class="price">Rp 200.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 45 Menit</div>
+            <div class="time"><i class="bi bi-clock"></i> 45 Minute</div>
             <p>Premium cuts with hair styling consultation</p>
         </div>
 
@@ -63,7 +63,7 @@
             <div class="service-icon"><i class="bi bi-droplet"></i></div>
             <h4>Highlight / Bleaching</h4>
             <div class="price">Rp 350.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 1 Jam</div>
+            <div class="time"><i class="bi bi-clock"></i> 1 Hour</div>
             <p>Color your hair with modern and safe techniques</p>
         </div>
 
@@ -71,7 +71,7 @@
             <div class="service-icon"><i class="bi bi-wind"></i></div>
             <h4>Hair Styling</h4>
             <div class="price">Rp 400.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 60 Menit</div>
+            <div class="time"><i class="bi bi-clock"></i> 60 Minute</div>
             <p>Hair styling with various pomade techniques</p>
         </div>
 
