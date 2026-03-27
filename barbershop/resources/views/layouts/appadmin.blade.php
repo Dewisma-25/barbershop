@@ -24,7 +24,7 @@
         <div class="sidebar-header">
             <h3>
                 <i class="bi bi-layout-text-sidebar-reverse"></i>
-                Laporan<span>admin</span>
+                Admin<span>Page</span>
             </h3>
         </div>
 
