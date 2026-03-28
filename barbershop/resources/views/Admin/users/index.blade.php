@@ -29,6 +29,13 @@
             <p class="alert alert-success">{{ session('success') }}</p>
         </div>
         @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+
         @if($errors->has('password_lama'))
         <div class="user-header">
             <p class="alert alert-danger">{{ $errors->first('password_lama') }}</p>
@@ -75,11 +82,11 @@
                                     data-bs-target="#changePassword-{{ $user->id }}">
                                     Change Password
                                 </button>
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn-delete" type="submit"
-                                        onclick="return confirm('Are you sure want to delete this data?')">Delete</button>
+                                    <button class="btn-delete" type="button"
+                                        onclick="confirmDelete('{{ $user->id }}')">Delete</button>
                                 </form>
                             </div>
                         </td>
@@ -140,7 +147,7 @@
         <div class="modal-content bg-dark text-white border-0">
             <div class="modal-header border-0 pb-0">
                 <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
-                    Add Account
+                    Tambah User
                 </span>
             </div>
             <form method="POST" action="{{ route('users.store') }}">
@@ -178,41 +185,42 @@
     </div>
 </div>
 
-                    {{-- MODAL change password --}}
-                    @foreach ($users as $user)
-                    <div class="modal fade" id="changePassword-{{ $user->id }}" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
-                            <div class="modal-content bg-dark text-white border-0">
-                                <div class="modal-header border-0 pb-0">
-                                    <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
-                                        Change password
-                                    </span>
-                                </div>
-                                <form method="POST" action="{{ route('users.changePassword', $user->id) }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="modal-body d-flex flex-column gap-3">
-                                        <input type="password" name="password_lama"
-                                            class="form-control custom-input"
-                                            placeholder="Old password">
-                                        <input type="password" name="password_baru"
-                                            class="form-control custom-input"
-                                            placeholder="New password">
-                                    </div>
-                                    <div class="modal-footer border-0 d-flex gap-2">
-                                        <button type="button" class="btn flex-fill"
-                                            style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn flex-fill"
-                                            style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
+{{-- MODAL change password --}}
+@foreach ($users as $user)
+<div class="modal fade" id="changePassword-{{ $user->id }}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
+        <div class="modal-content bg-dark text-white border-0">
+            <div class="modal-header border-0 pb-0">
+                <span style="background:#2b2b2b; color:#fff; padding:8px 14px; border-radius:12px; font-size:.88rem; font-weight:600;">
+                    Change password
+                </span>
+            </div>
+            <form method="POST" action="{{ route('users.changePassword', $user->id) }}">
+                @csrf
+                @method('PUT')
+                <div class="modal-body d-flex flex-column gap-3">
+                    <input type="password" name="password_lama"
+                        class="form-control custom-input"
+                        placeholder="Old password">
+                    <input type="password" name="password_baru"
+                        class="form-control custom-input"
+                        placeholder="New password">
+                </div>
+                <div class="modal-footer border-0 d-flex gap-2">
+                    <button type="button" class="btn flex-fill"
+                        style="background:#dc3545; color:#fff; font-weight:600; height:45px;"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn flex-fill"
+                        style="background:#a7b27a; color:#fff; font-weight:600; height:45px;">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
 
 @endsection
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const roleSelect = document.getElementById('create-role');
@@ -228,27 +236,27 @@
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Event delegation untuk semua select dengan class 'role-select'
-    document.addEventListener('change', function(e) {
-        if (e.target.classList.contains('role-select')) {
-            const userId = e.target.getAttribute('data-user-id');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Event delegation untuk semua select dengan class 'role-select'
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('role-select')) {
+                const userId = e.target.getAttribute('data-user-id');
+                const kasirFields = document.getElementById('kasirFields-' + userId);
+                if (kasirFields) {
+                    kasirFields.style.display = e.target.value === 'admin' ? 'none' : 'block';
+                }
+            }
+        });
+
+        // Set initial states
+        document.querySelectorAll('.role-select').forEach(select => {
+            const userId = select.getAttribute('data-user-id');
             const kasirFields = document.getElementById('kasirFields-' + userId);
             if (kasirFields) {
-                kasirFields.style.display = e.target.value === 'admin' ? 'none' : 'block';
+                kasirFields.style.display = select.value === 'admin' ? 'none' : 'block';
             }
-        }
+        });
     });
-    
-    // Set initial states
-    document.querySelectorAll('.role-select').forEach(select => {
-        const userId = select.getAttribute('data-user-id');
-        const kasirFields = document.getElementById('kasirFields-' + userId);
-        if (kasirFields) {
-            kasirFields.style.display = select.value === 'admin' ? 'none' : 'block';
-        }
-    });
-});
 </script>
 @push('scripts')`
 @endpush
