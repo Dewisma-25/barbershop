@@ -90,7 +90,7 @@ class ServiceController extends Controller
 
         $service->update($data);
 
-        return redirect()->route('services.index')->with('Servie succsessfully updated');
+        return redirect()->route('services.index')->with('success','Servie succsessfully updated');
     }
 
     /**
@@ -104,6 +104,17 @@ class ServiceController extends Controller
             'is_active' => 0,
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Serive successfully inacived');
+        return redirect()->route('services.index')->with('success', 'Serive successfully inactived');
+    }
+
+    public function active($id)
+    {
+        $service = Service::findOrFail($id);
+
+        $service->update([
+            'is_active' => 1,
+        ]);
+
+        return redirect()->route('services.index')->with('success', 'Service successfully activated');
     }
 }

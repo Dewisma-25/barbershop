@@ -96,6 +96,8 @@ Route::middleware(['auth', 'role:admin'])
 
     Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
+    Route::patch('/services/{id}', [ServiceController::class, 'active'])->name('services.active');
+
 
 
     //route CRUD Barber

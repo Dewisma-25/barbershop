@@ -64,14 +64,26 @@
                                 Edit
                             </button>
 
-                            <form action="{{ route('services.destroy', $service->id) }}" method="POST">
+                        @if($service->is_active == 1)
+                            <form id="inactive-form-{{ $service->id }}" action="{{ route('services.destroy', $service->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn-delete" type="submit"
-                                    onclick="return confirm('Yakin ingin menonaktifkan service ini?')">
+                                <button class="btn-delete" type="button"
+                                    onclick="confirmInactive('{{ $service->id }}')">
                                     Inactive
                                 </button>
                             </form>
+
+                        @else
+                            <form id="active-form-{{ $service->id }}" action="{{ route('services.active', $service->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button class="btn btn-success"  type="button"
+                                    onclick="confirmActive('{{ $service->id }}')">
+                                    activate
+                                </button>
+                            </form>
+                        @endif
                         </div>
                     </td>
                 </tr>
