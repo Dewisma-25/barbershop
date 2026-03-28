@@ -38,6 +38,7 @@ class UserController extends Controller
             'role' => ['required']
         ]);
 
+        try {
         $user = User::create([
             'nama' => $request->nama,
             'username' => $request->username,
@@ -62,7 +63,11 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('users.index')->with('success', 'Users account successfully added');
+            return redirect()->route('users.index')->with('success', 'Users account successfully added');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cannot added new data, try again later');
+        }
     }
 
 

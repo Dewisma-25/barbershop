@@ -74,9 +74,21 @@
                                 </form>
                             @endif
                             {{-- UBAH: Jadi button modal --}}
+                            @if($booking->status === 'menunggu')
                             <button type="button" class="btn-edit" data-bs-toggle="modal" data-bs-target="#editModal{{ $booking->id }}">
                                 Edit
                             </button>
+
+                            @elseif ($booking->status === 'diterima')
+                            <button type="button" class="btn-edit" data-bs-toggle="modal" data-bs-target="#editModal{{ $booking->id }}">
+                                Edit
+                            </button>
+
+                            @else
+                            <button disabled type="button" style="background-color: #2D2D2D; color:white;" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $booking->id }}">
+                                Cannot edit
+                            </button>
+                            @endif
                         </div>
                     </td>
                     <td>
