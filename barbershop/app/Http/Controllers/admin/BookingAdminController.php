@@ -91,7 +91,7 @@ class BookingAdminController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Booking data successfully updated.');
+        return redirect()->route('bookings.index')->with('success', 'Booking data successfully updated.')->with('toast','booking_edit');
     }
 
     public function accept($id)
@@ -101,7 +101,7 @@ class BookingAdminController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Booking accepted.');
+        return redirect()->route('bookings.index')->with('success', 'Booking accepted.')->with('toast','booking_accept');
     }
 
     public function reject($id)
@@ -111,6 +111,6 @@ class BookingAdminController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Booking rejected.');
+        return redirect()->route('bookings.index')->with('success', 'Booking rejected.')->with('toast','booking_reject');
     }
 }

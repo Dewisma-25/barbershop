@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/layouts/appadmin.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/sweetAlert.js') }}"></script>
 
     @stack('styles')
 </head>
-<body>
+<body data-toast="{{ session('toast') }}">
 
     {{-- CHECKBOX HACK --}}
     <input type="checkbox" id="sidebar-toggle">
@@ -90,8 +91,11 @@
 
     {{-- Bootstrap JS hanya sekali, di bawah --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- script sweetalert -->
-     <script src="{{ asset('js/sweetAlert.js') }}"></script>
+
+    <!-- toaster.js untuk tampilan notif -->
+    <script src="https://unpkg.com/toaster-ui@1.1.5/dist/main.js"></script>
+    <script src="{{ asset('js/toast.js') }}"></script>
+     
     @stack('scripts')
 
 </body>

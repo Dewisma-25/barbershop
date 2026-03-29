@@ -93,7 +93,7 @@ class TransactionController extends Controller
             'status' => 'selesai',
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction successfully proccess');
+        return redirect()->route('transactions.index')->with('success', 'Transaction successfully proccess')->with('toast','booking_transaction');
     }
 
 
@@ -106,6 +106,6 @@ class TransactionController extends Controller
             'status_pembayaran' => 'lunas'
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction finished');
+        return redirect()->route('transactions.index')->with('success', 'Transaction finished')->with('toast','transaction_finish');
     }
 }

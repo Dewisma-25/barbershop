@@ -38,7 +38,7 @@ class CustomerController extends Controller
 
         $customer->update($data);
 
-        return redirect()->route('customers.index')->with('success', 'Customers account successfully edited.');
+        return redirect()->route('customers.index')->with('success', 'Customers account successfully edited.')->with('toast', 'customer_edit');
     }
 
 
@@ -58,6 +58,6 @@ public function destroy($id)
         $user->delete();
     }
 
-    return redirect()->back();
+    return redirect()->back()->with('success', 'Successfully deleted customer data')->with('toast', 'customer_delete');
 }
 }

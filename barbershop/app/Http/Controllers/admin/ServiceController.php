@@ -46,7 +46,7 @@ class ServiceController extends Controller
             'is_active' => 1
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Service successfully added');
+        return redirect()->route('services.index')->with('toast', 'service_added')->with('success', 'Successfully added new service');
     }
 
     // /**
@@ -90,7 +90,7 @@ class ServiceController extends Controller
 
         $service->update($data);
 
-        return redirect()->route('services.index')->with('success','Servie succsessfully updated');
+        return redirect()->route('services.index')->with('toast','service_edit')->with('success', 'Successfully edited service data');
     }
 
     /**
@@ -104,7 +104,7 @@ class ServiceController extends Controller
             'is_active' => 0,
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Serive successfully inactived');
+        return redirect()->route('services.index')->with('toast', 'service_inactive')->with('success','Successfully inactived service data');
     }
 
     public function active($id)
@@ -115,6 +115,6 @@ class ServiceController extends Controller
             'is_active' => 1,
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Service successfully activated');
+        return redirect()->route('services.index')->with('toast', 'service_active')->with('success','successfully activated service data');
     }
 }

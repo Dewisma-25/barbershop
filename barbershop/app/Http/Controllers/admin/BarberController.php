@@ -53,7 +53,7 @@ class BarberController extends Controller
             'image' => $image
         ]);
 
-        return redirect()->route('barbers.index')->with('success', 'Barber data successfully added');
+        return redirect()->route('barbers.index')->with('toast', 'barber_added')->with('success', 'Successfully added a new barber');
     }
 
     /**
@@ -97,7 +97,7 @@ class BarberController extends Controller
         $barber->update($data);
         
 
-        return redirect()->route('barbers.index')->with('success', 'Barber data successfully edited');
+        return redirect()->route('barbers.index')->with('toast', 'barber_edit')->with('success', 'Successfully edited barber data');
     }
 
     /**
@@ -108,6 +108,6 @@ class BarberController extends Controller
         $barber = Barber::findOrFail($id);
 
         $barber->delete();
-        return redirect()->route('barbers.index')->with('success', 'Barber data successfully deleted');
+        return redirect()->route('barbers.index')->with('toast', 'barber_delete')->with('success','Successfully deleted barber data');
     }
 }

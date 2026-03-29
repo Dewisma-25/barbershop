@@ -189,6 +189,14 @@ body {
     font-weight: 700;
 }
 
+/* membuat container toaster melebahr */
+.toaster-ui-container,
+.toast-container,
+[class*="toaster"] {
+  max-width: 420px !important;
+  width: max-content !important;
+}
+
 .page-content { flex: 1; padding: 28px; }
 
 /*SCROLLBAR*/

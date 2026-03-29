@@ -15,6 +15,13 @@
 </div>
 
 <div class="container-fluid p-0 mt-4">
+
+@if(session('toast'))
+    <script>
+        console.log("SESSION TOAST:", "{{ session('toast') }}");
+    </script>
+@endif
+
     <div class="user-card">
 
         <div class="user-header">
@@ -258,5 +265,5 @@
         });
     });
 </script>
-@push('scripts')`
+@push('scripts')
 @endpush

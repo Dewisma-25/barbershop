@@ -62,10 +62,10 @@ class UserController extends Controller
                 'alamat' => $request->alamat
             ]);
         }
-
-            return redirect()->route('users.index')->with('success', 'Users account successfully added');
+            return redirect()->route('users.index')->with('toast', 'user_added')->with('success', 'Successfully added new user data');
 
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', 'Cannot added new data, try again later');
         }
     }
@@ -101,7 +101,7 @@ class UserController extends Controller
             );
         }
 
-        return redirect()->route('users.index')->with('success', 'Users account successfully updated');
+        return redirect()->route('users.index')->with('toast', 'user_edited')->with('success', 'Successfully edited user data');
     }
 
     public function changePassword(Request $request, $id)
@@ -115,7 +115,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password_baru);
         $user->save();
 
-        return back()->with('success', 'Password successfully changed');
+        return back()->with('toast', 'user_change')->with('success','Successfully changed the user data password');
     }
 
 
@@ -134,6 +134,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->back()->with('success', 'Account succsessfully deleted');
+        return redirect()->back()->with('toast', 'user_deleted')->with('success','Successfully deleted user data');
     }
 }
