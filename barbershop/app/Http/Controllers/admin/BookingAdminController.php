@@ -75,6 +75,9 @@ class BookingAdminController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+
+
         $request->validate([
             'tanggal_booking' => 'required|date',
             'jam_booking'     => 'required|in:10:00,11:00,13:00,14:00,15:00,16:00,19:00',
@@ -92,25 +95,40 @@ class BookingAdminController extends Controller
         ]);
 
         return redirect()->route('bookings.index')->with('success', 'Booking data successfully updated.')->with('toast','booking_edit');
+        } catch (\Exception $e) {
+            return redirect()->route('bookings.index')->with('error', 'Failed to edit booking data.')->with('toast','booking_edit_error');
+        }
     }
 
     public function accept($id)
     {
+        try {
+
+
         DB::table('bookings')->where('id', $id)->update([
             'status'     => 'diterima',
             'updated_at' => Carbon::now(),
         ]);
 
         return redirect()->route('bookings.index')->with('success', 'Booking accepted.')->with('toast','booking_accept');
+        } catch (\Exception $e) {
+            return redirect()->route('bookings.index')->with('error', 'Failed to accept booking.')->with('toast','booking_accept_error');
+        }
     }
 
     public function reject($id)
     {
+        try {
+
+
         DB::table('bookings')->where('id', $id)->update([
             'status'     => 'batal',
             'updated_at' => Carbon::now(),
         ]);
 
         return redirect()->route('bookings.index')->with('success', 'Booking rejected.')->with('toast','booking_reject');
+        } catch (\Exception $e) {
+            return redirect()->route('bookings.index')->with('error', 'Failed to reject booking.')->with('toast','booking_reject_error');
+        }
     }
 }

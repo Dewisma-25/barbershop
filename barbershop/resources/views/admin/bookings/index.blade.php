@@ -60,7 +60,7 @@
                         @elseif($booking->status === 'batal')
                             <span class="badge bg-danger">Rejected</span>
                         @elseif($booking->status === 'selesai')
-                            <span class="badge btn-edit">Done</span>
+                            <span class="badge btn-done">Done</span>
                         @else
                             <span class="badge bg-warning text-dark">Pending</span>
                         @endif
@@ -70,7 +70,7 @@
                             @if($booking->status === 'menunggu')
                                 <form action="{{ route('bookings.accept', $booking->id) }}" method="POST" class="m-0">
                                     @csrf @method('PATCH')
-                                    <button type="submit" class="btn-edit">Accept</button>
+                                    <button type="submit" class="btn btn-success">Accept</button>
                                 </form>
                                 <form action="{{ route('bookings.reject', $booking->id) }}" method="POST" class="m-0">
                                     @csrf @method('PATCH')

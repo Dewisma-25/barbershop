@@ -21,11 +21,11 @@ class LaporanController extends Controller
         $tanggalAkhir = $request->tanggal_akhir ? Carbon::parse($request->tanggal_akhir)->endOfDay() : now()->endOfMonth();
 
         $data = Transaction::with('customer.user', 'details.service')
-        ->whereBetween('tanggal', [
-            $tanggalAwal,
-            $tanggalAkhir
-        ])->where('status_pembayaran', 'lunas')
-        ->get();
+            ->whereBetween('tanggal', [
+                $tanggalAwal,
+                $tanggalAkhir
+            ])->where('status_pembayaran', 'lunas')
+            ->get();
 
         $totalCustomer = $data->count();
 
@@ -64,12 +64,19 @@ class LaporanController extends Controller
             $tanggalAwal,
             $tanggalAkhir
         ])
-        ->where('status_pembayaran', 'lunas')
-        ->get();
+            ->where('status_pembayaran', 'lunas')
+            ->get();
 
 
         $totalCustomer = $data->count();
 
-        return view('admin.laporan.print', compact('data', 'totalCustomer', 'tanggalAwal', 'tanggalAkhir'));
+        // Hitung total pendapatan dari semua service di semua transaksi
+        $totalPendapatan = $data->sum(function ($transaction) {
+            return $transaction->details->sum(function ($detail) {
+                return $detail->service->harga ?? 0;
+            });
+        });
+
+        return view('admin.laporan.print', compact('data', 'totalCustomer', 'totalPendapatan', 'tanggalAwal', 'tanggalAkhir'));
     }
 }

@@ -28,6 +28,9 @@ class CustomerController extends Controller
     //edit dan update data users
     public function update(Request $request, $id)
     {
+        try {
+
+
         $customer = Customer::findOrFail($id);
 
         $data = [
@@ -39,6 +42,9 @@ class CustomerController extends Controller
         $customer->update($data);
 
         return redirect()->route('customers.index')->with('success', 'Customers account successfully edited.')->with('toast', 'customer_edit');
+        } catch (\Exception $e) {
+            return redirect()->route('customers.index')->with('error', 'Failed to edit customer account.')->with('toast', 'customer_edit_error');
+        }
     }
 
 
@@ -48,6 +54,9 @@ class CustomerController extends Controller
 
 public function destroy($id)
 {
+    try {
+        
+
     $customer = Customer::findOrFail($id);
 
     $user = $customer->user;
@@ -59,5 +68,8 @@ public function destroy($id)
     }
 
     return redirect()->back()->with('success', 'Successfully deleted customer data')->with('toast', 'customer_delete');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Failed to delete customer account')->with('toast', 'customer_delete_error');
+    }
 }
 }

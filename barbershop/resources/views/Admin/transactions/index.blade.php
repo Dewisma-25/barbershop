@@ -30,6 +30,12 @@
             <p class="alert alert-success">{{session('success')}}</p>
         </div>
         @endif
+
+        @if(session('error'))
+        <div class="user-header">
+            <p class="alert alert-danger">{{session('error')}}</p>
+        </div>
+        @endif
 <div class="table-wrapper">
         <table class="table table-borderless user-table">
             <thead>

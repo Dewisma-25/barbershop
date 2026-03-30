@@ -36,6 +36,13 @@
             print-color-adjust: exact;
         }
 
+        .total-income {
+            background-color: #3E3B3B;
+            color: white;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
         td {
             color: #3E3B3B;
         }
@@ -78,7 +85,7 @@
 
 
         <p class="mb-1">
-            Tanggal:
+            Date:
             {{ $tanggalAwal->translatedFormat('l, d/m/Y') }}
             -
             {{ $tanggalAkhir->translatedFormat('l, d/m/Y') }}
@@ -91,7 +98,8 @@
                     <th>No</th>
                     <th>Customer</th>
                     <th>Service</th>
-                    <th>Waktu</th>
+                    <th>Price</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -111,12 +119,24 @@
                         -
                         @endforelse
                     </td>
+                    <td class="text-start">
+                        @forelse($item->details as $d)
+                        Rp {{ number_format($d->service->harga ?? 0, 0, ',', '.') }}<br>
+                        @empty
+                        -
+                        @endforelse
+                    </td>
                     <td style="text-align: start;">
-                        tanggal: {{ $item->tanggal->translatedFormat('l, d/m/Y') }} <br>
-                        jam: {{$item->tanggal->format('H:i')}}
+                        Date: {{ $item->tanggal->translatedFormat('l, d/m/Y') }} <br>
+                        Hour: {{$item->tanggal->format('H:i')}}
                     </td>
                 </tr>
                 @endforeach
+
+                <tr class="total-row">
+                    <td class="total-income" colspan="3" class="text-start fw-bold">Total Income</td>
+                    <td class="total-income tex" colspan="2" class="text-start fw-bold">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</td>
+                </tr>
             </tbody>
         </table>
 

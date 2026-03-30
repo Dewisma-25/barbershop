@@ -46,6 +46,9 @@ class TransactionController extends Controller
      */
     public function store(Request $request, $bookingId)
     {
+        try {
+
+
         $request->validate([
             'metode_bayar' => 'required|in:tunai,qris',
         ]);
@@ -94,11 +97,17 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('transactions.index')->with('success', 'Transaction successfully proccess')->with('toast','booking_transaction');
+        } catch (\Exception $e) {
+            return redirect()->route('bookings.index')->with('error', 'Failed to process transaction')->with('toast','booking_transaction_error');
+        }
     }
 
 
     public function complete($transactionId)
     {
+        try {
+
+
         $transaction = Transaction::findOrFail($transactionId);
 
         $transaction->update([
@@ -107,5 +116,8 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('transactions.index')->with('success', 'Transaction finished')->with('toast','transaction_finish');
+        } catch (\Exception $e) {
+            return redirect()->route('transactions.index')->with('error', 'Failed to finish transaction')->with('toast','transaction_finish_error');
+        }
     }
 }

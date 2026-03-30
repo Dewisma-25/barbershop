@@ -16,11 +16,11 @@
 
 <div class="container-fluid p-0 mt-4">
 
-@if(session('toast'))
+    @if(session('toast'))
     <script>
         console.log("SESSION TOAST:", "{{ session('toast') }}");
     </script>
-@endif
+    @endif
 
     <div class="user-card">
 
@@ -40,6 +40,17 @@
         @if(session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
+        </div>
+        @endif
+
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+
         </div>
         @endif
 
@@ -125,8 +136,8 @@
 
                                         <div id="kasirFields-{{$user->id}}" style="display: none;">
                                             <div class="d-flex flex-column gap-3">
-                                                <input type="text" value="{{$user->kasir->no_hp ?? ''}}" name="no_hp" class="form-control custom-input" placeholder="Phone number">
-                                                <input type="text" value="{{$user->kasir->alamat ?? ''}}" name="alamat" class="form-control custom-input" placeholder="Address">
+                                                <input type="text" value="{{$user->kasir->no_hp ?? ''}}" name="no_hp" class="form-control custom-input" placeholder="Phone number" required>
+                                                <input type="text" value="{{$user->kasir->alamat ?? ''}}" name="alamat" class="form-control custom-input" placeholder="Address" required>
                                             </div>
                                         </div>
                                         <div class="modal-footer border-0 d-flex gap-2">

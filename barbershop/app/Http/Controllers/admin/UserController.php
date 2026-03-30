@@ -32,41 +32,42 @@ class UserController extends Controller
     {
         $request->validate([
             'nama' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required']
+        ], [
+            'username.unique' => 'username already used.',
+            'email.unique' => 'email already used',
         ]);
 
         try {
-        $user = User::create([
-            'nama' => $request->nama,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role
-        ]);
-
-        if ($request->role == 'customer') {
-
-            Customer::create([
-                'id_user' => $user->id,
-                'no_hp' => $request->no_hp,
-                'alamat' => $request->alamat
+            $user = User::create([
+                'nama' => $request->nama,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role
             ]);
-        } elseif ($request->role == 'kasir') {
 
-            Kasir::create([
-                'id_user' => $user->id,
-                'no_hp' => $request->no_hp,
-                'alamat' => $request->alamat
-            ]);
-        }
+            if ($request->role == 'customer') {
+
+                Customer::create([
+                    'id_user' => $user->id,
+                    'no_hp' => $request->no_hp,
+                    'alamat' => $request->alamat
+                ]);
+            } elseif ($request->role == 'kasir') {
+
+                Kasir::create([
+                    'id_user' => $user->id,
+                    'no_hp' => $request->no_hp,
+                    'alamat' => $request->alamat
+                ]);
+            }
             return redirect()->route('users.index')->with('toast', 'user_added')->with('success', 'Successfully added new user data');
-
         } catch (\Exception $e) {
-            dd($e->getMessage());
-            return redirect()->back()->with('error', 'Cannot added new data, try again later');
+            return redirect()->back()->with('error', 'Cannot added new data, try again later')->with('toast', 'user_add_error');
         }
     }
 
@@ -82,58 +83,86 @@ class UserController extends Controller
     //edit dan update data users
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        try {
 
-        // Update data user
-        $user->update([
-            'email' => $request->email,
-            'role'  => $request->role,
-        ]);
 
-        // Update atau buat data kasir jika ada no_hp / alamat
-        if ($request->filled('no_hp') || $request->filled('alamat')) {
-            $user->kasir()->updateOrCreate(
-                ['id_user' => $user->id],
-                [
-                    'no_hp'  => $request->no_hp,
-                    'alamat' => $request->alamat,
-                ]
-            );
+            $user = User::findOrFail($id);
+
+            // Update data user
+            $user->update([
+                'email' => $request->email,
+                'role'  => $request->role,
+            ]);
+
+            // Jika role diubah menjadi admin, hapus data kasir
+            if ($request->role == 'admin') {
+                if ($user->kasir) {
+                    $user->kasir->delete();
+                }
+            } else {
+
+
+
+                // Update atau buat data kasir jika ada no_hp / alamat
+                if ($request->filled('no_hp') || $request->filled('alamat')) {
+                    $user->kasir()->updateOrCreate(
+                        ['id_user' => $user->id],
+                        [
+                            'no_hp'  => $request->no_hp,
+                            'alamat' => $request->alamat,
+                        ]
+                    );
+                }
+            }
+
+            return redirect()->route('users.index')->with('toast', 'user_edited')->with('success', 'Successfully edited user data');
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')->with('error', 'Cannot edited the data, try again later')->with('toast', 'user_edit_error');
         }
-
-        return redirect()->route('users.index')->with('toast', 'user_edited')->with('success', 'Successfully edited user data');
     }
 
     public function changePassword(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        try {
 
-        if (!Hash::check($request->password_lama, $user->password)) {
-            return back()->withErrors(['password_lama' => 'Old password incorrect']);
+
+            $user = User::findOrFail($id);
+
+            if (!Hash::check($request->password_lama, $user->password)) {
+                return back()->withErrors(['password_lama' => 'Old password incorrect']);
+            }
+
+            $user->password = Hash::make($request->password_baru);
+            $user->save();
+
+            return back()->with('toast', 'user_change')->with('success', 'Successfully changed the user data password');
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')->with('error', 'Cannot change account password, try again later')->with('toast', 'user_change_error');
         }
-
-        $user->password = Hash::make($request->password_baru);
-        $user->save();
-
-        return back()->with('toast', 'user_change')->with('success','Successfully changed the user data password');
     }
 
 
     //menghapus data users dan data customers serta kasir
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        try {
 
-        if ($user->customer) {
-            $user->customer->delete();
+
+            $user = User::findOrFail($id);
+
+            if ($user->customer) {
+                $user->customer->delete();
+            }
+
+            if ($user->kasir) {
+                $user->kasir->delete();
+            }
+
+            $user->delete();
+
+            return redirect()->back()->with('toast', 'user_deleted')->with('success', 'Successfully deleted user data');
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')->with('error', 'Cannot delete account, try again later')->with('toast', 'user_delete_error');
         }
-
-        if ($user->kasir) {
-            $user->kasir->delete();
-        }
-
-        $user->delete();
-
-        return redirect()->back()->with('toast', 'user_deleted')->with('success','Successfully deleted user data');
     }
 }

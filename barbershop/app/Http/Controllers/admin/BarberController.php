@@ -32,6 +32,9 @@ class BarberController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+
+
 
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -54,6 +57,9 @@ class BarberController extends Controller
         ]);
 
         return redirect()->route('barbers.index')->with('toast', 'barber_added')->with('success', 'Successfully added a new barber');
+        } catch (\Exception $e) {
+            return redirect()->route('barbers.index')->with('toast', 'barber_add_error')->with('error', 'Failed to add a new barber');
+        }
     }
 
     /**
@@ -71,6 +77,9 @@ class BarberController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        try {
+
+
         $request->validate([
             'nama' => 'required|string|max:255',
             'no_hp' => 'required',
@@ -98,6 +107,9 @@ class BarberController extends Controller
         
 
         return redirect()->route('barbers.index')->with('toast', 'barber_edit')->with('success', 'Successfully edited barber data');
+        } catch (\Exception $e) {
+            return redirect()->route('barbers.index')->with('toast', 'barber_edit_error')->with('error', 'Failed to edit barber data');
+        }
     }
 
     /**
@@ -105,9 +117,15 @@ class BarberController extends Controller
      */
     public function destroy($id)
     {
+        try {
+
+
         $barber = Barber::findOrFail($id);
 
         $barber->delete();
         return redirect()->route('barbers.index')->with('toast', 'barber_delete')->with('success','Successfully deleted barber data');
+        } catch(\Exception $e) {
+            return redirect()->route('barbers.index')->with('toast', 'barber_delete_error')->with('error','Failed to delete barber data');
+        }
     }
 }

@@ -21,9 +21,14 @@
         </div>
 
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show m-3">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <div class="user-header">
+                <p class="alert alert-success">{{ session('success') }}</p>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="user-header">
+                <p class="alert alert-danger">{{ session('error') }}</p>
             </div>
         @endif
 

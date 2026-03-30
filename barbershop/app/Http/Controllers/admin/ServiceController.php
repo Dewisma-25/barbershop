@@ -32,6 +32,9 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+
+
 
         $request->validate([
             'nama_service' => 'required|string',
@@ -47,6 +50,9 @@ class ServiceController extends Controller
         ]);
 
         return redirect()->route('services.index')->with('toast', 'service_added')->with('success', 'Successfully added new service');
+        } catch (\Exception $e) {
+            return redirect()->route('services.index')->with('toast', 'service_add_error')->with('error', 'Failed to add a new service');
+        }
     }
 
     // /**
@@ -72,6 +78,9 @@ class ServiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        try {
+
+
         $request->validate([
             'nama_service' => 'required|string',
             'harga' => 'required|integer',
@@ -91,6 +100,9 @@ class ServiceController extends Controller
         $service->update($data);
 
         return redirect()->route('services.index')->with('toast','service_edit')->with('success', 'Successfully edited service data');
+        } catch (\Exception $e) {
+            return redirect()->route('services.index')->with('toast','service_edit_error')->with('error', 'Failed to update data');
+        }
     }
 
     /**
@@ -98,6 +110,9 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
+        try {
+
+
         $service = Service::findOrFail($id);
         
         $service->update([
@@ -105,10 +120,16 @@ class ServiceController extends Controller
         ]);
 
         return redirect()->route('services.index')->with('toast', 'service_inactive')->with('success','Successfully inactived service data');
+        } catch (\Exception $e) {
+            return redirect()->route('services.index')->with('toast', 'service_inactive_error')->with('error','Failed to inacvtived service');
+        }
     }
 
     public function active($id)
     {
+        try {
+
+
         $service = Service::findOrFail($id);
 
         $service->update([
@@ -116,5 +137,8 @@ class ServiceController extends Controller
         ]);
 
         return redirect()->route('services.index')->with('toast', 'service_active')->with('success','successfully activated service data');
+        } catch (\Exception $e) {
+            return redirect()->route('services.index')->with('toast', 'service_active_error')->with('error','Failed to activated service');
+        }
     }
 }
