@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\admin\KasirController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ServiceController;
@@ -14,13 +15,9 @@ use App\Http\Controllers\admin\TransactionController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\LaporanController;
 
-Route::get('/', function () {
-    return view('user.dashboard');
-});
+Route::get('/', [DashboardController::class, 'index'])->name('user.dashboard');
 
-Route::get('/user/dashboard', function () {
-    return view('user.dashboard');
-});
+Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

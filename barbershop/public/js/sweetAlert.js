@@ -47,3 +47,19 @@
             }
         });
     }
+
+        function confirmReject(id) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Reject this booking ?",
+            icon: "question",
+            showCancelButton:true,
+            cancelButtonText: "Cancel",
+            confirmButtonColor: "#dc3545",
+            cancelButtonColor: "#6c757d", 
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('reject-form-' + id).submit();
+            }
+        });
+    }

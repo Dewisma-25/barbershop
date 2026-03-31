@@ -80,7 +80,7 @@
 
             <!-- FILTER TANGGAL -->
             <form class="mb-2" method="GET">
-                <label><strong>Choose first date - last fate:</strong></label>
+                <label><strong>Choose first date - last date:</strong></label>
                 <p class="mb-0 mt-3">
                     {{ request('tanggal_awal') 
                       ? \Carbon\Carbon::parse(request('tanggal_awal'))->translatedFormat('l') 
@@ -121,6 +121,7 @@
                     <th>No</th>
                     <th>Customer's Name</th>
                     <th>Service</th>
+                    <th>Price</th>
                     <th>Date</th>
                 </tr>
             </thead>
@@ -141,7 +142,14 @@
                         -
                         @endforelse
                     </td>
-                    <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
+                    <td>
+                        @forelse($item->details as $d)
+                        Rp {{ number_format($d->service->harga ?? 0, 0, ',', '.') }}<br>
+                        @empty
+                        -
+                        @endforelse
+                    </td>
+                    <td>{{ $item->created_at->translatedFormat( 'l, d/m/Y H:i') }}</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -74,8 +74,8 @@
                                 </form>
                                 <form action="{{ route('bookings.reject', $booking->id) }}" method="POST" class="m-0">
                                     @csrf @method('PATCH')
-                                    <button type="submit" class="btn-delete"
-                                            onclick="return confirm('Yakin tolak booking ini?')">Reject</button>
+                                    <button type="button" class="btn-delete"
+                                            onclick="confirmReject('$booking->id')">Reject</button>
                                 </form>
                             @endif
                             {{-- UBAH: Jadi button modal --}}

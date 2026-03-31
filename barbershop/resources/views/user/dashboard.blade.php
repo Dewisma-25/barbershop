@@ -42,39 +42,22 @@
         <p>Professional and Affordable</p>
     </div>
 
+    @php
+        $icons = ['bi-scissors', 'bi-award', 'bi-droplet', 'bi-wind'];
+    @endphp
+
     <div class="service-grid">
+        @foreach($services as $i => $service)
         <div class="service-card">
-            <div class="service-icon"><i class="bi bi-scissors"></i></div>
-            <h4>Basic Haircut</h4>
-            <div class="price">Rp 150.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 30 Minute</div>
-            <p>Standard haircut with neat and clean results</p>
+            <div class="service-icon">
+                <i class="bi {{ $icons[$i] ?? 'bi-scissors' }}"></i>
+            </div>
+            <h4>{{ $service->nama_service }}</h4>
+            <div class="price">Rp {{ number_format($service->harga, 0, ',', '.') }}</div>
+            <div class="time"><i class="bi bi-clock"></i> {{ $service->estimasi_menit }} Minute</div>
+            <!-- <p>{{ $service->deskripsi }}</p> -->
         </div>
-
-        <div class="service-card">
-            <div class="service-icon"><i class="bi bi-award"></i></div>
-            <h4>Premium Haircut</h4>
-            <div class="price">Rp 200.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 45 Minute</div>
-            <p>Premium cuts with hair styling consultation</p>
-        </div>
-
-        <div class="service-card">
-            <div class="service-icon"><i class="bi bi-droplet"></i></div>
-            <h4>Highlight / Bleaching</h4>
-            <div class="price">Rp 350.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 1 Hour</div>
-            <p>Color your hair with modern and safe techniques</p>
-        </div>
-
-        <div class="service-card">
-            <div class="service-icon"><i class="bi bi-wind"></i></div>
-            <h4>Hair Styling</h4>
-            <div class="price">Rp 400.000</div>
-            <div class="time"><i class="bi bi-clock"></i> 60 Minute</div>
-            <p>Hair styling with various pomade techniques</p>
-        </div>
-
+        @endforeach
     </div>
 </section>
 
