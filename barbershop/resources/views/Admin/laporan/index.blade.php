@@ -97,7 +97,7 @@
                 <input class="schedule-input mt-0" type="date" name="tanggal_akhir" value="{{ request('tanggal_akhir') ? \Carbon\Carbon::parse(request('tanggal_akhir'))->format('Y-m-d') : date('Y-m-t') }}" onchange="this.form.submit()">
             </form>
 
-            <button style="width: 19%;" class="mt-2 btn-edit rounded" onclick="printLaporan()">Print</button>
+            <button class="mt-2 btn-edit rounded" onclick="printLaporan()">Print</button>
         </div>
 
         <div class="header-logic p-4 gap-2 mb-5 rounded d-flex flex-column align-items-center">
@@ -114,7 +114,7 @@
             <h5 class="mb-0">Report data</h5>
         </div>
 
-
+    <div class="table-wrapper">
         <table class="table table-borderless user-table mb-0">
             <thead>
                 <tr>
@@ -154,6 +154,7 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
 
         <div>
             <h2 class="mt-5 mb-0"><strong>Daily income</strong></h2>
