@@ -25,7 +25,7 @@ class BookingAdminController extends Controller
                 'users.username',
                 'users.email',
                 'barbers.nama as nama_barber',
-                DB::raw('SUM(booking_details.harga) as total_harga'),
+                DB::raw('SUM(booking_details.harga_bayar) as total_harga'),
                 'transactions.id as transaction_id'
             )
             ->groupBy(

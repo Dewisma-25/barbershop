@@ -10,6 +10,8 @@ class TransactionDetail extends Model
     protected $fillable = [
         'id_transaction',
         'id_service',
+        'harga_asli',
+        'diskon_persen',
         'harga'
     ];
 

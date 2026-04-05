@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\BookingAdminController;
 use App\Http\Controllers\admin\TransactionController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\LaporanController;
+use App\Http\Controllers\admin\DiscountController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('user.dashboard');
 
@@ -138,6 +139,23 @@ Route::middleware(['auth', 'role:admin,kasir'])
     ->group(function () {
         Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
         Route::get('/laporan/print', [LaporanController::class, 'print'])->name('laporan.print');
+    });
+
+//route untuk diskon
+Route::middleware(['auth', 'role:admin,kasir'])
+    ->prefix('admin')
+    ->group(function () {
+    Route::get('discounts', [DiscountController::class, 'index'])->name('discounts.index');
+
+    Route::get('discounts/create', [DiscountController::class, 'create'])->name('discounts.create');
+
+    Route::post('discounts', [DiscountController::class, 'store'])->name('discounts.store');
+
+    Route::get('discounts/{id}/edit', [DiscountController::class, 'edit'])->name('discounts.edit')
+    ;
+    Route::put('discounts/{id}', [DiscountController::class, 'update'])->name('discounts.update');
+
+    Route::patch('discounts/{id}/toggle', [DiscountController::class, 'toggleActive'])->name('discounts.toggle');
     });
 
 require __DIR__.'/auth.php';

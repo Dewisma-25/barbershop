@@ -72,9 +72,7 @@ class LaporanController extends Controller
 
         // Hitung total pendapatan dari semua service di semua transaksi
         $totalPendapatan = $data->sum(function ($transaction) {
-            return $transaction->details->sum(function ($detail) {
-                return $detail->service->harga ?? 0;
-            });
+            return $transaction->details->sum('harga');
         });
 
         return view('admin.laporan.print', compact('data', 'totalCustomer', 'totalPendapatan', 'tanggalAwal', 'tanggalAkhir'));

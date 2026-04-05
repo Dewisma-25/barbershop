@@ -50,10 +50,13 @@
                 <i class="bi bi-card-checklist"></i><span>Service Data</span>
             </a>
             <a href="/admin/customers" class="nav-item {{ request()->routeIs('customers.*') ? 'active' : '' }}">
-                <i class="bi bi-person-fill-lock"></i><span>Data Customer</span>
+                <i class="bi bi-person-fill-lock"></i><span>Customer data</span>
             </a>
             <a href="/admin/barbers" class="nav-item {{ request()->routeIs('barbers.*') ? 'active' : '' }}">
-                <i class="bi bi-scissors"></i><span>Data Barber</span>
+                <i class="bi bi-scissors"></i><span>Barber data</span>
+            </a>
+            <a href="/admin/discounts" class="nav-item {{ request()->routeIs('discounts.*') ? 'active' : '' }}">
+                <i class="bi bi-percent"></i><span>Discount data</span>
             </a>
         </div>
 

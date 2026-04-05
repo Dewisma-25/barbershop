@@ -121,7 +121,7 @@
                     </td>
                     <td class="text-start">
                         @forelse($item->details as $d)
-                        Rp {{ number_format($d->service->harga ?? 0, 0, ',', '.') }}<br>
+                        Rp {{ number_format($d->harga ?? 0, 0, ',', '.') }}<br>
                         @empty
                         -
                         @endforelse

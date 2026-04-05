@@ -67,7 +67,7 @@ class TransactionController extends Controller
             return back()->with('error', 'This account is not cashier');
         }
 
-        $total = $booking->details->sum('harga');
+        $total = $booking->details->sum('harga_bayar');
 
 
         $transaction = Transaction::create([
@@ -86,7 +86,9 @@ class TransactionController extends Controller
             TransactionDetail::create([
                 'id_transaction' => $transaction->id,
                 'id_service' => $detail->id_service,
-                'harga' => $detail->harga
+                'harga_asli' => $detail->harga_asli,
+                'diskon_persen' => $detail->diskon_persen,
+                'harga' => $detail->harga_bayar
             ]);
         }
 

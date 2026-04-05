@@ -72,10 +72,10 @@
                                     @csrf @method('PATCH')
                                     <button type="submit" class="btn btn-success">Accept</button>
                                 </form>
-                                <form action="{{ route('bookings.reject', $booking->id) }}" method="POST" class="m-0">
+                                <form id="reject-form-{{ $booking->id }}" action="{{ route('bookings.reject', $booking->id) }}" method="POST" class="m-0">
                                     @csrf @method('PATCH')
                                     <button type="button" class="btn-delete"
-                                            onclick="confirmReject('$booking->id')">Reject</button>
+                                            onclick="confirmReject('{{ $booking->id }}')">Reject</button>
                                 </form>
                             @endif
                             {{-- UBAH: Jadi button modal --}}

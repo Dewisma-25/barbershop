@@ -260,3 +260,49 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+
+
+// ===============
+//     Discount
+// ===============
+document.addEventListener('DOMContentLoaded', function () {
+    const toastManager = new ToasterUi();
+    const toast = document.body.dataset.toast;
+    
+    const toastMessages = {
+        discount_added: {
+            message: '<div style="display:flex; align-items:center; gap:8px; max-width:100%;"> <i class="bi bi-megaphone me-2"></i> <span style="white-space:nowrap;">You added a new discount.</span> </div>',
+            type: "success"
+        },
+        discount_add_error: {
+            message: '<div style="display:flex; align-items:center; gap:8px; max-width:100%;"> <i class="bi bi-exclamation-triangle me-2"></i> <span style="white-space:nowrap;">Cannot add a new discount, try again later.</span> </div>',
+            type: "error"
+        },
+        discount_edit: {
+            message: '<div style="display:flex; align-items:center; gap:8px; max-width:100%;"> <i class="bi bi-megaphone me-2"></i> <span style="white-space:nowrap;">You edited discount data.</span> </div>',
+            type: "success"
+        },
+        discount_edit_error: {
+            message: '<div style="display:flex; align-items:center; gap:8px; max-width:100%;"> <i class="bi bi-exclamation-triangle me-2"></i> <span style="white-space:nowrap;">Cannot edit discount data, try again later.</span> </div>',
+            type: "error"
+        },
+        discount_status: {
+            message: '<div style="display:flex; align-items:center; gap:8px; max-width:100%;"> <i class="bi bi-megaphone me-2"></i> <span style="white-space:nowrap;">You change the discount status.</span> </div>',
+            type: "success"
+        },
+        discount_status_error: {
+            message: '<div style="display:flex; align-items:center; gap:8px; max-width:100%;"> <i class="bi bi-exclamation-triangle me-2"></i> <span style="white-space:nowrap;">Cannot change discount status, try again later.</span> </div>',
+            type: "error"
+        },
+    };
+
+    if (toast && toastMessages[toast]) {
+        const { message, type } = toastMessages[toast];
+        toastManager.addToast(message, type, {
+            autoClose: true,
+            duration: 8000,
+            allowHtml: true,
+        });
+    }
+});
