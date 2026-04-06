@@ -17,27 +17,39 @@
         align-items: center;
         justify-content: center;
     }
+
     .discount-modal-overlay.show {
         display: flex;
     }
+
     .discount-modal {
         background: #1e1e1e;
         border-radius: 14px;
         width: 100%;
         max-width: 420px;
         padding: 0;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         animation: modalSlideIn 0.22s ease;
         overflow: hidden;
     }
+
     @keyframes modalSlideIn {
-        from { opacity: 0; transform: translateY(-18px) scale(0.97); }
-        to   { opacity: 1; transform: translateY(0) scale(1); }
+        from {
+            opacity: 0;
+            transform: translateY(-18px) scale(0.97);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
     }
+
     .discount-modal-header {
         padding: 18px 22px 14px;
         border-bottom: 1px solid #2e2e2e;
     }
+
     .discount-modal-header h6 {
         margin: 0;
         color: #f0f0f0;
@@ -45,15 +57,18 @@
         font-weight: 600;
         letter-spacing: 0.01em;
     }
+
     .discount-modal-body {
         padding: 20px 22px 22px;
     }
+
     .discount-modal-body .form-label {
         color: #c8c8c8;
         font-size: 0.82rem;
         font-weight: 500;
         margin-bottom: 5px;
     }
+
     .discount-modal-body .form-control,
     .discount-modal-body .form-select {
         background: #fff;
@@ -64,20 +79,24 @@
         color: #222;
         transition: border-color 0.2s;
     }
+
     .discount-modal-body .form-control:focus,
     .discount-modal-body .form-select:focus {
         border-color: #a7b27a;
-        box-shadow: 0 0 0 3px rgba(167,178,122,0.18);
+        box-shadow: 0 0 0 3px rgba(167, 178, 122, 0.18);
         outline: none;
     }
+
     .discount-modal-body .form-control::placeholder {
         color: #aaa;
     }
+
     .discount-modal-footer {
         display: flex;
         gap: 12px;
         padding: 0 22px 22px;
     }
+
     .btn-modal-cancel {
         flex: 1;
         background: #dc3545;
@@ -90,7 +109,11 @@
         cursor: pointer;
         transition: background 0.18s;
     }
-    .btn-modal-cancel:hover { background: #c0303e; }
+
+    .btn-modal-cancel:hover {
+        background: #c0303e;
+    }
+
     .btn-modal-save {
         flex: 1;
         background: #a7b27a;
@@ -103,7 +126,11 @@
         cursor: pointer;
         transition: background 0.18s;
     }
-    .btn-modal-save:hover { background: #8f9a63; }
+
+    .btn-modal-save:hover {
+        background: #8f9a63;
+    }
+
     .discount-modal-body .alert-danger {
         font-size: 0.82rem;
         padding: 8px 12px;
@@ -112,6 +139,7 @@
         border: 1px solid #7a2020;
         color: #f88;
     }
+
     .status-info-box {
         background: #2a2a2a;
         border-radius: 8px;
@@ -119,6 +147,7 @@
         font-size: 0.82rem;
         color: #aaa;
     }
+
     /* input[type=date] icon color fix */
     .discount-modal-body input[type="date"]::-webkit-calendar-picker-indicator {
         cursor: pointer;
@@ -136,26 +165,26 @@
 <div class="container-fluid p-0 mt-4">
 
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
     @endif
     @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
     @endif
 
     {{-- Show validation errors from store/update in a flash-style alert --}}
     @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @foreach($errors->all() as $error)
-                <div>{{ $error }}</div>
-            @endforeach
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @foreach($errors->all() as $error)
+        <div>{{ $error }}</div>
+        @endforeach
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
     @endif
 
     <div class="user-card">
@@ -192,23 +221,24 @@
                         <td>{{ $discount->creator->nama ?? '-' }}</td>
                         <td>
                             @if($discount->is_active)
-                                <span class="badge bg-success">Active</span>
+                            <span class="badge bg-success">Active</span>
                             @else
-                                <span class="badge bg-secondary">Inactive</span>
+                            <span class="badge bg-secondary">Inactive</span>
                             @endif
                         </td>
                         <td>
                             <div class="d-flex gap-2 flex-wrap">
                                 {{-- Trigger Edit Modal --}}
                                 <button type="button" class="btn-edit"
-                                    onclick="openEditModal(
-                                        {{ $discount->id }},
-                                        '{{ addslashes($discount->nama) }}',
-                                        '{{ $discount->persen }}',
-                                        '{{ \Carbon\Carbon::parse($discount->tanggal_mulai)->format('Y-m-d') }}',
-                                        '{{ \Carbon\Carbon::parse($discount->tanggal_selesai)->format('Y-m-d') }}',
-                                        {{ $discount->is_active ? 'true' : 'false' }}
-                                    )">
+                                    type="button"
+                                    class="btn-edit"
+                                    data-id="{{ $discount->id }}"
+                                    data-nama="{{ $discount->nama }}"
+                                    data-persen="{{ $discount->persen }}"
+                                    data-tanggal_mulai="{{ \Carbon\Carbon::parse($discount->tanggal_mulai)->format('Y-m-d') }}"
+                                    data-tanggal_selesai="{{ \Carbon\Carbon::parse($discount->tanggal_selesai)->format('Y-m-d') }}"
+                                    data-is_active="{{ $discount->is_active }}"
+                                    onclick="handleEdit(this)">
                                     Edit
                                 </button>
 
@@ -217,13 +247,13 @@
                                     @csrf
                                     @method('PATCH')
                                     @if($discount->is_active)
-                                        <button onclick="confirmStatus('{{ $discount->id }}')" type="button" class="btn-delete" style="border-radius:8px;">
-                                            Inactive
-                                        </button>
+                                    <button onclick="confirmStatus('{{ $discount->id }}')" type="button" class="btn-delete" style="border-radius:8px;">
+                                        Inactive
+                                    </button>
                                     @else
-                                        <button onclick="confirmStatus('{{ $discount->id }}')" type="button" class="btn btn-sm btn-success" style="border-radius:8px;">
-                                            Activate
-                                        </button>
+                                    <button onclick="confirmStatus('{{ $discount->id }}')" type="button" class="btn btn-sm btn-success" style="border-radius:8px;">
+                                        Activate
+                                    </button>
                                     @endif
                                 </form>
                             </div>
@@ -256,27 +286,27 @@
                 <div class="mb-3">
                     <label class="form-label">Discount Name</label>
                     <input type="text" name="nama" class="form-control"
-                           placeholder="Example: Ramadhan holiday discount"
-                           value="{{ old('nama') }}" required>
+                        placeholder="Example: Ramadhan holiday discount"
+                        value="{{ old('nama') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Discount Percent (%)</label>
                     <input type="number" name="persen" class="form-control"
-                           placeholder="Example: 20"
-                           value="{{ old('persen') }}" min="1" max="100" step="0.01" required>
+                        placeholder="Example: 20"
+                        value="{{ old('persen') }}" min="1" max="100" step="0.01" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Start Date</label>
                     <input type="date" name="tanggal_mulai" class="form-control"
-                           value="{{ old('tanggal_mulai') }}" required>
+                        value="{{ old('tanggal_mulai') }}" required>
                 </div>
 
                 <div class="mb-0">
                     <label class="form-label">End Date</label>
                     <input type="date" name="tanggal_selesai" class="form-control"
-                           value="{{ old('tanggal_selesai') }}" required>
+                        value="{{ old('tanggal_selesai') }}" required>
                 </div>
 
             </div>
@@ -305,13 +335,13 @@
                 <div class="mb-3">
                     <label class="form-label">Discount Name</label>
                     <input type="text" name="nama" id="edit_nama" class="form-control"
-                           placeholder="Discount name" required>
+                        placeholder="Discount name" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Discount Percent (%)</label>
                     <input type="number" name="persen" id="edit_persen" class="form-control"
-                           placeholder="Example: 20" min="1" max="100" step="0.01" required>
+                        placeholder="Example: 20" min="1" max="100" step="0.01" required>
                 </div>
 
                 <div class="mb-3">
@@ -348,10 +378,12 @@
         document.getElementById(id).classList.add('show');
         document.body.style.overflow = 'hidden';
     }
+
     function closeModal(id) {
         document.getElementById(id).classList.remove('show');
         document.body.style.overflow = '';
     }
+
     function handleOverlayClick(e, id) {
         if (e.target === document.getElementById(id)) closeModal(id);
     }
@@ -368,6 +400,18 @@
         openModal('addDiscountModal');
     }
 
+    //membuka edit modal
+    function handleEdit(btn) {
+    openEditModal(
+        btn.dataset.id,
+        btn.dataset.nama,
+        btn.dataset.persen,
+        btn.dataset.tanggal_mulai,
+        btn.dataset.tanggal_selesai,
+        btn.dataset.is_active === "1"
+    );
+}
+
     // ── Edit Modal ────────────────────────────────────────────
     function openEditModal(id, nama, persen, tanggalMulai, tanggalSelesai, isActive) {
         // Set form action dynamically
@@ -375,9 +419,9 @@
         document.getElementById('editDiscountForm').action = baseUrl + '/' + id;
 
         // Populate fields
-        document.getElementById('edit_nama').value          = nama;
-        document.getElementById('edit_persen').value        = persen;
-        document.getElementById('edit_tanggal_mulai').value  = tanggalMulai;
+        document.getElementById('edit_nama').value = nama;
+        document.getElementById('edit_persen').value = persen;
+        document.getElementById('edit_tanggal_mulai').value = tanggalMulai;
         document.getElementById('edit_tanggal_selesai').value = tanggalSelesai;
 
         // Status badge
@@ -391,16 +435,16 @@
         openModal('editDiscountModal');
     }
 
-    // ── Re-open modal with old input on validation error ──────
-    @if($errors->any() && old('_method') === 'PUT')
-        // Re-open edit modal if it was a PUT (update) with errors
-        // You may enhance this by passing back the discount id in the session
-    @elseif($errors->any())
-        // Re-open add modal if there were store errors
+    const hasErrors = "{{ $errors->any() ? 'true' : 'false' }}" === 'true';
+    const isUpdate  = "{{ old('_method') === 'PUT' ? 'true' : 'false' }}" === 'true';
+
+    if (hasErrors && isUpdate) {
+        // nanti bisa kamu handle edit modal (optional)
+    } else if (hasErrors) {
         document.addEventListener('DOMContentLoaded', function() {
             openAddModal();
         });
-    @endif
+    }
 </script>
 @endpush
 
