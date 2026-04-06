@@ -213,15 +213,15 @@
                                 </button>
 
                                 {{-- Toggle Active/Inactive --}}
-                                <form action="{{ route('discounts.toggle', $discount->id) }}" method="POST" class="m-0">
+                                <form id="status-form-{{ $discount->id }}" action="{{ route('discounts.toggle', $discount->id) }}" method="POST" class="m-0">
                                     @csrf
                                     @method('PATCH')
                                     @if($discount->is_active)
-                                        <button type="submit" class="btn-delete" style="border-radius:8px;">
+                                        <button onclick="confirmStatus('{{ $discount->id }}')" type="button" class="btn-delete" style="border-radius:8px;">
                                             Inactive
                                         </button>
                                     @else
-                                        <button type="submit" class="btn btn-sm btn-success" style="border-radius:8px;">
+                                        <button onclick="confirmStatus('{{ $discount->id }}')" type="button" class="btn btn-sm btn-success" style="border-radius:8px;">
                                             Activate
                                         </button>
                                     @endif

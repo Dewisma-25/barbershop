@@ -63,3 +63,19 @@
             }
         });
     }
+
+        function confirmStatus(id) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Change this discount status ?",
+            icon: "question",
+            showCancelButton:true,
+            cancelButtonText: "Cancel",
+            confirmButtonColor: "#dc3545",
+            cancelButtonColor: "#6c757d", 
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('status-form-' + id).submit();
+            }
+        });
+    }
