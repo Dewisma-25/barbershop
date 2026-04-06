@@ -291,12 +291,13 @@
 {{-- ══════════════════════════════════════════════
      EDIT DISCOUNT MODAL
 ══════════════════════════════════════════════ --}}
+@foreach ($discounts as $discount)
 <div class="discount-modal-overlay" id="editDiscountModal" onclick="handleOverlayClick(event, 'editDiscountModal')">
     <div class="discount-modal">
         <div class="discount-modal-header">
             <h6><i class="bi bi-pencil-fill me-2" style="color:#a7b27a;"></i>Edit Discount</h6>
         </div>
-        <form id="editDiscountForm" method="POST">
+        <form action="{{ route('discounts.update', $discount->id) }}" id="editDiscountForm" method="POST">
             @csrf
             @method('PUT')
             <div class="discount-modal-body">
@@ -338,6 +339,7 @@
         </form>
     </div>
 </div>
+@endforeach
 
 @push('scripts')
 <script>
@@ -369,7 +371,7 @@
     // ── Edit Modal ────────────────────────────────────────────
     function openEditModal(id, nama, persen, tanggalMulai, tanggalSelesai, isActive) {
         // Set form action dynamically
-        const baseUrl = '{{ url("discounts") }}';
+        const baseUrl = '{{ url("admin/discounts") }}';
         document.getElementById('editDiscountForm').action = baseUrl + '/' + id;
 
         // Populate fields
